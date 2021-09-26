@@ -1,0 +1,14 @@
+type ChallengeId = nat;
+service : {
+  acceptChallenge: (ChallengeId) -> (text);
+  completeChallenge: (ChallengeId) -> (text);
+  createChallenge: (text, text, text, text) -> (text);
+  createUser: (text) -> (text);
+  displayChallenge: (ChallengeId) -> (text) query;
+  getUser: (text) -> (text) query;
+  greet: (text) -> (text);
+  learnLanguage: (text) -> (text);
+  pickMeAChallenge: (text) -> (text);
+  setProgress: (ChallengeId, nat) -> (text);
+  suggestChallenge: (text, ChallengeId) -> (text);
+}
