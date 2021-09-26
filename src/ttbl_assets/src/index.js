@@ -73,7 +73,6 @@ function startLearning() {
     console.log(lesson);
     startLesson(lesson, "Lesson")
   });
-
 }
 
 function startLesson(syllabus, type) {
@@ -86,16 +85,16 @@ function startLesson(syllabus, type) {
 function formLesson(syllabus, type) {
   questions = []; // watch out.. this is stateful
   if (type == "Quiz") {
-    setQuestions(syllabus, 1);
+    getQuestions(syllabus, 1).forEach(q => questions.push(q));
   } else {
     // split into 3 quizzes
     var syllabusp1 = syllabus.slice(0, syllabus.length / 2);
     var syllabusp2 = syllabus.slice(syllabus.length / 2);
-    setQuestions(syllabusp1, 0);
-    setQuestions(syllabusp1, 1);
-    setQuestions(syllabusp2, 0);
-    setQuestions(syllabusp2, 1);
-    setQuestions(syllabus, 3);
+    getQuestions(syllabusp1, 0).forEach(q => questions.push(q));;
+    getQuestions(syllabusp1, 1).forEach(q => questions.push(q));;
+    getQuestions(syllabusp2, 0).forEach(q => questions.push(q));;
+    getQuestions(syllabusp2, 1).forEach(q => questions.push(q));;
+    getQuestions(syllabus, 3).forEach(q => questions.push(q));;
   }
 }
 
@@ -110,9 +109,9 @@ var options = ["a", "ability", "able", "about", "above", "accept", "according", 
 
 // if learn just one
 // if quiz introduce random options
-function setQuestions(syllabus, optionssize) {
+function getQuestions(syllabus, optionssize) {
   const pairs = syllabus.split(":");
-
+  var questions = []; // careful
   pairs.forEach(pair => {
       const qa = pair.split(",");
       const q = qa[0];
@@ -157,7 +156,8 @@ function setQuestions(syllabus, optionssize) {
         console.log(a);
       }
   });
-
+  shuffleArray(questions);
+  return questions;
 }
 
 startButton.addEventListener('click', startGame)
