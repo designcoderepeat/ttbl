@@ -12,7 +12,6 @@ import Random = "Random";
 import Challenge "./challenge";
 import ChallengeDB "./challengedb";
 import DefaultChallenges "./defaultchallenges";
-import TurkishBook "./TurkishBook";
 import User "./user";
 import Types "./types";
 
@@ -314,7 +313,7 @@ actor { // actor is babel
   
 
   // Populate the challenge database with some initial challenges.
-  for (tuple in TurkishBook.turkishBook.vals()) {
+  for (tuple in DefaultChallenges.turkishBook.vals()) {
     let desc = "";
     challengeDB.add(
       Challenge.Challenge(
