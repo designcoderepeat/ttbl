@@ -252,9 +252,9 @@ actor { // actor is babel
     // chinese [(2001-3000)]
     //let validChallengeRanges: [(Nat, Nat)]; 
     //let sizes: [Nat, Nat]; // (lessons vs quizzes)
-    let size: Nat = 10;
+    let size: Nat = 7;
     var lesson = "";
-    for (j in Iter.range(0, 10)) {      
+    for (j in Iter.range(0, 7)) {      
       if (langauge == "Turkish") {
         lesson := lesson # pickMeATurkishChallenge()  # ":" ;
       };

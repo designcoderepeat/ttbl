@@ -171,8 +171,6 @@ function getQuestions(syllabus, optionssize) {
         shuffleArray(ques.answers);
         questions.push(ques);
         }
-        console.log(q);
-        console.log(a);
       }
   });
   shuffleArray(questions);
@@ -235,7 +233,7 @@ function selectAnswer(e) {
     questionContainerElement.classList.add('hide');
     const newbg = './bg/images/' + Math.floor(Math.random() * 64) + '.jpg';
     const Randomize = Math.floor(Math.random() * 100);
-    if (Randomize % 2 == 0) document.body.style.backgroundImage =  "url(" + newbg + ")";
+    document.body.style.backgroundImage =  "url(" + newbg + ")";
   }
 }
 
