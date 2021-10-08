@@ -1,29 +1,49 @@
 import { ttbl } from "../../declarations/ttbl";
 import {StoicIdentity} from "ic-stoic-identity";
 
-StoicIdentity.load().then(async identity => {
-  if (identity !== false) {
-    //ID is a already connected wallet!
-  } else {
-    //No existing connection, lets make one!
-    identity = await StoicIdentity.connect();
-  }
-  
-  //Lets display the connected principal!
-  console.log(identity.getPrincipal().toText());
-  const userId = identity.getPrincipal().toText();
-  // document.getElementById("userId").innerText = userId;
-  //Create an actor canister
-  //const actor = Actor.createActor(idlFactory, {
-  //  agent: new HttpAgent({
-  //    identity,
-  //  }),
-  //  canisterId,
-  //});
-  
-  //Disconnect after
-  //StoicIdentity.disconnect();
+const userInputTerminal = document.getElementById('userInputTerminal');
+const userTerminalButton = document.getElementById('userTerminalButton');
+
+const loginDiv = document.getElementById('login');
+const gameDiv = document.getElementById('game');
+
+gameDiv.classList.add('hide')
+
+
+userTerminalButton.addEventListener("click", async () => {
+  var userName = userInputTerminal.value;
+  console.log(userName);
+  loginToBabel(userName);
+  gameDiv.classList.remove('hide');
+  loginDiv.classList.add('hide');
 });
+
+function loginToBabel(userName) {
+  console.log(userName);
+  StoicIdentity.load().then(async identity => {
+    if (identity !== false) {
+      //ID is a already connected wallet!
+    } else {
+      //No existing connection, lets make one!
+      identity = await StoicIdentity.connect();
+    }
+    
+    //Lets display the connected principal!
+    console.log(identity.getPrincipal().toText());
+    const userId = identity.getPrincipal().toText();
+    // document.getElementById("userId").innerText = userId;
+    //Create an actor canister
+    //const actor = Actor.createActor(idlFactory, {
+    //  agent: new HttpAgent({
+    //    identity,
+    //  }),
+    //  canisterId,
+    //});
+    
+    //Disconnect after
+    //StoicIdentity.disconnect();
+  });
+}
 
 const lessonElement = document.getElementById('lessons')
 const lessonButtons = document.getElementById('lesson-container')
@@ -34,12 +54,11 @@ const nextButton = document.getElementById('next-btn')
 const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const questionsElement = document.getElementById('questions')
+const answerButtonsElement = document.getElementById('answer-buttons');
 
-const answerButtonsElement = document.getElementById('answer-buttons')
+let shuffledQuestions, currentQuestionIndex;
 
-let shuffledQuestions, currentQuestionIndex
-
-startLearningButton.addEventListener('click', startLearning)
+startLearningButton.addEventListener('click', startLearning);
 
 function startLearning() {
   startLearningButton.classList.add('hide')

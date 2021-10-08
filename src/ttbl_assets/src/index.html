@@ -15,33 +15,42 @@
 const audio = new Audio("./assets/sounds/calc1-press.mp3");
 </script>
 <body>
+
+  <div id="login">
+<input id="userInputTerminal" placeholder=" Choose your username"> </input>
+<button id="userTerminalButton">
+  Login to Babel
+</button>
+</div>
+
+<div id="game"> 
   <div class="main-container">
-    
-      <div id="lesson-container" class = "hide container">
-        <div id="lesson-buttons" class="btn-grid">
-          <button id="test-turkish" class="turkishLesson lesson-btn btn" onclick="audio.play()">Test your Türkish</button>
-          <button id="test-chinese" class="lesson-btn btn" onclick="audio.play()">Test your Chinese</button>
-          <button id="learn-turkish" class="turkishLesson lesson-btn btn" onclick="audio.play()">Learn Türkish With Babel</button>
-          <button id="learn-chinese" class="lesson-btn btn" onclick="audio.play()">Learn Chinese with Babel</button>
-        </div>
-      </div>  
-    <div id="questions" class="container item">
-    <div id="question-container" class="hide">
-      <div id="question">Question</div>
-      <div id="answer-buttons" class="btn-grid">
-        <button class="btn">Answer 1</button>
-        <button class="btn">Answer 2</button>
-        <button class="btn">Answer 3</button>
-        <button class="btn">Answer 4</button>
+    <div id="lesson-container" class = "hide container">
+      <div id="lesson-buttons" class="btn-grid">
+        <button id="test-turkish" class="turkishLesson lesson-btn btn" onclick="audio.play()">Test your Türkish</button>
+        <button id="test-chinese" class="lesson-btn btn" onclick="audio.play()">Test your Chinese</button>
+        <button id="learn-turkish" class="turkishLesson lesson-btn btn" onclick="audio.play()">Learn Türkish With Babel</button>
+        <button id="learn-chinese" class="lesson-btn btn" onclick="audio.play()">Learn Chinese with Babel</button>
       </div>
-    </div>
-    <div class="controls">
-      <button id="start-learning-btn" onclick="audio.play()" class="start-lerning-btn btn">Start Learning</button>
-      <button id="start-btn" onclick="audio.play()" class="start-btn btn hide">Start</button>
-      <button id="next-btn" onclick="audio.play()" class="next-btn btn hide">Next</button>
+    </div>  
+  <div id="questions" class="container item">
+  <div id="question-container" class="hide">
+    <div id="question">Question</div>
+    <div id="answer-buttons" class="btn-grid">
+      <button class="btn">Answer 1</button>
+      <button class="btn">Answer 2</button>
+      <button class="btn">Answer 3</button>
+      <button class="btn">Answer 4</button>
     </div>
   </div>
-  <div id="footer" class = "footer-container item" hidden> Footer </div>
+  <div class="controls">
+    <button id="start-learning-btn" onclick="audio.play()" class="start-lerning-btn btn">Start Learning</button>
+    <button id="start-btn" onclick="audio.play()" class="start-btn btn hide">Start</button>
+    <button id="next-btn" onclick="audio.play()" class="next-btn btn hide">Next</button>
+  </div>
+</div>
+<div id="footer" class = "footer-container item" hidden> Footer </div>
+</div>
 </div>
 </div>
 
