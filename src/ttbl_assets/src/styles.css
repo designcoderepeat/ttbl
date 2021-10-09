@@ -3,13 +3,23 @@
     font-family: Gotham Rounded;
   }
   
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+  }
+
   :root {
     --hue-neutral: 200;
     --hue-wrong: 0;
     --hue-correct: 145;
   }
   
-  body {
+  .gamediv {
     --hue: var(--hue-neutral);
     padding: 0;
     margin: 0;
@@ -21,11 +31,11 @@
     background-color: hsl(var(--hue), 100%, 20%);
   }
   
-  body.correct {
+  .gamediv .correct {
     --hue: var(--hue-correct);
   }
   
-  body.wrong {
+  .gamediv .wrong {
     --hue: var(--hue-wrong);
   }
   

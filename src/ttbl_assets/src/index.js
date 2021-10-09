@@ -107,8 +107,8 @@ function formLesson(syllabus, type) {
     getQuestions(syllabus, 1).forEach(q => questions.push(q));
   } else {
     // split into 3 quizzes
-    var syllabusp1 = syllabus.slice(0, syllabus.length / 2);
-    var syllabusp2 = syllabus.slice(syllabus.length / 2);
+    var syllabusp1 = syllabus.slice(0, syllabus.length / 3); // lesson is 66% length from the backend
+    var syllabusp2 = syllabus.slice(syllabus.length / 3);
     getQuestions(syllabusp1, 0).forEach(q => questions.push(q));;
     getQuestions(syllabusp1, 1).forEach(q => questions.push(q));;
     getQuestions(syllabusp2, 0).forEach(q => questions.push(q));;
@@ -228,6 +228,10 @@ function selectAnswer(e) {
   if (shuffledQuestions.length > currentQuestionIndex + 1) {
     nextButton.classList.remove('hide')
   } else {
+    //sleeping for now
+    //wait for button press
+    console.log("Changing the scene");
+    consolidateScore();
     startLearningButton.innerText = 'Continue Learning'
     startLearningButton.classList.remove('hide');
     questionContainerElement.classList.add('hide');
@@ -235,6 +239,11 @@ function selectAnswer(e) {
     const Randomize = Math.floor(Math.random() * 100);
     document.body.style.backgroundImage =  "url(" + newbg + ")";
   }
+}
+
+function consolidateScore() {
+  // updateUserScoreOnUI();
+  // updateUserScoreBackend();
 }
 
 function setStatusClass(element, correct) {
