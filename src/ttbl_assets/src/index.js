@@ -189,9 +189,15 @@ nextButton.addEventListener('click', () => {
 })
 
 function changeBG() {
-  const newbg = './bg/images/' + Math.floor(Math.random() * 64) + '.jpg';
+  const newbg = './bg/images/' + Math.floor(Math.random() * 60) + '.jpg';
   document.body.style.backgroundImage =  "url(" + newbg + ")";
 }
+
+function changeBGToBabel() {
+  const newbg = './bg/bg0.jpeg';
+  document.body.style.backgroundImage =  "url(" + newbg + ")";
+}
+
 
 function startGame() {
   changeBG();
@@ -246,7 +252,7 @@ function selectAnswer(e) {
     startLearningButton.innerText = 'Continue Learning'
     startLearningButton.classList.remove('hide');
     questionContainerElement.classList.add('hide');
-    changeBG();
+    //changeBGToBabel();
   }
 }
 
