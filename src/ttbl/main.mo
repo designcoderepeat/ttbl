@@ -248,9 +248,9 @@ actor { // actor is babel
     //turkish [(1-2000)] 
     //let validChallengeRanges: [(Nat, Nat)]; 
     //let sizes: [Nat, Nat]; // (lessons vs quizzes)
-    let size: Nat = 10;
+    let size: Nat = 9;
     var lesson = "";
-    for (j in Iter.range(0, 10)) {      
+    for (j in Iter.range(0, 9)) {      
       if (langauge == "Turkish") {
         lesson := lesson # pickMeATurkishChallenge()  # ":" ;
       };

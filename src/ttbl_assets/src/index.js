@@ -70,6 +70,7 @@ function startLearning() {
   lessonButtons.classList.remove("hide")
   questionsElement.classList.add("hide")
 
+
   document.getElementById("test-turkish").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
     const lesson = await ttbl.learnLanguage("Turkish");
@@ -85,8 +86,9 @@ function startLearning() {
   });
   
 }
-
+var score = 0;
 function startLesson(syllabus, type) {
+  score = 0;
   lessonButtons.classList.add("hide");
   questionsElement.classList.remove("hide");
   formLesson(syllabus, type);
@@ -94,7 +96,7 @@ function startLesson(syllabus, type) {
 }
 
 function formLesson(syllabus, type) {
-  questions = []; // watch out.. this is stateful
+  questions = [];
   if (type == "Quiz") {
     getQuestions(syllabus, 1).forEach(q => questions.push(q));
   } else {
@@ -225,6 +227,9 @@ function resetState() {
 function selectAnswer(e) {
   const selectedButton = e.target
   const correct = selectedButton.dataset.correct
+  if (correct) {
+    score ++;
+  }
   setStatusClass(document.body, correct)
   Array.from(answerButtonsElement.children).forEach(button => {
     setStatusClass(button, button.dataset.correct)
@@ -248,6 +253,8 @@ function consolidateScore() {
   // updateUserScoreBackend();
 }
 
+
+
 function setStatusClass(element, correct) {
   clearStatusClass(element)
   if (correct) {
@@ -255,6 +262,7 @@ function setStatusClass(element, correct) {
   } else {
     element.classList.add('wrong')
   }
+  console.log(score);
 }
 
 function clearStatusClass(element) {
