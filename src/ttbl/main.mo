@@ -423,3 +423,5 @@ actor { // actor is babel
   }
 };
   
+
+  // 1. make css and website responsive
