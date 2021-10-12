@@ -188,7 +188,13 @@ nextButton.addEventListener('click', () => {
   setNextQuestion()
 })
 
+function changeBG() {
+  const newbg = './bg/images/' + Math.floor(Math.random() * 64) + '.jpg';
+  document.body.style.backgroundImage =  "url(" + newbg + ")";
+}
+
 function startGame() {
+  changeBG();
   startButton.classList.add('hide')
   shuffledQuestions = questions;
   currentQuestionIndex = 0
@@ -240,9 +246,7 @@ function selectAnswer(e) {
     startLearningButton.innerText = 'Continue Learning'
     startLearningButton.classList.remove('hide');
     questionContainerElement.classList.add('hide');
-    const newbg = './bg/images/' + Math.floor(Math.random() * 64) + '.jpg';
-    const Randomize = Math.floor(Math.random() * 100);
-    document.body.style.backgroundImage =  "url(" + newbg + ")";
+    changeBG();
   }
 }
 
