@@ -76,13 +76,6 @@ function startLearning() {
     console.log(lesson);
     startLesson(lesson, "Quiz")
   });
-  
-  document.getElementById("test-chinese").addEventListener("click", async () => {
-    // Interact with hlo actor, calling the greet method
-    const lesson = await ttbl.learnLanguage("Chinese");
-    console.log(lesson);
-    startLesson(lesson, "Quiz")
-  });
 
   document.getElementById("learn-turkish").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
@@ -90,13 +83,7 @@ function startLearning() {
     console.log(lesson);
     startLesson(lesson, "Lesson")
   });
-
-  document.getElementById("learn-chinese").addEventListener("click", async () => {
-    // Interact with hlo actor, calling the greet method
-    const lesson = await ttbl.learnLanguage("Chinese");
-    console.log(lesson);
-    startLesson(lesson, "Lesson")
-  });
+  
 }
 
 function startLesson(syllabus, type) {

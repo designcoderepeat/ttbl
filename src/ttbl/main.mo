@@ -240,16 +240,12 @@ actor { // actor is babel
     if (challengeType == "Turkish") {
       return pickMeATurkishChallenge();
     };
-    if (challengeType == "Chinese") {
-      return pickMeAChineseChallenge();
-    };
     return "Ooops nothing found";
   };
 
   // groupings for Users or challenge (challengeMetaData)
   public func learnLanguage(langauge: Text) : async Text {
     //turkish [(1-2000)] 
-    // chinese [(2001-3000)]
     //let validChallengeRanges: [(Nat, Nat)]; 
     //let sizes: [Nat, Nat]; // (lessons vs quizzes)
     let size: Nat = 10;
@@ -257,10 +253,6 @@ actor { // actor is babel
     for (j in Iter.range(0, 10)) {      
       if (langauge == "Turkish") {
         lesson := lesson # pickMeATurkishChallenge()  # ":" ;
-      };
-
-      if (langauge == "Chinese") {
-          lesson := lesson # pickMeAChineseChallenge()  # ":" ;
       };
 
       Debug.print(lesson);
@@ -272,15 +264,7 @@ actor { // actor is babel
   // Picks at random an existing challenge from the challenge DB.
    func pickMeATurkishChallenge() :  Text {
     
-    switch (challengeDB.get(random.next() % 2000)) {
-      case (null) { "There are no challenges in the database" };
-      case (?challenge) { challengeAsText(challenge) }
-    }
-  };
-
-// Picks at random an existing challenge from the challenge DB.
-   func pickMeAChineseChallenge() :  Text {
-    switch (challengeDB.get(random.next() % 1000 + 2000)) {
+    switch (challengeDB.get(random.next() % 1960)) {
       case (null) { "There are no challenges in the database" };
       case (?challenge) { challengeAsText(challenge) }
     }
@@ -322,19 +306,6 @@ actor { // actor is babel
         "learn the word", // desc. add tags
         tuple.0,
         tuple.1,
-        null
-      ));
-  };
-
-  for (tuple in DefaultChallenges.chinesebook.vals()) {
-    let desc = "";
-    challengeDB.add(
-      Challenge.Challenge(
-        challengeCounter.get_new_id(),
-        "chinese basics", // title
-        "learn the word", // desc. add tags
-        tuple.1,
-        tuple.2,
         null
       ));
   };
