@@ -7,8 +7,10 @@ const userTerminalButton = document.getElementById('userTerminalButton');
 const loginDiv = document.getElementById('login');
 const gameDiv = document.getElementById('game');
 
-gameDiv.classList.add('hide')
+const welcomeUserDiv = document.getElementById('welcomeUser');
+const scoreElementDiv = document.getElementById('scoreElement');
 
+gameDiv.classList.add('hide')
 
 userTerminalButton.addEventListener("click", async () => {
   var userName = userInputTerminal.value;
@@ -35,6 +37,8 @@ function loginToBabel(userName) {
     // call the createOrRegisterUser API
     ttbl.createUser(userName);
     console.log(ttbl.getUser(userName));
+
+    welcomeUserDiv.innerText = userName;
 
     // document.getElementById("userId").innerText = userId;
     //Create an actor canister
@@ -89,6 +93,7 @@ function startLearning() {
 var score = 0;
 function startLesson(syllabus, type) {
   score = 0;
+  scoreElementDiv.innerText = score;
   lessonButtons.classList.add("hide");
   questionsElement.classList.remove("hide");
   formLesson(syllabus, type);
@@ -246,6 +251,7 @@ function selectAnswer(e) {
     questionContainerElement.classList.add('hide');
     //changeBGToBabel();
   }
+  scoreElementDiv.innerText = score;
 }
 
 function consolidateScore() {
