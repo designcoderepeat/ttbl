@@ -42,7 +42,7 @@ actor { // actor is babel
   // Registers the current IC user as a user of the app, with a system-provided id and the given `username`.
   public shared(msg) func createUser(username: Text) : async Text {
     var userData : UserData = userDb.createOrReturn(msg.caller, username);
-    "username = " # userData.name
+    "username = " # userData.name;
   };
 
   // Accepts the given challenge for the current user (if the user has registered previously).

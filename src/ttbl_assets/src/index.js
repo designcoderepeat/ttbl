@@ -31,6 +31,11 @@ function loginToBabel(userName) {
     //Lets display the connected principal!
     console.log(identity.getPrincipal().toText());
     const userId = identity.getPrincipal().toText();
+
+    // call the createOrRegisterUser API
+    ttbl.createUser(userName);
+    console.log(ttbl.getUser(userName));
+
     // document.getElementById("userId").innerText = userId;
     //Create an actor canister
     //const actor = Actor.createActor(idlFactory, {
