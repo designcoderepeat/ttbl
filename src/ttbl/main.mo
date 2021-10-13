@@ -248,9 +248,9 @@ actor { // actor is babel
     //turkish [(1-2000)] 
     //let validChallengeRanges: [(Nat, Nat)]; 
     //let sizes: [Nat, Nat]; // (lessons vs quizzes)
-    let size: Nat = 9;
+    let size: Nat = 10;
     var lesson = "";
-    for (j in Iter.range(0, 9)) {      
+    for (j in Iter.range(1, 10)) {      
       if (langauge == "Turkish") {
         lesson := lesson # pickMeATurkishChallenge()  # ":" ;
       };
@@ -425,3 +425,7 @@ actor { // actor is babel
   
 
   // 1. make css and website responsive
+  // 2. display and persist user score
+  // after each game... calculate total score and add to previous score (along with animation)
+  // factors: speed, accuracy
+  // 3. implement save game (and autosave)

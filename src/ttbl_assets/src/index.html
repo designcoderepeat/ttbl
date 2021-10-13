@@ -17,33 +17,44 @@ const audio = new Audio("./assets/sounds/calc1-press.mp3");
 <body>
 
   <div id="login">
-<input id="userInputTerminal" placeholder=" Choose your username"> </input>
-<button id="userTerminalButton">
+<input class="gameOptionButton" id="userInputTerminal" placeholder=" Choose your username"> </input>
+<button class="gameOptionButton" id="userTerminalButton">
   Login to Babel
 </button>
 </div>
 
 <div class="topleft">
-  <div id="welcomeUser"> 
+  <div id="welcomeUser" class="gameDisplay"> 
   </div>  
-  <div id="scoreElement">
+  <div id="scoreElement" class="gameDisplay">
   </div>
 </div>
 
+<div class="topmid">
+  <div id="babelConvo" class="gameDisplayTopMid">
+  </div> 
+</div>
+
 <div class ="topright">
-  <div id="leaderBoard"> LeaderBoard </div>
+  <div id="leaderBoard" class="gameDisplay"> LeaderBoard </div>
   </div>
 
 <div class="bottomleft">
-  <div id="userChat">
+  <div id="userChat" class="gameDisplay">
     UserChat
   </div>
 </div>
 
+<div class = "bottommid">
+  <!-- should display only one at a time... when in game you cant save... can only go back-->
+  <div id="goBack" class="gameOptionButton">Back</div>
+  <div id="saveProgress" class="gameOptionButton">Save</div>
+</div>
+
 <div class="bottomright">
   <div id="userOptions">
-    <button id="takeScreenShot">takeScreenShot</button>
-    <button id="mute">Mute</button>
+    <div class="gameOptionButton" id="takeScreenShot">takeScreenShot</div>
+    <div class="gameOptionButton" id="mute">Mute</div>
   </div>
 </div>
 
@@ -67,6 +78,7 @@ const audio = new Audio("./assets/sounds/calc1-press.mp3");
   </div>
   <div class="controls">
     <button id="start-learning-btn" onclick="audio.play()" class="start-lerning-btn btn">Start Learning</button>
+    <button id="continue-learning-btn" onclick="audio.play()" class="btn">Continue Learning</button>
     <button id="start-btn" onclick="audio.play()" class="start-btn btn hide">Start</button>
     <button id="next-btn" onclick="audio.play()" class="next-btn btn hide">Next</button>
   </div>

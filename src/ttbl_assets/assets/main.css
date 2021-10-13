@@ -17,7 +17,7 @@ body {
   #cac7d0,
   hsl(257, 40%, 39%));
   animation: gradient 20s ease infinite;
-  font-size: 4.2vw;
+  font-size:calc(6px + 3.5vw);
   justify-content: center;
   align-items: center;
   display: flex; /* magic line */
@@ -51,6 +51,15 @@ body {
     position: fixed; top: 20px; left: 20px; 
   }
 
+  .topmid{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 20px;
+    left: 40vw; 
+  }
+
   .topright{
     justify-content: center;
     position: fixed; top: 20px; right: 20px; 
@@ -61,11 +70,39 @@ body {
     position: fixed; bottom: 20px; left: 20px; 
   }
 
+  .bottommid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed; 
+    bottom: 20px; 
+    left: 49vw; 
+  }
+
+
   .bottomright{
     justify-content: center;
     position: fixed; bottom: 20px; right: 20px; 
   }
 
+  .gameDisplay {
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+    font-size:calc(6px + 1.5vw);
+    color: silver;
+  }
+
+  .gameDisplayTopMid {
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+    font-size:calc(6px + 0.5vw);
+    color: silver;
+    justify-content: center;
+  }
+
+  .gameOptionButton {
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+    font-size:calc(6px + 0.5vw);
+    color: silver;
+  }
 
   body {
     --hue: var(--hue-neutral);
@@ -108,6 +145,7 @@ body {
     border-radius: 5px;
     padding: 5px 10px;
     color: rgb(255, 255, 255);
+    font-size: calc(6px + 1vw);
     outline: greenyellow;
   }
   
@@ -125,13 +163,13 @@ body {
   }
   
   .start-btn, .next-btn {
-    font-size: 3vw;
+    font-size:calc(6px + 2.5vw);
     font-weight: bold;
     padding: 10px 20px;
   }
   
   .answer-btn {
-    font-size: 3vw;
+    font-size:calc(6px + 2.5vw);
     font-weight: bold;
     padding: 10px 20px;
   }
