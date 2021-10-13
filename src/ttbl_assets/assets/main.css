@@ -47,16 +47,25 @@ body {
   }
   
   .topleft{
-    height: 20vh;
     justify-content: center;
     position: fixed; top: 20px; left: 20px; 
   }
 
   .topright{
-    height: 20vh;
     justify-content: center;
     position: fixed; top: 20px; right: 20px; 
   }
+
+  .bottomleft{
+    justify-content: center;
+    position: fixed; bottom: 20px; left: 20px; 
+  }
+
+  .bottomright{
+    justify-content: center;
+    position: fixed; bottom: 20px; right: 20px; 
+  }
+
 
   body {
     --hue: var(--hue-neutral);
@@ -137,10 +146,6 @@ body {
   .hide {
     display: none;
   }
-  
-  /* Background Styles Only */
-  
-  @import url('https://fonts.googleapis.com/css?family=Raleway');
   
   
   html {

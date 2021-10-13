@@ -26,12 +26,26 @@ const audio = new Audio("./assets/sounds/calc1-press.mp3");
 <div class="topleft">
   <div id="welcomeUser"> 
   </div>  
+  <div id="scoreElement">
+  </div>
 </div>
 
 <div class ="topright">
-  <div id="scoreElement">
+  <div id="leaderBoard"> LeaderBoard </div>
   </div>
+
+<div class="bottomleft">
+  <div id="userChat">
+    UserChat
   </div>
+</div>
+
+<div class="bottomright">
+  <div id="userOptions">
+    <button id="takeScreenShot">takeScreenShot</button>
+    <button id="mute">Mute</button>
+  </div>
+</div>
 
 <div id="game" class="gamediv"> 
   <div class="main-container">
@@ -56,8 +70,6 @@ const audio = new Audio("./assets/sounds/calc1-press.mp3");
     <button id="start-btn" onclick="audio.play()" class="start-btn btn hide">Start</button>
     <button id="next-btn" onclick="audio.play()" class="next-btn btn hide">Next</button>
   </div>
-
-
 
 </div>
 </div>

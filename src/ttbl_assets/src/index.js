@@ -183,7 +183,7 @@ nextButton.addEventListener('click', () => {
 })
 
 function changeBG() {
-  const newbg = './bg/images/' + Math.floor(Math.random() * 60) + '.jpg';
+  const newbg = './bg/images/' + Math.ceil(Math.random() * 60) + '.jpg';
   document.body.style.backgroundImage =  "url(" + newbg + ")";
 }
 
