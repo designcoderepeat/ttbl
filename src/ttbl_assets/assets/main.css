@@ -19,6 +19,8 @@ body {
   animation: gradient 20s ease infinite;
   font-size: 4.2vw;
   justify-content: center;
+  align-items: center;
+  display: flex; /* magic line */
 }
 
 
@@ -44,13 +46,25 @@ body {
     --hue-correct: 145;
   }
   
+  .topleft{
+    height: 20vh;
+    justify-content: center;
+    position: fixed; top: 20px; left: 20px; 
+  }
+
+  .topright{
+    height: 20vh;
+    justify-content: center;
+    position: fixed; top: 20px; right: 20px; 
+  }
+
   body {
     --hue: var(--hue-neutral);
     padding: 0;
     margin: 0;
     display: flex;
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
     justify-content: center;
     align-items: center;
     background-color: hsl(var(--hue), 100%, 20%);
@@ -65,8 +79,7 @@ body {
   }
 
   .container {
-    width: 66vw;
-    max-width: 77vw;
+    width: 90vw;
     border-radius: 5px;
     padding: 10px;
     box-shadow: 0 0 10px 2px;
@@ -91,7 +104,7 @@ body {
   
   .btn:hover {
     border-color: black;
-  }
+  } 
   
   .btn.correct {
     --hue: var(--hue-correct);
@@ -109,7 +122,7 @@ body {
   }
   
   .answer-btn {
-    font-size: 4vw;
+    font-size: 3vw;
     font-weight: bold;
     padding: 10px 20px;
   }
