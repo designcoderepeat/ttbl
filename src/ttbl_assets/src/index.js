@@ -1,9 +1,11 @@
 import { ttbl } from "../../declarations/ttbl";
 import {StoicIdentity} from "ic-stoic-identity";
+import {CanisterIds} from "../../../canister_ids.json";
+const Actor = require("@dfinity/agent").Actor;
+const HttpAgent = require("@dfinity/agent").HttpAgent;
 
 const lessonElement = document.getElementById('lessons')
 const lessonButtons = document.getElementById('lesson-container')
-console.log(lessonButtons)
 const startButton = document.getElementById('start-btn')
 const startLearningButton = document.getElementById('start-learning-btn');
 const continueLearningButton = document.getElementById('continue-learning-btn');
@@ -16,16 +18,26 @@ const answerButtonsElement = document.getElementById('answer-buttons');
 const userInputTerminal = document.getElementById('userInputTerminal');
 const userTerminalButton = document.getElementById('userTerminalButton');
 
-const userChatDiv = document.getElementById('userChat');
+const goBackDiv = document.getElementById('goBack');
+const saveProgressDiv = document.getElementById('saveProgress');
 
+
+const userChatDiv = document.getElementById('userChat');
+const userOptionsDiv = document.getElementById('userOptions');
 const loginDiv = document.getElementById('login');
 const gameDiv = document.getElementById('game');
 
 const welcomeUserDiv = document.getElementById('welcomeUser');
 const scoreElementDiv = document.getElementById('scoreElement');
-
+const leaderBoardDiv = document.getElementById('leaderBoard');
 const babelConvoDiv = document.getElementById('babelConvo');
 
+leaderBoardDiv.classList.add('hide');
+goBackDiv.classList.add('hide');
+saveProgressDiv.classList.add('hide');
+userOptionsDiv.classList.add('hide');
+
+userChatDiv.classList.add('hide');
 gameDiv.classList.add('hide');
 continueLearningButton.classList.add('hide');
 
@@ -43,6 +55,19 @@ userTerminalButton.addEventListener("click", async () => {
   loginDiv.classList.add('hide');
 });
 
+const idlFactory = ({ IDL }) => {
+  return IDL.Service({
+      'greet': IDL.Func([IDL.Text], [IDL.Text], []),
+      'greetq': IDL.Func([IDL.Text], [IDL.Text], ['query']),
+      'whoami': IDL.Func([], [IDL.Principal], ['query']),
+  });
+};
+
+
+//replace with any canister id
+const canisterId = "rrkah-fqaaa-aaaaa-aaaaq-cai";
+console.log("CanisterIds = " + CanisterIds);
+
 function loginToBabel(userName) {
   console.log(userName);
   StoicIdentity.load().then(async identity => {
@@ -50,31 +75,34 @@ function loginToBabel(userName) {
       //ID is a already connected wallet!
     } else {
       //No existing connection, lets make one!
+      console.log("Awaiting stoic connection...");
       identity = await StoicIdentity.connect();
+      console.log("Got stoic connection... continuining");
     }
     
     //Lets display the connected principal!
-    console.log(identity.getPrincipal().toText());
+    console.log("yooo " + identity.getPrincipal().toText());
     const userId = identity.getPrincipal().toText();
 
     // call the createOrRegisterUser API
     ttbl.createUser(userName);
-    console.log(ttbl.getUser(userName));
+    console.log("holaa " + ttbl.getUser(userName));
 
     welcomeUserDiv.innerText = userName;
     addTextToChatBox('User ' + userName + ' connected');
 
     // document.getElementById("userId").innerText = userId;
-    //Create an actor canister
-    //const actor = Actor.createActor(idlFactory, {
-    //  agent: new HttpAgent({
-    //    identity,
-    //  }),
-    //  canisterId,
-    //});
+    babelSays("Welcome " + userName + ". It is a pleasure to welcome you, " + get_random(identities));
+    // Create an actor canister
+    const actor = Actor.createActor(idlFactory, {
+     agent: new HttpAgent({
+       identity,
+     }),
+     canisterId,
+    });
     
-    //Disconnect after
-    //StoicIdentity.disconnect();
+    // Disconnect after
+    StoicIdentity.disconnect();
   });
 }
 
@@ -111,8 +139,10 @@ function startLearning() {
 }
 var score = 0;
 var correctAnswers = [];
+var wrongAnswers = [];
 
 function startLesson(syllabus, type) {
+  syllabus = syllabus.substring(0, syllabus.length - 1);
   correctAnswers = [];
   scoreElementDiv.innerText = score;
   lessonButtons.classList.add("hide");
@@ -126,14 +156,15 @@ function formLesson(syllabus, type) {
   if (type == "Quiz") {
     getQuestions(syllabus, 3).forEach(q => questions.push(q));
   } else {
+    babelSays("Learn these new words, " + get_random(identities) + ". We will later be quizzed on it");
     // split into 3 quizzes
     var syllabusp1 = syllabus.slice(0, syllabus.length / 3); // lesson is 66% length from the backend
     var syllabusp2 = syllabus.slice(syllabus.length / 3);
-    getQuestions(syllabusp1, 0).forEach(q => questions.push(q));;
-    getQuestions(syllabusp1, 1).forEach(q => questions.push(q));;
-    getQuestions(syllabusp2, 0).forEach(q => questions.push(q));;
-    getQuestions(syllabusp2, 1).forEach(q => questions.push(q));;
-    getQuestions(syllabus, 3).forEach(q => questions.push(q));;
+    getQuestions(syllabusp1, 0).forEach(q => questions.push(q));
+    getQuestions(syllabusp1, 1).forEach(q => questions.push(q));
+    getQuestions(syllabusp2, 0).forEach(q => questions.push(q));
+    // getQuestions(syllabusp2, 1).forEach(q => questions.push(q));
+    getQuestions(syllabus, 3).forEach(q => questions.push(q));
   }
 }
 
@@ -266,6 +297,7 @@ function selectAnswer(e, question) {
     correctAnswers.push(question.id);
     babelSays(get_random(welldones));
   } else {
+    wrongAnswers.push(question.id);
     babelSays(get_random(notquites) + ", " + get_random(identities));
   }
   setStatusClass(document.body, correct)
@@ -294,7 +326,8 @@ continueLearningButton.addEventListener("click", async () => {
 
 function updateScoreBoard() {
   scoreElementDiv.innerText = score;
-  babelSays("You got " + correctAnswers.length + " correct, " + get_random(identities));
+  var totalQuestions = correctAnswers.length + wrongAnswers.length;
+  babelSays("You got " + correctAnswers.length + " correct out of " + totalQuestions + ", " + get_random(identities));
   // updateUserScoreOnUI();
   // updateUserScoreBackend();
 }

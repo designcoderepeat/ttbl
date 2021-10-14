@@ -249,13 +249,11 @@ actor { // actor is babel
     //turkish [(1-2000)] 
     //let validChallengeRanges: [(Nat, Nat)]; 
     //let sizes: [Nat, Nat]; // (lessons vs quizzes)
-    let size: Nat = 10;
     var lesson = "";
-    for (j in Iter.range(1, 10)) {      
+    for (j in Iter.range(0, 9)) {      
       if (langauge == "Turkish") {
         lesson := lesson # pickMeATurkishChallenge()  # ":" ;
       };
-
       Debug.print(lesson);
     };
     
@@ -265,7 +263,7 @@ actor { // actor is babel
   // Picks at random an existing challenge from the challenge DB.
    func pickMeATurkishChallenge() :  Text {
     
-    switch (challengeDB.get(random.next() % 1959)) {
+    switch (challengeDB.get(random.next() % 1958)) {
       case (null) { "There are no challenges in the database" };
       case (?challenge) { challengeAsText(challenge) }
     }
@@ -420,3 +418,5 @@ actor { // actor is babel
   // after each game... calculate total score and add to previous score (along with animation)
   // factors: speed, accuracy
   // 3. implement save game (and autosave)
+  // 4. add the o,h,m encoder
+  
