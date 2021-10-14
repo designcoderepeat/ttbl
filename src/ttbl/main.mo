@@ -254,7 +254,7 @@ actor { // actor is babel
       if (langauge == "Turkish") {
         lesson := lesson # pickMeATurkishChallenge()  # ":" ;
       };
-      Debug.print(lesson);
+      // Debug.print(lesson);
     };
     
     return lesson;
