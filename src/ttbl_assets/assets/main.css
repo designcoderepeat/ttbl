@@ -93,7 +93,7 @@ body {
 
   .gameDisplayTopMid {
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
-    font-size:calc(6px + 0.5vw);
+    font-size:calc(6px + 1.5vw);
     color: silver;
     justify-content: center;
   }

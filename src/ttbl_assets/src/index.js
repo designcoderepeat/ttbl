@@ -16,6 +16,8 @@ const answerButtonsElement = document.getElementById('answer-buttons');
 const userInputTerminal = document.getElementById('userInputTerminal');
 const userTerminalButton = document.getElementById('userTerminalButton');
 
+const userChatDiv = document.getElementById('userChat');
+
 const loginDiv = document.getElementById('login');
 const gameDiv = document.getElementById('game');
 
@@ -60,6 +62,7 @@ function loginToBabel(userName) {
     console.log(ttbl.getUser(userName));
 
     welcomeUserDiv.innerText = userName;
+    addTextToChatBox('User ' + userName + ' connected');
 
     // document.getElementById("userId").innerText = userId;
     //Create an actor canister
@@ -75,7 +78,11 @@ function loginToBabel(userName) {
   });
 }
 
-
+function addTextToChatBox(msg) {
+  const newMessage = document.createElement('p');
+  newMessage.innerText = msg;
+  userChatDiv.appendChild(newMessage);
+}
 
 let shuffledQuestions, currentQuestionIndex;
 
@@ -103,7 +110,10 @@ function startLearning() {
   
 }
 var score = 0;
+var correctAnswers = [];
+
 function startLesson(syllabus, type) {
+  correctAnswers = [];
   scoreElementDiv.innerText = score;
   lessonButtons.classList.add("hide");
   questionsElement.classList.remove("hide");
@@ -114,7 +124,7 @@ function startLesson(syllabus, type) {
 function formLesson(syllabus, type) {
   questions = [];
   if (type == "Quiz") {
-    getQuestions(syllabus, 1).forEach(q => questions.push(q));
+    getQuestions(syllabus, 3).forEach(q => questions.push(q));
   } else {
     // split into 3 quizzes
     var syllabusp1 = syllabus.slice(0, syllabus.length / 3); // lesson is 66% length from the backend
@@ -142,11 +152,12 @@ var identities = ["your highness", "your royal majesty", "your honor", "your maj
 // if quiz introduce random options
 function getQuestions(syllabus, optionssize) {
   const pairs = syllabus.split(":");
-  var questions = []; // careful
+  var questions = [];
   pairs.forEach(pair => {
       const qa = pair.split(",");
-      const q = qa[0];
-      const a = qa[1];
+      const id = qa[0];
+      const q = qa[1];
+      const a = qa[2];
       if (a != "") {
         options.push(a);
       }
@@ -155,10 +166,12 @@ function getQuestions(syllabus, optionssize) {
   pairs.forEach(pair => {
     {
       const qa = pair.split(",");
-      const q = qa[0];
-      const a = qa[1];
+      const id = qa[0];
+      const q = qa[1];
+      const a = qa[2];
       if (q != "" && a != "") {
         var ques = {
+          id: id,
           question: "What does " + q + " mean ?",
           answers: [
             { text: '' + a + '', correct: true }
@@ -221,7 +234,8 @@ function setNextQuestion() {
 }
 
 function showQuestion(question) {
-  questionElement.innerText = question.question
+  babelSays("Here is challenge " + question.id + ", " + get_random(identities));
+  questionElement.innerText = question.question;
   question.answers.forEach(answer => {
     const button = document.createElement('button')
     button.innerText = answer.text
@@ -229,7 +243,8 @@ function showQuestion(question) {
     if (answer.correct) {
       button.dataset.correct = answer.correct;
     }
-    button.addEventListener('click', selectAnswer)
+    // button.addEventListener('click', selectAnswer, question)
+    button.addEventListener('click', (e) => ((question) => selectAnswer(e, question))(question));
     answerButtonsElement.appendChild(button)
   })
 }
@@ -242,11 +257,13 @@ function resetState() {
   }
 }
 
-function selectAnswer(e) {
+function selectAnswer(e, question) {
+  console.log( question);
   const selectedButton = e.target
   const correct = selectedButton.dataset.correct
   if (correct) {
     score ++;
+    correctAnswers.push(question.id);
     babelSays(get_random(welldones));
   } else {
     babelSays(get_random(notquites) + ", " + get_random(identities));
@@ -277,6 +294,7 @@ continueLearningButton.addEventListener("click", async () => {
 
 function updateScoreBoard() {
   scoreElementDiv.innerText = score;
+  babelSays("You got " + correctAnswers.length + " correct, " + get_random(identities));
   // updateUserScoreOnUI();
   // updateUserScoreBackend();
 }

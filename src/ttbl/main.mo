@@ -27,6 +27,7 @@ actor { // actor is babel
   let random = Random.new();
 
   flexible var userDb : User.UserDb = User.UserDb();
+  flexible var onlineUserDb : User.UserDb = User.UserDb();
   flexible var challengeDB: ChallengeDB.ChallengeDB = ChallengeDB.ChallengeDB();
   flexible var challengeMetaDataDB: ChallengeDB.ChallengeDB = ChallengeDB.ChallengeDB();
 
@@ -264,7 +265,7 @@ actor { // actor is babel
   // Picks at random an existing challenge from the challenge DB.
    func pickMeATurkishChallenge() :  Text {
     
-    switch (challengeDB.get(random.next() % 1960)) {
+    switch (challengeDB.get(random.next() % 1959)) {
       case (null) { "There are no challenges in the database" };
       case (?challenge) { challengeAsText(challenge) }
     }
@@ -285,17 +286,7 @@ actor { // actor is babel
     public func get_new_id() : Nat { let id = count; count += 1; id };
     public func get_count() : Nat { count };
   };
-
-  // ------------------------------- internal helpers
-  // Generates IDs for questions.
-  flexible object questionCounter = {
-    var count = 0;
-    public func get_new_id() : Nat { let id = count; count += 1; id };
-    public func get_count() : Nat { count };
-  };
-
   
-
   // Populate the challenge database with some initial challenges.
   for (tuple in DefaultChallenges.turkishBook.vals()) {
     let desc = "";
@@ -396,7 +387,7 @@ actor { // actor is babel
     let acception_count = Nat.toText(challenge.get_acception_count());
     let completion_count = Nat.toText(challenge.get_completion_count());
       
-      return challenge.get_question() # "," # challenge.get_answer()
+      return id # "," # challenge.get_question() # "," # challenge.get_answer()
       //"{Challenge:" # id 
       //# "\nTitle: " # challenge.get_title()
       //# "\nDescripton: " # challenge.get_description()
