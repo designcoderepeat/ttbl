@@ -69,7 +69,8 @@ const idlFactory = ({ IDL }) => {
 const canisterId = "rbsr6-fyaaa-aaaai-aarwa-cai";
 // console.log("CanisterId = " + canisterId);
 
-
+var userNameLoggedIn = "";
+var userIdLoggedIn = "";
 
 function loginToBabel(userName) {
   console.log(userName);
@@ -88,12 +89,15 @@ function loginToBabel(userName) {
     const userId = identity.getPrincipal().toText();
 
     // call the createOrRegisterUser API
-    ttbl.createUser(userName);
+    ttbl.createUser(userName).then(result => {
+      // get user details from here!
+      console.log("Created user in DB = " + result);
+    });
     console.log("holaa " + ttbl.getUser(userName));
 
     welcomeUserDiv.innerText = userName;
     addTextToChatBox('User ' + userName + ' connected');
-
+    
     // document.getElementById("userId").innerText = userId;
     babelSays("Welcome " + userName + ". It is a pleasure to welcome you, " + get_random(identities));
     // Create an actor canister
@@ -104,10 +108,30 @@ function loginToBabel(userName) {
      canisterId,
     });
     
+    userIdLoggedIn = userId;
+    userNameLoggedIn = userName;
     // Disconnect after
     StoicIdentity.disconnect();
   });
 }
+
+var score = 0;
+
+async function getUserAsync() {
+  const users = await ttbl.getUser(userId);
+  return users;
+}
+
+getUserAsync().then(users => {
+  users;
+  console.log("users = " + users);
+  score = users;
+});
+
+var correctAnswers = [];
+var wrongAnswers = [];
+console.log("User = " + score);
+
 
 function addTextToChatBox(msg) {
   const newMessage = document.createElement('p');
@@ -119,11 +143,33 @@ let shuffledQuestions, currentQuestionIndex;
 
 startLearningButton.addEventListener('click', startLearning);
 
+saveProgressDiv.addEventListener("click", async () => {
+  // Interact with hlo actor, calling the greet method
+var lCorrectAnswers = correctAnswers;
+var lWrongAnswers = wrongAnswers;
+
+console.log(lCorrectAnswers);
+console.log(lWrongAnswers);
+
+saveProgressDiv.classList.add("hide");
+
+lCorrectAnswers.forEach(q => {
+  var a1 =  ttbl.acceptChallenge(q);
+  var a2 =  ttbl.completeChallenge(q);   
+  // console.log(a1 + a2);
+});
+
+lWrongAnswers.forEach(q => {
+  var a1 =  ttbl.acceptChallenge(q);
+  // console.log(a1);
+});
+
+});
+
 function startLearning() {
   startLearningButton.classList.add('hide')
   lessonButtons.classList.remove("hide")
   questionsElement.classList.add("hide")
-
 
   document.getElementById("test-turkish").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
@@ -131,6 +177,8 @@ function startLearning() {
     console.log(lesson);
     startLesson(lesson, "Quiz")
   });
+
+  
 
   document.getElementById("learn-turkish").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
@@ -140,9 +188,6 @@ function startLearning() {
   });
   
 }
-var score = 0;
-var correctAnswers = [];
-var wrongAnswers = [];
 
 function startLesson(syllabus, type) {
   syllabus = syllabus.substring(0, syllabus.length - 1);
@@ -292,15 +337,17 @@ function resetState() {
 }
 
 function selectAnswer(e, question) {
+
+
   console.log( question);
   const selectedButton = e.target
   const correct = selectedButton.dataset.correct
   if (correct) {
     score ++;
-    correctAnswers.push(question.id);
+    correctAnswers.push(parseInt(question.id));
     babelSays(get_random(welldones));
   } else {
-    wrongAnswers.push(question.id);
+    wrongAnswers.push(parseInt(question.id));
     babelSays(get_random(notquites) + ", " + get_random(identities));
   }
   setStatusClass(document.body, correct)
@@ -320,6 +367,7 @@ function selectAnswer(e, question) {
 }
 
 continueLearningButton.addEventListener("click", async () => {
+  // updateUserScores();
   updateScoreBoard();
   continueLearningButton.classList.add('hide');
   startLearningButton.innerText = 'Choose Next mission';
@@ -331,11 +379,10 @@ function updateScoreBoard() {
   scoreElementDiv.innerText = score;
   var totalQuestions = correctAnswers.length + wrongAnswers.length;
   babelSays("You got " + correctAnswers.length + " correct out of " + totalQuestions + ", " + get_random(identities));
+  saveProgressDiv.classList.remove("hide");
   // updateUserScoreOnUI();
   // updateUserScoreBackend();
 }
-
-
 
 function setStatusClass(element, correct) {
   clearStatusClass(element);

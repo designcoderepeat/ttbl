@@ -43,7 +43,7 @@ actor { // actor is babel
   // Registers the current IC user as a user of the app, with a system-provided id and the given `username`.
   public shared(msg) func createUser(username: Text) : async Text {
     var userData : UserData = userDb.createOrReturn(msg.caller, username);
-    "username = " # userData.name;
+    userDataAsText(userData);
   };
 
   // Accepts the given challenge for the current user (if the user has registered previously).
@@ -84,6 +84,7 @@ actor { // actor is babel
 
     userDb.update(userData);
     challengeDB.accepted(challengeId : ChallengeId);
+    Debug.print(userDataAsText(userData) # "accepted challenge " # Nat.toText(challengeId));
     "accepted challenge: " # Nat.toText(challengeId) # "\n" # userDataAsText(userData)
   };
 
@@ -263,7 +264,7 @@ actor { // actor is babel
   // Picks at random an existing challenge from the challenge DB.
    func pickMeATurkishChallenge() :  Text {
     
-    switch (challengeDB.get(random.next() % 1958)) {
+    switch (challengeDB.get(random.next() % challengeCounter.get_count())) {
       case (null) { "There are no challenges in the database" };
       case (?challenge) { challengeAsText(challenge) }
     }
@@ -370,7 +371,7 @@ actor { // actor is babel
 
   // Returns the given `userData` as a human-readable text.
   func userDataAsText(userData : UserData) : Text {
-    var userText : Text = "name: " # userData.name # ", Location: [" # (Int.toText(userData.location.0))
+    var userText : Text = "name: " # userData.name #", Id: " # userData.id # ", Location: [" # (Int.toText(userData.location.0))
         #", " # (Int.toText(userData.location.1))# "], challenges: [";
     for (cm in userData.challenges.vals()) {
       userText := userText # " " # Nat.toText(cm.id) # ":" # statusText(cm.status) # ":" # Nat.toText(cm.progress) # "%"
