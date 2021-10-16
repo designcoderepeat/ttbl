@@ -14,7 +14,7 @@ const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const questionsElement = document.getElementById('questions')
 const answerButtonsElement = document.getElementById('answer-buttons');
-
+const exploretamilButton = document.getElementById('explore-tamil');
 const userInputTerminal = document.getElementById('userInputTerminal');
 const userTerminalButton = document.getElementById('userTerminalButton');
 
@@ -177,14 +177,19 @@ function startLearning() {
     console.log(lesson);
     startLesson(lesson, "Quiz")
   });
-
   
-
   document.getElementById("learn-turkish").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
     const lesson = await ttbl.learnLanguage("Turkish");
     console.log(lesson);
     startLesson(lesson, "Lesson")
+  });
+
+  document.getElementById("explore-tamil").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    const lesson = await ttbl.exploreLanguage("Tamil|Thirukural");
+    console.log(lesson);
+    exploreTamil(lesson);
   });
   
 }
@@ -196,12 +201,25 @@ function startLesson(syllabus, type) {
   lessonButtons.classList.add("hide");
   questionsElement.classList.remove("hide");
   formLesson(syllabus, type);
-  startButton.classList.remove("hide")
+  startButton.classList.remove("hide");
+}
+
+function exploreTamil(syllabus) {
+  correctAnswers = [];
+  scoreElementDiv.innerText = score;
+  lessonButtons.classList.add("hide");
+  questionsElement.classList.remove("hide");
+  formLesson(syllabus, "exploreThirukural");
+  startButton.classList.remove("hide");
 }
 
 function formLesson(syllabus, type) {
   questions = [];
-  if (type == "Quiz") {
+  if (type == "exploreThirukural") {
+    var syllabusforTamil = getSyllabusFromThirukural(syllabus);
+    getQuestions(syllabusforTamil, 3).forEach(q => questions.push(q));
+  }
+  else if (type == "Quiz") {
     getQuestions(syllabus, 3).forEach(q => questions.push(q));
   } else {
     babelSays("Learn these new words, " + get_random(identities) + ". We will later be quizzed on it");
@@ -214,6 +232,23 @@ function formLesson(syllabus, type) {
     // getQuestions(syllabusp2, 1).forEach(q => questions.push(q));
     getQuestions(syllabus, 3).forEach(q => questions.push(q));
   }
+}
+
+function getSyllabusFromThirukural(syllabus) {
+  syllabus = syllabus.substring(0, syllabus.length - 1);
+  var str = "";
+  var strs = syllabus.split(",");
+  console.log(strs);
+  var id = strs[0];
+  var tams = strs[1].split(' ');
+  var engs = strs[2].split(' ');
+  var qs = [];
+  var i = 0;
+  var len = tams.length;
+  for (let i = 0; i < tams.length; i ++) {
+    str =  str  + id + "," + tams[i] + "," + engs[i] + ":";
+  }
+  return str;
 }
 
 function shuffleArray(array) {

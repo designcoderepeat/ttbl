@@ -57,6 +57,29 @@ module {
     #alphabetic;
   };  
 
+  public type ThiruKural = {
+    number: Nat;
+    line1: Text;
+    line2: Text; 
+    translation: Text;
+    mv: Text; 
+    sp: Text; 
+    mk: Text;
+    explanation: Text;
+    couplet: Text;
+    transliteration1: Text;
+    transliteration2: Text;
+    paul_name: Text;
+    paul_transliteration: Text;
+    paul_translation: Text;
+    iyal_name: Text;
+    iyal_transliteration: Text;
+    iyal_translation: Text;
+    adikaram_name: Text;
+    adikaram_transliteration: Text;
+    adikaram_translation: Text;
+};
+
   class AlphabetDetails (
     pronunciation: Audio, 
     writingMethod: Animation,

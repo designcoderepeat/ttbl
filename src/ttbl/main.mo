@@ -23,6 +23,7 @@ actor { // actor is babel
   type UserId = Types.UserId;
   type Book = Types.Book;
   type LanguageNames = Types.LanguageNames;
+  type ThiruKural = Types.ThiruKural;
 
   let random = Random.new();
 
@@ -245,6 +246,13 @@ actor { // actor is babel
     return "Ooops nothing found";
   };
 
+  public func exploreLanguage(tags: Text): async Text {
+    if (tags == "Tamil|Thirukural") {
+      return pickMeAThirukural();
+    };
+    return "oops nothing found";
+  };
+
   // groupings for Users or challenge (challengeMetaData)
   public func learnLanguage(langauge: Text) : async Text {
     //turkish [(1-2000)] 
@@ -264,10 +272,24 @@ actor { // actor is babel
   // Picks at random an existing challenge from the challenge DB.
    func pickMeATurkishChallenge() :  Text {
     
-    switch (challengeDB.get(random.next() % challengeCounter.get_count())) {
+    switch (challengeDB.get(random.next() % 1960)) {
       case (null) { "There are no challenges in the database" };
       case (?challenge) { challengeAsText(challenge) }
     }
+  };
+
+  // Picks at random an existing challenge from the challenge DB.
+   func pickMeAThirukural() :  Text {
+    switch (challengeDB.get(random.next() % 1330 + 1960)) {
+      case (null) { "There are no challenges in the database" };
+      case (?challenge) { challengeAsText(challenge) }
+    }
+  };
+
+    // Returns the given `thirukural` as a human-readable text.
+  func kuralAsText(kural: ThiruKural) : Text {
+    var kuralText : Text = Nat.toText(kural.number) # "@"  # kural.line1 # "@"  # kural.line2  # "@"  # kural.translation   # "@"  # kural.mv   # "@"  # kural.sp   # "@"  # kural.mk   # "@"  # kural.couplet   # "@"  # kural.explanation # "@"  # kural.transliteration1   # "@"  # kural.transliteration2   # "@"  # kural.paul_name   # "@"  # kural.paul_transliteration   # "@"  # kural.paul_translation   # "@"  # kural.iyal_name   # "@"  # kural.iyal_transliteration   # "@"  # kural.iyal_translation   # "@"  # kural.adikaram_name   # "@"  # kural.adikaram_transliteration   # "@"  # kural.adikaram_translation;
+    return kuralText;
   };
 
   // Returns a description of the challenge identified by `challengeId` (if it exists).
@@ -286,6 +308,7 @@ actor { // actor is babel
     public func get_count() : Nat { count };
   };
   
+
   // Populate the challenge database with some initial challenges.
   for (tuple in DefaultChallenges.turkishBook.vals()) {
     let desc = "";
@@ -298,6 +321,12 @@ actor { // actor is babel
         tuple.1,
         null
       ));
+  };
+
+
+  // Populate the challenge database with some initial challenges.
+  for (kural in DefaultChallenges.thirukural.vals()) {
+    challengeDB.add(Challenge.Challenge(challengeCounter.get_new_id(), "kural_" # Nat.toText(kural.number), kuralAsText(kural), kural.line1 # kural.line2,kural.transliteration1 # kural.transliteration2,null));
   };
 
   // Comparison of ChallengeStatus-values.
@@ -371,7 +400,8 @@ actor { // actor is babel
 
   // Returns the given `userData` as a human-readable text.
   func userDataAsText(userData : UserData) : Text {
-    var userText : Text = "name: " # userData.name #", Id: " # userData.id # ", Location: [" # (Int.toText(userData.location.0))
+    
+    var userText : Text = "name: " # userData.name # ", Location: [" # (Int.toText(userData.location.0))
         #", " # (Int.toText(userData.location.1))# "], challenges: [";
     for (cm in userData.challenges.vals()) {
       userText := userText # " " # Nat.toText(cm.id) # ":" # statusText(cm.status) # ":" # Nat.toText(cm.progress) # "%"
@@ -399,6 +429,32 @@ actor { // actor is babel
       //# "\nAccepted " # acception_count # " times\nCompleted " # completion_count # " times"
   };
 
+    // Returns the given `challenge` as a human-readable text.
+  func fullChallengeAsText(challenge: Challenge.Challenge) : Text {
+    let id = Nat.toText(challenge.get_id());
+    let creator = getUsernameFromOption(challenge.get_creator());
+    let acception_count = Nat.toText(challenge.get_acception_count());
+    let completion_count = Nat.toText(challenge.get_completion_count());
+      
+      return id # "," # challenge.get_title() 
+      # challenge.get_description()
+      # challenge.get_question() # "," # challenge.get_answer()
+      # acception_count
+      # completion_count
+
+      //"{Challenge:" # id 
+      //# "\nTitle: " # 
+      //# "\nDescripton: " # challenge.get_description()
+      //# "\n Original: "
+      // # challenge.get_question()
+      //# "\n Translation: " 
+      // # ","
+      // # challenge.get_answer()
+      //#"}"
+      //# "\nAccepted " # acception_count # " times\nCompleted " # completion_count # " times"
+  };
+
+
   // Returns username of the specified user (if present).
   func getUsernameFromOption(maybe_user_id : ? UserId) : Text {
     switch (maybe_user_id) {
@@ -414,10 +470,20 @@ actor { // actor is babel
 };
   
 
-  // 1. make css and website responsive
-  // 2. display and persist user score
-  // after each game... calculate total score and add to previous score (along with animation)
-  // factors: speed, accuracy
-  // 3. implement save game (and autosave)
-  // 4. add the o,h,m encoder
+  // implement metachallengeservice
+  // add the o,h,m encoder
   
+
+  //User Default Options
+  // test your french, spanish, german, english (via these other languages)
+  // learn numbers (challenges)
+  // explore tamil, sanskrit, chinese (sun tzu art of war)
+
+  // a. couplet // transliteration of each each word... (with the whole line and on the top and the meaning in tamil below)
+  // final test for kural: guess the adhigaram -> adikaram_translation
+
+  //test, learn, explore
+
+  // 0. 3d worlds
+  // 1. create lessons on top of create challenge
+  // 2. custom lessons

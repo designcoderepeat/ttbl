@@ -11,6 +11,7 @@ export interface _SERVICE {
     ) => Promise<string>,
   'createUser' : (arg_0: string) => Promise<string>,
   'displayChallenge' : (arg_0: ChallengeId) => Promise<string>,
+  'exploreLanguage' : (arg_0: string) => Promise<string>,
   'getUser' : (arg_0: string) => Promise<string>,
   'greet' : (arg_0: string) => Promise<string>,
   'learnLanguage' : (arg_0: string) => Promise<string>,
