@@ -117,16 +117,16 @@ function loginToBabel(userName) {
 
 var score = 0;
 
-async function getUserAsync() {
-  const users = await ttbl.getUser(userId);
-  return users;
-}
+// async function getUserAsync() {
+//   const users = await ttbl.getUser(userId);
+//   return users;
+// }
 
-getUserAsync().then(users => {
-  users;
-  console.log("users = " + users);
-  score = users;
-});
+// getUserAsync().then(users => {
+//   users;
+//   console.log("users = " + users);
+//   score = users;
+// });
 
 var correctAnswers = [];
 var wrongAnswers = [];

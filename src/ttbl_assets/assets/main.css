@@ -89,6 +89,16 @@ body {
     color: silver;
   }
 
+  .babel-div {
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+    display: flex;
+    width: 100vw;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+    background-color: hsl(var(--hue), 100%, 20%);
+  }
+
   .gameDisplayTopMid {
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
     font-size:calc(6px + 1.5vw);
