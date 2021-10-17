@@ -4,6 +4,11 @@ import {StoicIdentity} from "ic-stoic-identity";
 const Actor = require("@dfinity/agent").Actor;
 const HttpAgent = require("@dfinity/agent").HttpAgent;
 
+// v1 constants
+
+const enterBabelButton = document.getElementById("enterBabelButton");
+
+//
 const lessonElement = document.getElementById('lessons')
 const lessonButtons = document.getElementById('lesson-container')
 const startButton = document.getElementById('start-btn')
@@ -17,6 +22,8 @@ const answerButtonsElement = document.getElementById('answer-buttons');
 const exploretamilButton = document.getElementById('explore-tamil');
 const userInputTerminal = document.getElementById('userInputTerminal');
 const userTerminalButton = document.getElementById('userTerminalButton');
+
+
 
 const goBackDiv = document.getElementById('goBack');
 const saveProgressDiv = document.getElementById('saveProgress');
@@ -141,7 +148,9 @@ function addTextToChatBox(msg) {
 
 let shuffledQuestions, currentQuestionIndex;
 
-startLearningButton.addEventListener('click', startLearning);
+// startLearningButton.addEventListener('click', startLearning);
+
+
 
 saveProgressDiv.addEventListener("click", async () => {
   // Interact with hlo actor, calling the greet method

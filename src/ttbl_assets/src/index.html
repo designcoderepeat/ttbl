@@ -16,6 +16,12 @@ const audio = new Audio("./assets/sounds/calc1-press.mp3");
 </script>
 <body>
 
+  <div id="v1">
+    <button id="enterBabelButton" onclick="audio.play()">Enter Babel</button>
+    <div id = "game-div" class="hide babel-div"></div>
+  </div>
+
+  <div id="v0" class="hide">
   <div id="login">
 <input class="gameOptionButton" id="userInputTerminal" placeholder=" Choose your username"> </input>
 <button class="gameOptionButton" id="userTerminalButton">
@@ -94,9 +100,8 @@ const audio = new Audio("./assets/sounds/calc1-press.mp3");
 </div>
 </div>
 </div>
-
-<div id = "world-div" class="babel-div"> 
 </div>
+
 <script type="module"  src="./src/universe/game.js"></script>
 
 </body>
