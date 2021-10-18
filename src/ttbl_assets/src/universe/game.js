@@ -26,7 +26,7 @@ class BasicCharacterController {
   _Init(params) {
     this._params = params;
     this._decceleration = new THREE.Vector3(-0.0005, -0.0001, -5.0);
-    this._acceleration = new THREE.Vector3(1, 0.25, 50.0);
+    this._acceleration = new THREE.Vector3(15, 0.25, 250.0);
     this._velocity = new THREE.Vector3(0, 0, 0);
 
     this._animations = {};
@@ -42,7 +42,7 @@ class BasicCharacterController {
     const loader = new FBXLoader();
     loader.setPath('./resources/');
     loader.load('vanguard_t_choonyung.fbx', (fbx) => {
-      fbx.scale.setScalar(0.1);
+      fbx.scale.setScalar(0.15);
       fbx.traverse(c => {
         c.castShadow = true;
       });
@@ -76,7 +76,6 @@ class BasicCharacterController {
     });
   }
 
-
   Update(timeInSeconds) {
     if (!this._target) {
       return;
@@ -104,10 +103,6 @@ class BasicCharacterController {
     const acc = this._acceleration.clone();
     if (this._input._keys.shift) {
       acc.multiplyScalar(2.0);
-    }
-
-    if (this._stateMachine._currentState.Name == 'dance') {
-      acc.multiplyScalar(0.0);
     }
 
     if (this._input._keys.forward) {
@@ -566,6 +561,7 @@ class BabelUniverse {
             scene: this._scene,
         }
         this._controls = new BasicCharacterController(params);
+        console.log("Controls");
       }
     
 
@@ -576,6 +572,7 @@ class BabelUniverse {
     }
 
     _RAF() {
+        // console.log(this._);
         requestAnimationFrame((t) => {
             if (this._previousRAF == null) {
                 this._previousRAF = t;
