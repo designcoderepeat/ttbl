@@ -41,6 +41,8 @@ class BasicCharacterController {
   _LoadModels() {
     const loader = new FBXLoader();
     loader.setPath('./resources/');
+
+    
     loader.load('vanguard_t_choonyung.fbx', (fbx) => {
       fbx.scale.setScalar(0.15);
       fbx.traverse(c => {
@@ -109,7 +111,7 @@ class BasicCharacterController {
       velocity.z += acc.z * timeInSeconds;
     }
     if (this._input._keys.backward) {
-      velocity.z -= acc.z * timeInSeconds;
+      velocity.y += (100 * acc.y * timeInSeconds);
     }
     if (this._input._keys.left) {
       _A.set(0, 1, 0);
@@ -131,14 +133,20 @@ class BasicCharacterController {
     forward.applyQuaternion(controlObject.quaternion);
     forward.normalize();
 
+    const updir = new THREE.Vector3(0, 1, 0);
+    updir.applyQuaternion(controlObject.quaternion);
+    updir.normalize();
+
     const sideways = new THREE.Vector3(1, 0, 0);
     sideways.applyQuaternion(controlObject.quaternion);
     sideways.normalize();
 
     sideways.multiplyScalar(velocity.x * timeInSeconds);
+    updir.multiplyScalar(velocity.y * timeInSeconds);
     forward.multiplyScalar(velocity.z * timeInSeconds);
 
     controlObject.position.add(forward);
+    controlObject.position.add(updir);
     controlObject.position.add(sideways);
 
     oldPosition.copy(controlObject.position);
@@ -622,7 +630,7 @@ class ThirdPersonCamera {
     //   this._params.target._target.rotation._y,
     //   this._params.target._target.rotation._z);
     const rotation = this._params.target._target.quaternion;
-    console.log(rotation);
+    // console.log(rotation);
     idealOffset.applyQuaternion(rotation);
     idealOffset.add(this._params.target._target.position);
     return idealOffset;
@@ -634,7 +642,7 @@ class ThirdPersonCamera {
     //   this._params.target._target.rotation._y,
     //   this._params.target._target.rotation._z);
     const rotation = this._params.target._target.quaternion;
-    console.log(rotation);
+    // console.log(rotation);
     idealLookat.applyQuaternion(rotation);
     idealLookat.add(this._params.target._target.position);
     return idealLookat;
