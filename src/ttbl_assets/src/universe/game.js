@@ -488,7 +488,7 @@ class BabelUniverse {
         const near = 1.0;
         const far = 1000.0;
 
-        this._camera     = new THREE.PerspectiveCamera(fov, aspect, near, far);
+        this._camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
         this._camera.position.set(75, 20, 0);
 
         this._scene = new THREE.Scene();
@@ -556,13 +556,18 @@ class BabelUniverse {
     }
 
     _LoadAnimatedModel() {
-        const params = {
-            camera: this._camera,
-            scene: this._scene,
-        }
-        this._controls = new BasicCharacterController(params);
-        console.log("Controls");
+      const params = {
+        camera: this._camera,
+        scene: this._scene,
       }
+      this._controls = new BasicCharacterController(params);
+  
+      this._thirdPersonCamera = new ThirdPersonCamera({
+        camera: this._camera,
+        target: this._controls,
+      });
+    }
+  
     
 
     _OnWindowResize() {
@@ -595,8 +600,60 @@ class BabelUniverse {
         if (this._controls) {
             this._controls.Update(timeElapsedS);
         }
+
+        this._thirdPersonCamera.Update(timeElapsedS);
     }
 
+}
+
+class ThirdPersonCamera {
+  constructor(params) {
+    this._params = params;
+    this._camera = params.camera;
+
+    this._currentPosition = new THREE.Vector3();
+    this._currentLookat = new THREE.Vector3();
+  }
+
+  _CalculateIdealOffset() {
+    const idealOffset = new THREE.Vector3(-15, 20, -30);
+    console.log(this._params);
+    // const rotation = new THREE.Vector3(this._params.target._target.rotation._x,
+    //   this._params.target._target.rotation._y,
+    //   this._params.target._target.rotation._z);
+    const rotation = this._params.target._target.quaternion;
+    console.log(rotation);
+    idealOffset.applyQuaternion(rotation);
+    idealOffset.add(this._params.target._target.position);
+    return idealOffset;
+  }
+
+  _CalculateIdealLookat() {
+    const idealLookat = new THREE.Vector3(0, 10, 50);
+    // const rotation = new THREE.Vector3(this._params.target._target.rotation._x,
+    //   this._params.target._target.rotation._y,
+    //   this._params.target._target.rotation._z);
+    const rotation = this._params.target._target.quaternion;
+    console.log(rotation);
+    idealLookat.applyQuaternion(rotation);
+    idealLookat.add(this._params.target._target.position);
+    return idealLookat;
+  }
+
+  Update(timeElapsed) {
+    const idealOffset = this._CalculateIdealOffset();
+    const idealLookat = this._CalculateIdealLookat();
+
+    // const t = 0.05;
+    // const t = 4.0 * timeElapsed;
+    const t = 1.0 - Math.pow(0.001, timeElapsed);
+
+    this._currentPosition.lerp(idealOffset, t);
+    this._currentLookat.lerp(idealLookat, t);
+
+    this._camera.position.copy(this._currentPosition);
+    this._camera.lookAt(this._currentLookat);
+  }
 }
 
 // entering babel in v1
