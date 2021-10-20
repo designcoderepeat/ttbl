@@ -33,8 +33,27 @@ actor { // actor is babel
   flexible var challengeMetaDataDB: ChallengeDB.ChallengeDB = ChallengeDB.ChallengeDB();
 
   public func greet(name : Text) : async Text {
-      return "Hello, " # name # "!";
+      Debug.print("Welcome " # name);
+      // return "" # Nat.toText(random.next() % 100) # ", " # Nat.toText(random.next() % 100);
+      return "" # Nat.toText(random.next() % 100) # ", " # Nat.toText(random.next() % 100);
   };  
+
+
+  // var onlineUsers : [(Text, Nat, Nat)] = [];
+  
+  // public func greet(name : Text, x: Nat, z: Nat) : async Text {
+  //     Debug.print("Welcome " # name);
+  //     onlineUsers := Array.append<(Text, Nat, Nat)>(onlineUsers, [(name, x, z)]);
+
+  //     for (onlineUser in onlineUsers.vals()) {
+  //       Debug.print(onlineUser.0 # ", " # Nat.toText(onlineUser.1) # ", " # Nat.toText(onlineUser.2));
+  //     };
+
+  //     Debug.print("Have fun " # name);
+
+  //     // return spawn details
+  //     return "" # Nat.toText(random.next() % 100) # ", " # Nat.toText(random.next() % 100);
+  // };  
 
   // ------------------------------- public API
   // NOTE: For rapid prototyping (via dfx or Candid UI) all the functions below return values
@@ -487,3 +506,16 @@ actor { // actor is babel
   // 0. 3d worlds
   // 1. create lessons on top of create challenge
   // 2. custom lessons
+
+
+// how to handle the async nature of the backend?
+  // every x frames, the update method can can call the backend
+  
+
+  // high level steps: 
+  // 1. add terrain 
+  // game evolution: RPG
+  // you can go valheim route and let users create servers which 
+  // 2. for the MMORPG: lots more things have to be considered .. this can come in v2 or v3
+
+  // advantage of common world will be that the universe can act as the NFT store

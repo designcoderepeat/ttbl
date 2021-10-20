@@ -548,7 +548,11 @@ class BabelUniverse {
     _LoadBabelRubble() {
         const loader = new GLTFLoader();
         loader.load('./resources/static/thing.glb', (gltf) => {
-            gltf.scene.traverse(c => {
+          gltf.scene.scale.set(10, 10, 10);  
+          gltf.scene.position.y = 11;
+          gltf.scene.position.z = 11;
+
+          gltf.scene.traverse(c => {
                 c.castShadow = true;
             });
             this._scene.add(gltf.scene);
@@ -617,12 +621,12 @@ class ThirdPersonCamera {
 
   _CalculateIdealOffset() {
     const idealOffset = new THREE.Vector3(-15, 20, -30);
-    console.log(this._params);
+    // console.log(this._params);
     // const rotation = new THREE.Vector3(this._params.target._target.rotation._x,
     //   this._params.target._target.rotation._y,
     //   this._params.target._target.rotation._z);
     const rotation = this._params.target._target.quaternion;
-    console.log(rotation);
+    // console.log(rotation);
     idealOffset.applyQuaternion(rotation);
     idealOffset.add(this._params.target._target.position);
     return idealOffset;
@@ -634,7 +638,7 @@ class ThirdPersonCamera {
     //   this._params.target._target.rotation._y,
     //   this._params.target._target.rotation._z);
     const rotation = this._params.target._target.quaternion;
-    console.log(rotation);
+    // console.log(rotation);
     idealLookat.applyQuaternion(rotation);
     idealLookat.add(this._params.target._target.position);
     return idealLookat;

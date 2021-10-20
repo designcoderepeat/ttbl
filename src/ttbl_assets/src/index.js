@@ -456,3 +456,13 @@ var questions = [
 function get_random (list) {
   return list[Math.floor((Math.random()*list.length))];
 }
+
+
+// entering babel in v1
+enterBabelButton.addEventListener('click', enterBabel);
+
+function enterBabel() {
+  ttbl.greet("user_" + get_random(identities)).then((spawnDetails) => {
+    console.log("Spawn details for user = " + spawnDetails);
+  });
+}

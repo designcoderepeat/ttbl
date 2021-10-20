@@ -12,7 +12,7 @@ export const idlFactory = ({ IDL }) => {
     'displayChallenge' : IDL.Func([ChallengeId], [IDL.Text], ['query']),
     'exploreLanguage' : IDL.Func([IDL.Text], [IDL.Text], []),
     'getUser' : IDL.Func([IDL.Text], [IDL.Text], ['query']),
-    'greet' : IDL.Func([IDL.Text], [IDL.Text], []),
+    'greet' : IDL.Func([IDL.Text, IDL.Nat, IDL.Nat], [IDL.Text], []),
     'learnLanguage' : IDL.Func([IDL.Text], [IDL.Text], []),
     'pickMeAChallenge' : IDL.Func([IDL.Text], [IDL.Text], []),
     'setProgress' : IDL.Func([ChallengeId, IDL.Nat], [IDL.Text], []),
