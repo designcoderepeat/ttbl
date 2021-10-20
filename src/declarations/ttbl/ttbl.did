@@ -7,7 +7,7 @@ service : {
   displayChallenge: (ChallengeId) -> (text) query;
   exploreLanguage: (text) -> (text);
   getUser: (text) -> (text) query;
-  greet: (text, nat, nat) -> (text);
+  greet: (text) -> (text);
   learnLanguage: (text) -> (text);
   pickMeAChallenge: (text) -> (text);
   setProgress: (ChallengeId, nat) -> (text);

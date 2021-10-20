@@ -1,5 +1,12 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118/build/three.module.js';
 
+import {math} from './math.js';
+import {gltf_component} from './gltf-component.js';
+import {entity} from './entity.js';
+import {entity_manager} from './entity-manager.js';
+import {spatial_hash_grid} from './spatial-hash-grid.js';
+import {spatial_grid_controller} from './spatial-grid-controller.js';
+
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
 import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/jsm/controls/OrbitControls.js';
@@ -31,6 +38,7 @@ class BasicCharacterController {
 
     this._animations = {};
     this._input = new BasicCharacterControllerInput();
+
     this._stateMachine = new CharacterFSM(
         new BasicCharacterControllerProxy(this._animations));
 
@@ -472,8 +480,10 @@ class BabelUniverse {
             antialias: true,
           });
           this._threejs.outputEncoding = THREE.sRGBEncoding;
+          this._threejs.gammaFactor = 2.2;
           this._threejs.shadowMap.enabled = true;
           this._threejs.shadowMap.type = THREE.PCFSoftShadowMap;
+
           this._threejs.setPixelRatio(window.devicePixelRatio);
           this._threejs.setSize(window.innerWidth, window.innerHeight);
 
@@ -492,23 +502,27 @@ class BabelUniverse {
         this._camera.position.set(75, 20, 0);
 
         this._scene = new THREE.Scene();
-
-        let light = new THREE.DirectionalLight(0x1FeFFF, 1.0);
-        light.position.set(100, 100, 100);
-        light.target.position.set(0,0,0);
+        this._scene.background = new THREE.Color(0xFFFFFF);
+        this._scene.fog = new THREE.FogExp2(0x89b2eb, 0.002);
+    
+        let light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
+        light.position.set(-10, 500, 10);
+        light.target.position.set(0, 0, 0);
         light.castShadow = true;
-        light.shadow.bias = -0.01;
-        light.shadow.mapSize.width = 2048;
-        light.shadow.mapSize.height = 2048;
-        light.shadow.camera.near = 1.0;
-        light.shadow.camera.far = 500;
-        light.shadow.camera.left = 200;
-        light.shadow.camera.right = -200;
-        light.shadow.camera.top = 200;
-        light.shadow.camera.bottom = -200;
+        light.shadow.bias = -0.1;
+        light.shadow.mapSize.width = 108;
+        light.shadow.mapSize.height = 108;
+        light.shadow.camera.near = 0.1;
+        light.shadow.camera.far = 1000.0;
+        light.shadow.camera.left = 100;
+        light.shadow.camera.right = -100;
+        light.shadow.camera.top = 100;
+        light.shadow.camera.bottom = -100;
         this._scene.add(light);
+    
+        this._sun = light;
 
-        light = new THREE.AmbientLight(0x404040);
+        light = new THREE.AmbientLight( 0x404040 ); // soft white light
         this._scene.add(light);
 
         const controls = new OrbitControls(
@@ -528,21 +542,88 @@ class BabelUniverse {
         this._scene.background = texture;
 
         const plane = new THREE.Mesh(
-            new THREE.PlaneGeometry(100, 100, 10, 10),
-            new THREE.MeshStandardMaterial({color: 0xfefefe})
-        );
+          new THREE.PlaneGeometry(1000, 1000, 10, 10),
+          new THREE.MeshStandardMaterial({
+              color: 0x1e601c,
+            }));
 
         plane.castShadow = false;
         plane.recieveShadow = true;
+        
         plane.rotation.x = -Math.PI / 2;
         this._scene.add(plane);
 
         this._mixers = [];
         this._previousRAF = null;    
 
+        this._entityManager = new entity_manager.EntityManager();
+
+    this._grid = new spatial_hash_grid.SpatialHashGrid(
+        [[-1000, -1000], [1000, 1000]], [100, 100]);
+        
+        this._LoadFoliage();
+        this._LoadClouds();
         this._LoadBabelRubble();
         this._LoadAnimatedModel();
         this._RAF();
+    }
+
+
+  _LoadFoliage() {
+    for (let i = 0; i < 100; ++i) {
+      const names = [
+          'CommonTree',
+          'BirchTree',
+          'Willow', 'Grass', 'Rock_Moss'
+      ];
+      const name = names[math.rand_int(0, names.length - 1)];
+      const index = math.rand_int(1, 5);
+
+      const pos = new THREE.Vector3(
+          (Math.random() * 2.0 - 1.0) * 500,
+          0,
+          (Math.random() * 2.0 - 1.0) * 500);
+
+      const e = new entity.Entity();
+      e.AddComponent(new gltf_component.StaticModelComponent({
+        scene: this._scene,
+        resourcePath: './resources/nature/FBX/',
+        resourceName: name + '_' + index + '.fbx',
+        scale: 0.25,
+        emissive: new THREE.Color(0x000000),
+        specular: new THREE.Color(0x000000),
+        receiveShadow: true,
+        castShadow: true,
+      }));
+      e.AddComponent(
+          new spatial_grid_controller.SpatialGridController({grid: this._grid}));
+      e.SetPosition(pos);
+      this._entityManager.Add(e);
+      e.SetActive(false);
+    }
+  }
+
+    _LoadClouds() {
+      for (let i = 0; i < 20; ++i) {
+        const index = math.rand_int(1, 3);
+      const pos = new THREE.Vector3(
+          (Math.random() * 2.0 - 1.0) * 500,
+          100,
+          (Math.random() * 2.0 - 1.0) * 500);
+  
+        const e = new entity.Entity();
+        e.AddComponent(new gltf_component.StaticModelComponent({
+          scene: this._scene,
+          resourcePath: './resources/nature2/GLTF/',
+          resourceName: 'Cloud' + index + '.glb',
+          position: pos,
+          scale: Math.random() * 5 + 10,
+          emissive: new THREE.Color(0x808080),
+        }));
+        e.SetPosition(pos);
+        this._entityManager.Add(e);
+        e.SetActive(false);
+      }
     }
 
     _LoadBabelRubble() {
