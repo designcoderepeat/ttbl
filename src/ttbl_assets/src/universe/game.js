@@ -84,11 +84,11 @@ class BabelUniverse {
         light.shadow.mapSize.width = 1096;
         light.shadow.mapSize.height = 1096;
         light.shadow.camera.near = 0.1;
-        light.shadow.camera.far = 1000.0;
+        light.shadow.camera.far = 10000.0;
         light.shadow.camera.left = 100;
-        light.shadow.camera.right = -100;
+        light.shadow.camera.right = 100;
         light.shadow.camera.top = 100;
-        light.shadow.camera.bottom = -100;
+        light.shadow.camera.bottom = 100;
         this._scene.add(light);
     
         this._sun = light;
@@ -147,9 +147,13 @@ class BabelUniverse {
     }
 
     _LoadSky() {
-      const hemiLight = new THREE.HemisphereLight(0xFFFFFF, 0xFFFFFFF, 0.6);
+      const lightColor = new THREE.Color(Math.random(), Math.random(), Math.random());
+      const hemiLight = new THREE.HemisphereLight( lightColor, 0x080820, 0.3 );
+
+      // const hemiLight = new THREE.HemisphereLight(0xFFFFFF, 0xFFFFFFF, 0.6);
       hemiLight.color.setHSL(0.6, 1, 0.6);
       hemiLight.groundColor.setHSL(0.095, 1, 0.75);
+
       this._scene.add(hemiLight);
   
       const uniforms = {
@@ -160,7 +164,7 @@ class BabelUniverse {
       };
       uniforms["topColor"].value.copy(hemiLight.color);
   
-      // this._scene.fog.color.copy(uniforms["bottomColor"].value);
+      this._scene.fog.color.copy(uniforms["bottomColor"].value);
   
       const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
       const skyMat = new THREE.ShaderMaterial({
