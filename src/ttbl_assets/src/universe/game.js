@@ -518,12 +518,12 @@ class BabelUniverse {
 
         const loader = new THREE.CubeTextureLoader();
         const texture = loader.load([
-            './resources/skycube/posx.jpg',
-            './resources/skycube/negx.jpg',
-            './resources/skycube/posy.jpg',
-            './resources/skycube/negy.jpg',
-            './resources/skycube/posz.jpg',
-            './resources/skycube/negz.jpg',
+            './resources/skycube/space-posx.jpg',
+            './resources/skycube/space-negx.jpg',
+            './resources/skycube/space-posy.jpg',
+            './resources/skycube/space-negy.jpg',
+            './resources/skycube/space-posz.jpg',
+            './resources/skycube/space-negz.jpg',
         ]);
         this._scene.background = texture;
 
