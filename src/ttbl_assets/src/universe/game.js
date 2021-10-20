@@ -19,6 +19,27 @@ import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/j
 const enterBabelButton = document.getElementById("enterBabelButton");
 const babelDiv = document.getElementById("game-div");  
 
+const _VS = `
+varying vec3 vWorldPosition;
+void main() {
+  vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+  vWorldPosition = worldPosition.xyz;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.25 );
+}`;
+
+
+const _FS = `
+uniform vec3 topColor;
+uniform vec3 bottomColor;
+uniform float offset;
+uniform float exponent;
+varying vec3 vWorldPosition;
+void main() {
+  float h = normalize( vWorldPosition + offset ).y;
+  gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h , 0.1), exponent ), 0.0 ) ), 1.0 );
+}`;
+
+
 class BabelUniverse {
     constructor() {
         this._Initialize();
@@ -46,22 +67,22 @@ class BabelUniverse {
         const fov = 60;
         const aspect = 1920 / 1080;
         const near = 1.0;
-        const far = 1000.0;
+        const far = 10000.0;
 
         this._camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-        this._camera.position.set(75, 20, 0);
+        this._camera.position.set(5, 20, 0);
 
         this._scene = new THREE.Scene();
         this._scene.background = new THREE.Color(0xFFFFFF);
         this._scene.fog = new THREE.FogExp2(0x89b2eb, 0.002);
     
         let light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
-        light.position.set(-10, 500, 10);
+        light.position.set(-10, 1000, 10);
         light.target.position.set(0, 0, 0);
         light.castShadow = true;
-        light.shadow.bias = -0.1;
-        light.shadow.mapSize.width = 108;
-        light.shadow.mapSize.height = 108;
+        light.shadow.bias = -0.005;
+        light.shadow.mapSize.width = 1096;
+        light.shadow.mapSize.height = 1096;
         light.shadow.camera.near = 0.1;
         light.shadow.camera.far = 1000.0;
         light.shadow.camera.left = 100;
@@ -80,16 +101,16 @@ class BabelUniverse {
         // controls.target.set(10,0,0);
         // controls.update();
 
-        const loader = new THREE.CubeTextureLoader();
-        const texture = loader.load([
-            './resources/skycube/space-posx.jpg',
-            './resources/skycube/space-negx.jpg',
-            './resources/skycube/space-posy.jpg',
-            './resources/skycube/space-negy.jpg',
-            './resources/skycube/space-posz.jpg',
-            './resources/skycube/space-negz.jpg',
-        ]);
-        this._scene.background = texture;
+        // const loader = new THREE.CubeTextureLoader();
+        // const texture = loader.load([
+        //     './resources/skycube/space-posx.jpg',
+        //     './resources/skycube/space-negx.jpg',
+        //     './resources/skycube/space-posy.jpg',
+        //     './resources/skycube/space-negy.jpg',
+        //     './resources/skycube/space-posz.jpg',
+        //     './resources/skycube/space-negz.jpg',
+        // ]);
+        // this._scene.background = texture;
 
         const plane = new THREE.Mesh(
           new THREE.PlaneGeometry(1000, 1000, 10, 10),
@@ -108,14 +129,49 @@ class BabelUniverse {
 
         this._entityManager = new entity_manager.EntityManager();
 
-    this._grid = new spatial_hash_grid.SpatialHashGrid(
+        this._grid = new spatial_hash_grid.SpatialHashGrid(
         [[-1000, -1000], [1000, 1000]], [100, 100]);
         
+        this._LoadSky();
         this._LoadFoliage();
         this._LoadPlayer();
         this._LoadClouds();
         this._LoadBabelRubble();
         this._RAF();
+    }
+
+    _LoadControllers() {
+      const ui = new entity.Entity();
+      ui.AddComponent(new ui_controller.UIController());
+      this._entityManager.Add(ui, 'ui');
+    }
+
+    _LoadSky() {
+      const hemiLight = new THREE.HemisphereLight(0xFFFFFF, 0xFFFFFFF, 0.6);
+      hemiLight.color.setHSL(0.6, 1, 0.6);
+      hemiLight.groundColor.setHSL(0.095, 1, 0.75);
+      this._scene.add(hemiLight);
+  
+      const uniforms = {
+        "topColor": { value: new THREE.Color(0x0077ff) },
+        "bottomColor": { value: new THREE.Color(0xffffff) },
+        "offset": { value: 33 },
+        "exponent": { value: 0.6 }
+      };
+      uniforms["topColor"].value.copy(hemiLight.color);
+  
+      // this._scene.fog.color.copy(uniforms["bottomColor"].value);
+  
+      const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
+      const skyMat = new THREE.ShaderMaterial({
+          uniforms: uniforms,
+          vertexShader: _VS,
+          fragmentShader: _FS,
+          side: THREE.BackSide
+      });
+  
+      const sky = new THREE.Mesh(skyGeo, skyMat);
+      this._scene.add(sky);
     }
 
 
@@ -226,7 +282,7 @@ class BabelUniverse {
       const pos = player._position;
   
       this._sun.position.copy(pos);
-      this._sun.position.add(new THREE.Vector3(-10, 500, -10));
+      this._sun.position.add(new THREE.Vector3(0, 100, 0));
       this._sun.target.position.copy(pos);
       this._sun.updateMatrixWorld();
       this._sun.target.updateMatrixWorld();
