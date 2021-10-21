@@ -218,6 +218,8 @@ class BabelUniverse {
       player.AddComponent(
           new spatial_grid_controller.SpatialGridController({grid: this._grid}));
       this._entityManager.Add(player, 'player');
+      
+      player.AddComponent(new attack_controller.AttackController({timing: 0.7}));
 
       player.AddComponent(
         new equip_weapon_component.EquipWeapon({anchor: 'RightHandIndex1'}));
