@@ -1,15 +1,23 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118/build/three.module.js';
 
-import {math} from './math.js';
-import {gltf_component} from './gltf-component.js';
-import {entity} from './entity.js';
-import {entity_manager} from './entity-manager.js';
-import {spatial_hash_grid} from './spatial-hash-grid.js';
-import {spatial_grid_controller} from './spatial-grid-controller.js';
 import {third_person_camera} from './third-person-camera.js';
-
+import {entity_manager} from './entity-manager.js';
 import {player_entity} from './player-entity.js'
+import {entity} from './entity.js';
+import {gltf_component} from './gltf-component.js';
+import {health_component} from './health-component.js';
 import {player_input} from './player-input.js';
+import {npc_entity} from './npc-entity.js';
+import {math} from './math.js';
+import {spatial_hash_grid} from './spatial-hash-grid.js';
+import {ui_controller} from './ui-controller.js';
+import {health_bar} from './health-bar.js';
+import {level_up_component} from './level-up-component.js';
+import {quest_component} from './quest-component.js';
+import {spatial_grid_controller} from './spatial-grid-controller.js';
+import {inventory_controller} from './inventory-controller.js';
+import {equip_weapon_component} from './equip-weapon-component.js';
+import {attack_controller} from './attacker-controller.js';
 
 
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
@@ -17,7 +25,9 @@ import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/js
 import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/jsm/controls/OrbitControls.js';
 
 const enterBabelButton = document.getElementById("enterBabelButton");
-const babelDiv = document.getElementById("game-div");  
+const uiElement = document.getElementById("game-ui");
+const gameDiv = document.getElementById("gameDiv");
+
 
 const _VS = `
 varying vec3 vWorldPosition;
@@ -58,6 +68,8 @@ class BabelUniverse {
           this._threejs.setPixelRatio(window.devicePixelRatio);
           this._threejs.setSize(window.innerWidth, window.innerHeight);
 
+          this._threejs.domElement.id = 'gameDiv';
+
         document.body.appendChild(this._threejs.domElement);
         
         window.addEventListener('resize', () => {
@@ -80,15 +92,15 @@ class BabelUniverse {
         light.position.set(-10, 1000, 10);
         light.target.position.set(0, 0, 0);
         light.castShadow = true;
-        light.shadow.bias = -0.005;
-        light.shadow.mapSize.width = 1096;
-        light.shadow.mapSize.height = 1096;
+        light.shadow.bias = -0.00002;
+        light.shadow.mapSize.width = 4096;
+        light.shadow.mapSize.height = 4096;
         light.shadow.camera.near = 0.1;
         light.shadow.camera.far = 10000.0;
         light.shadow.camera.left = 100;
-        light.shadow.camera.right = 100;
+        light.shadow.camera.right = -100;
         light.shadow.camera.top = 100;
-        light.shadow.camera.bottom = 100;
+        light.shadow.camera.bottom = -100;
         this._scene.add(light);
     
         this._sun = light;
@@ -137,6 +149,7 @@ class BabelUniverse {
         this._LoadPlayer();
         this._LoadClouds();
         this._LoadBabelRubble();
+        this._LoadNPC();
         this._RAF();
     }
 
@@ -191,7 +204,9 @@ class BabelUniverse {
       player.AddComponent(
           new spatial_grid_controller.SpatialGridController({grid: this._grid}));
       this._entityManager.Add(player, 'player');
-  
+
+      player.AddComponent(
+        new equip_weapon_component.EquipWeapon({anchor: 'RightHandIndex1'}));
   
       const camera = new entity.Entity();
       camera.AddComponent(
@@ -199,7 +214,39 @@ class BabelUniverse {
               camera: this._camera,
               target: this._entityManager.Get('player')}));
       this._entityManager.Add(camera, 'player-camera');
+
+    }
+
+    // for weapons -> https://sketchfab.com/Tedathon/collections/weapons-fantasy
+
+    _LoadNPC() {
+      for (let i = 0; i < 30; ++i) {
+        const monsters = [
+          {
+            resourceName: 'diamond.fbx',
+            resourceTexture: 'diamond.jpeg',
+          },
+ 
+        ];
+        const m = monsters[math.rand_int(0, monsters.length - 1)];
   
+        const npc = new entity.Entity();
+        npc.AddComponent(new npc_entity.NPCController({
+            camera: this._camera,
+            scene: this._scene,
+            resourceName: m.resourceName,
+            resourceTexture: m.resourceTexture,
+        }));
+        npc.AddComponent(
+            new spatial_grid_controller.SpatialGridController({grid: this._grid}));
+        
+        npc.SetPosition(new THREE.Vector3(
+            (Math.random() * 2 - 1) * 1000,
+            0,
+            (Math.random() * 2 - 1) * 1000));
+
+        this._entityManager.Add(npc);
+      }
     }
 
 
@@ -313,9 +360,16 @@ class BabelUniverse {
 }
 
 // entering babel in v1
-enterBabelButton.addEventListener('click', enterBabel);
+// enterBabelButton.addEventListener('click', enterBabel);
 
-function enterBabel() {
-    enterBabelButton.classList.add('hide');
-    const babelUniverse = new BabelUniverse();
-}
+// function enterBabel() {
+//     enterBabelButton.classList.add('hide');
+//     uiElement.classList.remove("hide");
+//     const babelUniverse = new BabelUniverse();
+// }
+
+let _APP = null;
+
+window.addEventListener('DOMContentLoaded', () => {
+  _APP = new BabelUniverse();
+});

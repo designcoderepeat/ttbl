@@ -87,9 +87,10 @@ export const npc_entity = (() => {
         this._target = glb;
         this._params.scene.add(this._target);
 
-        this._target.scale.setScalar(0.025);
+        this._target.scale.setScalar(0.0525);
         this._target.position.copy(this._parent._position);
-        this._target.position.y += 0.35;
+        this._target.position.y += 1.35;
+        
         const texLoader = new THREE.TextureLoader();
         const texture = texLoader.load(
             './resources/monsters/Textures/' + this._params.resourceTexture);

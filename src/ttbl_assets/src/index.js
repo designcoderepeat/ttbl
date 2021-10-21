@@ -459,10 +459,10 @@ function get_random (list) {
 
 
 // entering babel in v1
-enterBabelButton.addEventListener('click', enterBabel);
+// enterBabelButton.addEventListener('click', enterBabel);
 
-function enterBabel() {
-  ttbl.greet("user_" + get_random(identities)).then((spawnDetails) => {
-    console.log("Spawn details for user = " + spawnDetails);
-  });
-}
+// function enterBabel() {
+//   ttbl.greet("user_" + get_random(identities)).then((spawnDetails) => {
+//     console.log("Spawn details for user = " + spawnDetails);
+//   });
+// }

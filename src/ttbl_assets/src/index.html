@@ -17,8 +17,26 @@ const audio = new Audio("./assets/sounds/calc1-press.mp3");
 <body>
 
   <div id="v1">
-    <button id="enterBabelButton" onclick="audio.play()">Enter Babel</button>
-    <div id = "game-div" class="hide babel-div"></div>
+    <button id="enterBabelButton" class="hide" onclick="audio.play()">Enter Babel</button>
+
+    <!-- <div>
+      <button style="background-color:transparent; "> 
+        <img src="./assets/resources/icons/backpack.png" height="50vw"/>
+      </button>
+      </div>  
+    </div> -->
+
+
+    <div class="ui">
+      <div class="icon-ui">
+        <div class="icon-bar" id="icon-bar">
+          <div class="icon-bar-item" id="icon-bar-stats" style="background-image: url('./assets/resources/icons/stats.png');"></div>
+          <div class="icon-bar-item" id="icon-bar-inventory" style="background-image: url('./assets/resources/icons/backpack.png');"></div>
+          <div class="icon-bar-item" id="icon-bar-quests" style="background-image: url('./assets/resources/icons/quest.png');"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div id="v0" class="hide">
@@ -61,6 +79,7 @@ const audio = new Audio("./assets/sounds/calc1-press.mp3");
 </div>
 
 <div class="bottomright">
+
   <div id="userOptions">
     <div class="gameOptionButton" id="takeScreenShot">takeScreenShot</div>
     <div class="gameOptionButton" id="mute">Mute</div>

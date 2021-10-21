@@ -76,8 +76,6 @@ export const player_entity = (() => {
 
         console.log("Hello = " + this._target)
 
-
-        
         // this will be needed soon IG
 
         // for (let b of this._target.children[1].skeleton.bones) {
@@ -261,6 +259,7 @@ export const player_entity = (() => {
   
       this._parent.SetPosition(this._position);
       this._parent.SetQuaternion(this._target.quaternion);
+
     }
   };
   
