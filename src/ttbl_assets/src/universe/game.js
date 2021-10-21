@@ -137,8 +137,6 @@ class BabelUniverse {
         this._scene.add(plane);
 
         this._mixers = [];
-        this._previousRAF = null;    
-
         this._entityManager = new entity_manager.EntityManager();
 
         this._grid = new spatial_hash_grid.SpatialHashGrid(
@@ -147,9 +145,13 @@ class BabelUniverse {
         this._LoadSky();
         this._LoadFoliage();
         this._LoadPlayer();
+        this._LoadGuru();
         this._LoadClouds();
         this._LoadBabelRubble();
         this._LoadNPC();
+        this._LoadControllers();
+
+        this._previousRAF = null;    
         this._RAF();
     }
 
@@ -201,6 +203,18 @@ class BabelUniverse {
       const player = new entity.Entity();
       player.AddComponent(new player_input.BasicCharacterControllerInput(params));
       player.AddComponent(new player_entity.BasicCharacterController(params));
+      player.AddComponent(new inventory_controller.InventoryController(params));
+      player.AddComponent(new health_component.HealthComponent({
+        updateUI: true,
+        health: 100,
+        maxHealth: 100,
+        strength: 50,
+        wisdomness: 5,
+        benchpress: 20,
+        curl: 100,
+        experience: 0,
+        level: 1,
+    }));
       player.AddComponent(
           new spatial_grid_controller.SpatialGridController({grid: this._grid}));
       this._entityManager.Add(player, 'player');
@@ -215,6 +229,27 @@ class BabelUniverse {
               target: this._entityManager.Get('player')}));
       this._entityManager.Add(camera, 'player-camera');
 
+    }
+
+
+    _LoadGuru() {
+      const guru = new entity.Entity();
+      guru.AddComponent(new gltf_component.AnimatedModelComponent({
+          scene: this._scene,
+          resourcePath: './resources/hero/',
+          resourceName: 'Ch39_nonPBR.fbx',
+          resourceAnimation: 'softpunch.fbx',
+          scale: 0.095,
+          receiveShadow: true,
+          castShadow: true,
+      }));
+      guru.AddComponent(new spatial_grid_controller.SpatialGridController({
+          grid: this._grid,
+      }));
+      guru.AddComponent(new player_input.PickableComponent());
+      guru.AddComponent(new quest_component.QuestComponent());
+      guru.SetPosition(new THREE.Vector3(30, 0, 0));
+      this._entityManager.Add(guru);
     }
 
     // for weapons -> https://sketchfab.com/Tedathon/collections/weapons-fantasy
@@ -232,20 +267,36 @@ class BabelUniverse {
   
         const npc = new entity.Entity();
         npc.AddComponent(new npc_entity.NPCController({
-            camera: this._camera,
-            scene: this._scene,
-            resourceName: m.resourceName,
-            resourceTexture: m.resourceTexture,
-        }));
-        npc.AddComponent(
-            new spatial_grid_controller.SpatialGridController({grid: this._grid}));
-        
-        npc.SetPosition(new THREE.Vector3(
-            (Math.random() * 2 - 1) * 1000,
-            0,
-            (Math.random() * 2 - 1) * 1000));
-
-        this._entityManager.Add(npc);
+          camera: this._camera,
+          scene: this._scene,
+          resourceName: m.resourceName,
+          resourceTexture: m.resourceTexture,
+      }));
+      npc.AddComponent(
+          new health_component.HealthComponent({
+              health: 50,
+              maxHealth: 50,
+              strength: 2,
+              wisdomness: 2,
+              benchpress: 3,
+              curl: 1,
+              experience: 0,
+              level: 1,
+              camera: this._camera,
+              scene: this._scene,
+          }));
+      npc.AddComponent(
+          new spatial_grid_controller.SpatialGridController({grid: this._grid}));
+      npc.AddComponent(new health_bar.HealthBar({
+          parent: this._scene,
+          camera: this._camera,
+      }));
+      npc.AddComponent(new attack_controller.AttackController({timing: 0.35}));
+      npc.SetPosition(new THREE.Vector3(
+          (Math.random() * 2 - 1) * 500,
+          0,
+          (Math.random() * 2 - 1) * 500));
+      this._entityManager.Add(npc);
       }
     }
 
@@ -310,10 +361,12 @@ class BabelUniverse {
     _LoadBabelRubble() {
         const loader = new GLTFLoader();
         loader.load('./resources/static/thing.glb', (gltf) => {
-          gltf.scene.scale.set(3, 3, 3);  
-          gltf.scene.position.y = 8;
-          gltf.scene.position.z = 11;
-          // gltf.rotation.x = -Math.PI / 2;
+          gltf.scene.scale.set(15, 15, 15);  
+          gltf.scene.position.y = -10;
+          gltf.scene.position.z = 2;
+          gltf.scene.position.x = 30;
+
+          // gltf.scene.rotation.x = -Math.PI / 2;
 
           gltf.scene.traverse(c => {
                 c.castShadow = true;
