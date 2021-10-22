@@ -74,13 +74,14 @@ export const player_entity = (() => {
   
         this._bones = {};
 
-        console.log("Hello = " + this._target)
+        console.log("bones");
+        console.log(this._target);
 
         // this will be needed soon IG
 
-        // for (let b of this._target.children[1].skeleton.bones) {
-        //   this._bones[b.name] = b;
-        // }
+        for (let b of this._target.children[1].children) {
+          this._bones[b.name] = b;
+        }
 
         this._target.traverse(c => {
           c.castShadow = true;

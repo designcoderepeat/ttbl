@@ -230,7 +230,7 @@ class BabelUniverse {
           },
       }));
       this._entityManager.Add(sword);
-      
+
   
       const player = new entity.Entity();
       player.AddComponent(new player_input.BasicCharacterControllerInput(params));
@@ -326,11 +326,11 @@ class BabelUniverse {
       }));
       npc.AddComponent(
           new health_component.HealthComponent({
-              health: 50,
-              maxHealth: 50,
-              strength: 2,
-              wisdomness: 2,
-              benchpress: 3,
+              health: 1,
+              maxHealth: 1,
+              strength: 1,
+              wisdomness: 1,
+              benchpress: 1,
               curl: 1,
               experience: 0,
               level: 1,
