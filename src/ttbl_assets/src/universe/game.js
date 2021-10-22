@@ -199,6 +199,38 @@ class BabelUniverse {
         camera: this._camera,
         scene: this._scene,
       };
+
+      const levelUpSpawner = new entity.Entity();
+      levelUpSpawner.AddComponent(new level_up_component.LevelUpComponentSpawner({
+          camera: this._camera,
+          scene: this._scene,
+      }));
+      this._entityManager.Add(levelUpSpawner, 'level-up-spawner');
+  
+      const axe = new entity.Entity();
+      axe.AddComponent(new inventory_controller.InventoryItem({
+          type: 'weapon',
+          damage: 3,
+          renderParams: {
+            name: 'Axe',
+            scale: 0.25,
+            icon: 'war-axe-64.png',
+          },
+      }));
+      this._entityManager.Add(axe);
+  
+      const sword = new entity.Entity();
+      sword.AddComponent(new inventory_controller.InventoryItem({
+          type: 'weapon',
+          damage: 3,
+          renderParams: {
+            name: 'Sword',
+            scale: 0.25,
+            icon: 'pointy-sword-64.png',
+          },
+      }));
+      this._entityManager.Add(sword);
+      
   
       const player = new entity.Entity();
       player.AddComponent(new player_input.BasicCharacterControllerInput(params));
@@ -223,6 +255,24 @@ class BabelUniverse {
 
       player.AddComponent(
         new equip_weapon_component.EquipWeapon({anchor: 'RightHandIndex1'}));
+
+      player.Broadcast({
+          topic: 'inventory.add',
+          value: axe.Name,
+          added: false,
+      });
+  
+      player.Broadcast({
+          topic: 'inventory.add',
+          value: sword.Name,
+          added: false,
+      });
+  
+      player.Broadcast({
+          topic: 'inventory.equip',
+          value: sword.Name,
+          added: false,
+      });
   
       const camera = new entity.Entity();
       camera.AddComponent(

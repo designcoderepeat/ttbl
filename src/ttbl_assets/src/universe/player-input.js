@@ -30,6 +30,7 @@ export const player_input = (() => {
         space: false,
         shift: false,
         up: false,
+        lookup: false,
       };
       this._raycaster = new THREE.Raycaster();
       document.addEventListener('keydown', (e) => this._onKeyDown(e), false);
@@ -38,7 +39,8 @@ export const player_input = (() => {
     }
   
     _onMouseUp(event) {
-      const rect = document.getElementById('threejs').getBoundingClientRect();
+      // get bounding client rectangle
+      const rect = document.getElementById("gameDiv").getBoundingClientRect();
       const pos = {
         x: ((event.clientX - rect.left) / rect.width) * 2  - 1,
         y: ((event.clientY - rect.top ) / rect.height) * -2 + 1,
@@ -98,6 +100,9 @@ export const player_input = (() => {
         case 16: // SHIFT
           this._keys.shift = true;
           break;
+        case 108: // i
+          this._keys.shift = true;
+          break;
       }
     }
   
@@ -122,6 +127,9 @@ export const player_input = (() => {
           this._keys.space = false;
           break;
         case 16: // SHIFT
+          this._keys.shift = false;
+          break;
+        case 108: // i  
           this._keys.shift = false;
           break;
       }

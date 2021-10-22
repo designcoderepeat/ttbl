@@ -331,6 +331,7 @@ nextButton.addEventListener('click', () => {
   setNextQuestion()
 })
 
+// you know ./bg/images worked in prod... base the location of other assets off of this
 function changeBG() {
   const newbg = './bg/images/' + Math.ceil(Math.random() * 60) + '.jpg';
   document.body.style.backgroundImage =  "url(" + newbg + ")";
@@ -466,3 +467,5 @@ function get_random (list) {
 //     console.log("Spawn details for user = " + spawnDetails);
 //   });
 // }
+
+// document.body.style.cursor = './resources/icons/ch.png';
