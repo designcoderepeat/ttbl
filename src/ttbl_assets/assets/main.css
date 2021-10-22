@@ -34,20 +34,20 @@
 }
 
 .health-ui {
-  background-image: url('./resources/icons/ui/health-bar.png');
-  width: 500px;
-  height: 300px;
+  background-image: url('./resources/icons/health-bar.png');
+  width: 200px;
+  height: 120px;
   z-index: 1;
 }
 
 .health-bar {
   background: greenyellow;
-  width: 200px;
-  max-width: 200px;
-  height: 40px;
+  width: 100px;
+  max-width: 100px;
+  height: 25px;
   position: relative;
-  top: 215px;
-  left: 260px;
+  top: 80px;
+  left: 90px;
   border-style: solid;
   border-width: 2px;
   border-color: black;

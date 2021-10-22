@@ -205,6 +205,8 @@ export const player_state = (() => {
     }
   
     Enter(prevState) {
+      console.log("Om namo narayana");
+      console.log(this._parent._proxy._animations['idle']);
       const idleAction = this._parent._proxy._animations['idle'].action;
       if (prevState) {
         const prevAction = this._parent._proxy._animations[prevState.Name].action;
