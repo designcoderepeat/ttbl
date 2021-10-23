@@ -6,8 +6,19 @@ const HttpAgent = require("@dfinity/agent").HttpAgent;
 const mainmenu = document.getElementById("mainmenu");
 
 const EnterBabelOption = document.getElementById("EnterBabelOption");
+const LoginOption = document.getElementById("LoginOption");
+const MainMenu = document.getElementById("mainmenu");
+const LogInPage = document.getElementById("login");
+const LoginButtonStoic = document.getElementById('loginButtonStoic');
+const UserProfileOption = document.getElementById('UserProfileOption');
+const UserProfilePage = document.getElementById('UserProfile');
+const UserProfileDisplayName = document.getElementById('UserProfileDisplayName');
+const backToMainMenuFromProfile = document.getElementById("backToMainMenuFromProfile");
 
+
+// Make the front end tranisitions stateless
 startGame();
+
 
 function startGame() {
   attachEventHandlers();
@@ -15,18 +26,70 @@ function startGame() {
 
 function attachEventHandlers() {
 
+  LoginButtonStoic.addEventListener('click', function (event) {
+    console.log(event);
+    getUserTextInputAndLogin();
+  })
+
+  LoginOption.addEventListener('click', function (event) {
+    logInToBabel(event);
+  });
+
+  UserProfileOption.addEventListener('click', function (event) {
+    hide(MainMenu);
+    show(UserProfilePage);
+  });
+
+  backToMainMenuFromProfile.addEventListener('click', () => {
+    hide(UserProfilePage);
+    show(MainMenu);
+  });
+
 };
 
-function showMainMenu() {
-  mainmenu.classList.remove('hide');
+const ShowMainMenu = function showMainMenu() {
+  show(MainMenu);
 };
 
-function hideMainMenu() {
-  mainmenu.classList.add('hide');
+function logInToBabel(event) {
+  console.log(event);
+  hide(MainMenu);
+  show(LogInPage);
+}
+
+function getUserTextInputAndLogin() {
+  var userName = getUserTextInput();
+  console.log(userName);
+  loginViaStoic(userName);
+  hide(LogInPage);
+  ShowMainMenu();
+  changeOption(LoginOption, UserProfileOption);
+}
+
+function changeOption(old, newO) {
+  hide(old);
+  show(newO);
+}
+
+function getUserTextInput() {
+  return userInputTerminal.value;
+}
+
+function toggle(div) {
+  if (div.classList.contains('hide')) {
+    div.classList.remove('hide');
+  } else {
+    div.classList.add('hide');
+  }
+}
+
+function show(div) {
+  div.classList.remove('hide');
 };
 
-
-
+function hide(div) {
+  div.classList.add('hide');
+};
 
 // const lessonElement = document.getElementById('lessons')
 // const lessonButtons = document.getElementById('lesson-container')
@@ -51,10 +114,10 @@ function hideMainMenu() {
 // const loginDiv = document.getElementById('login');
 // const gameDiv = document.getElementById('game');
 
-// const welcomeUserDiv = document.getElementById('welcomeUser');
-// const scoreElementDiv = document.getElementById('scoreElement');
+const welcomeUserDiv = document.getElementById('welcomeUser');
+const scoreElementDiv = document.getElementById('scoreElement');
 // const leaderBoardDiv = document.getElementById('leaderBoard');
-// const babelConvoDiv = document.getElementById('babelConvo');
+const babelConvoDiv = document.getElementById('babelConvo');
 
 // leaderBoardDiv.classList.add('hide');
 // goBackDiv.classList.add('hide');
@@ -79,65 +142,67 @@ function hideMainMenu() {
 //   loginDiv.classList.add('hide');
 // });
 
-// const idlFactory = ({ IDL }) => {
-//   return IDL.Service({
-//       'greet': IDL.Func([IDL.Text], [IDL.Text], []),
-//       'greetq': IDL.Func([IDL.Text], [IDL.Text], ['query']),
-//       'whoami': IDL.Func([], [IDL.Principal], ['query']),
-//   });
-// };
+const idlFactory = ({ IDL }) => {
+  return IDL.Service({
+      'greet': IDL.Func([IDL.Text], [IDL.Text], []),
+      'greetq': IDL.Func([IDL.Text], [IDL.Text], ['query']),
+      'whoami': IDL.Func([], [IDL.Principal], ['query']),
+  });
+};
 
 
 // //replace with any canister id
 // // console.log("CanisterIds = " + CanisterIds);
-// const canisterId = "rbsr6-fyaaa-aaaai-aarwa-cai";
+const canisterId = "rbsr6-fyaaa-aaaai-aarwa-cai";
 // // console.log("CanisterId = " + canisterId);
 
-// var userNameLoggedIn = "";
-// var userIdLoggedIn = "";
+var userNameLoggedIn = "";
+var userIdLoggedIn = "";
 
-// function loginToBabel(userName) {
-//   console.log(userName);
-//   StoicIdentity.load().then(async identity => {
-//     if (identity !== false) {
-//       //ID is a already connected wallet!
-//     } else {
-//       //No existing connection, lets make one!
-//       console.log("Awaiting stoic connection...");
-//       identity = await StoicIdentity.connect();
-//       console.log("Got stoic connection... continuining");
-//     }
+function loginViaStoic(userName) {
+  console.log(userName);
+  StoicIdentity.load().then(async identity => {
+    if (identity !== false) {
+      //ID is a already connected wallet!
+    } else {
+      //No existing connection, lets make one!
+      console.log("Awaiting stoic connection...");
+      identity = await StoicIdentity.connect();
+      console.log("Got stoic connection... continuining");
+    }
     
-//     //Lets display the connected principal!
-//     console.log("yooo " + identity.getPrincipal().toText());
-//     const userId = identity.getPrincipal().toText();
+    //Lets display the connected principal!
+    console.log("yooo " + identity.getPrincipal().toText());
+    const userId = identity.getPrincipal().toText();
 
-//     // call the createOrRegisterUser API
-//     ttbl.createUser(userName).then(result => {
-//       // get user details from here!
-//       console.log("Created user in DB = " + result);
-//     });
-//     console.log("holaa " + ttbl.getUser(userName));
+    // call the createOrRegisterUser API
+    ttbl.createUser(userName).then(result => {
+      // get user details from here!
+      console.log("Created user in DB = " + result);
+    });
+    console.log("holaa " + ttbl.getUser(userName));
 
-//     welcomeUserDiv.innerText = userName;
-//     addTextToChatBox('User ' + userName + ' connected');
+    welcomeUserDiv.innerText = userName;
+    // addTextToChatBox('User ' + userName + ' connected');
     
-//     // document.getElementById("userId").innerText = userId;
-//     babelSays("Welcome " + userName + ". It is a pleasure to welcome you, " + get_random(identities));
-//     // Create an actor canister
-//     const actor = Actor.createActor(idlFactory, {
-//      agent: new HttpAgent({
-//        identity,
-//      }),
-//      canisterId,
-//     });
+    // document.getElementById("userId").innerText = userId;
+    // babelSays("Welcome " + userName + ". It is a pleasure to welcome you, " + get_random(identities));
+    // Create an actor canister
+    const actor = Actor.createActor(idlFactory, {
+     agent: new HttpAgent({
+       identity,
+     }),
+     canisterId,
+    });
     
-//     userIdLoggedIn = userId;
-//     userNameLoggedIn = userName;
-//     // Disconnect after
-//     StoicIdentity.disconnect();
-//   });
-// }
+    userIdLoggedIn = userId;
+    userNameLoggedIn = userName;
+    // Disconnect after
+    StoicIdentity.disconnect();
+    hide(LogInPage);
+    ShowMainMenu();
+  });
+}
 
 // var score = 0;
 

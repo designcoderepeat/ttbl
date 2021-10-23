@@ -8,23 +8,32 @@
 </head>
 
 <body>
-
   <div id="mainmenu" class="menu mainmenu">
   <div id="GameTitleDisplay" class="MainMenuBanner"> The Tower Of Babel </div>
   <div id="EnterBabelOption" class="mainmenuoption"> Enter Babel </div>
   <div id="LoginOption" class="mainmenuoption"> Login </div>
-  <div id="LeaderBoardOption" class="mainmenuoption"> Stats and Leaderboard </div>  
+  <div id="UserProfileOption" class="mainmenuoption hide"> Profile </div>
+  <div id="LeaderBoardOption" class="mainmenuoption"> Leaderboard </div>  
   <div id="SettingsOption" class="mainmenuoption"> Settings </div>
   <div id="SocialsOption" class="mainmenuoption"> Socials </div>
   <div id="ReleaseNotesOption" class="mainmenuoption"> Release Notes </div>
   <div id="CreditsOption" class="mainmenuoption"> Credits </div>
 </div>
 
-  <div id="login" class="hide">
-<input class="gameOptionButton" id="userInputTerminal" placeholder=" Choose your username"> </input>
-<button class="gameOptionButton" id="userTerminalButton">
-  Login to Babel
-</button>
+<div id="login" class="hide">
+  <input class="gameOptionButton" id="userInputTerminal" placeholder=" Choose your username"> </input>
+  <button class="gameOptionButton" id="loginButtonStoic">   Login Via Stoic </button>
+  <button class="gameOptionButton hide" id="userTerminalButton"> Login to Babel </button>
+</div>
+
+<div id="UserProfile" class="hide"> 
+  <div id="mainmenu" class="profile mainmenu">
+    <div id="welcomeUser" class="MainMenuBanner"> </div>
+    <!-- <div id="welcomeUser" class="userdetails"> </div> -->
+    <div id="TotalScore" class="userdetails"> Total Score: 0 </div>
+    <div id="DiamondsMined" class="userdetails"> Diamonds Mined: 0 </div>
+    <div id="GameProgress" class="userdetails"> Game Progress: 0 % </div>
+    <div id="backToMainMenuFromProfile" class="mainmenuoption"> Back To Main menu</div>
 </div>
 
 </body>

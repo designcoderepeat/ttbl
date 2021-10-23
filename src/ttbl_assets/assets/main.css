@@ -16,6 +16,7 @@ body {
 }
 
  html {
+  cursor: url("./cursors/axe32.cur"), default;
   width: 100%;
   height: 100%;
   display: flex;
@@ -32,7 +33,7 @@ body {
 }
 
 .MainMenuBanner {
-  font-size: calc(30px + 5vw);
+  font-size: calc(22px + 5vw);
   font-family: babel-menu;
   justify-content: center;
   align-items: center;
@@ -51,6 +52,17 @@ body {
   box-shadow: 1px 6px 6px 2px rgba(219, 14, 14, 0.6);
 }
 
+.userdetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  font-family: babel-menu;
+  font-size: calc(20px + 2vw);
+  background: transparent;
+  color: #e6dfe1;
+  /* box-shadow: 1px 6px 6px 2px rgba(219, 14, 14, 0.6); */
+}
 
 #question {
   background: linear-gradient(-30deg,
