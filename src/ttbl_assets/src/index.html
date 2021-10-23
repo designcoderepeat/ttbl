@@ -1,96 +1,30 @@
 <!doctype html>
 <html lang="en">
-  <audio loop autoplay>
-    <source src="./assets/sounds/bg.wav" type="audio/wav">
-</audio>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yesd">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Babel Languages on IC </title>
-    <base href="/">
     <link type="text/css" rel="stylesheet" href="main.css" />
 </head>
-<script>
-const audio = new Audio("./assets/sounds/calc1-press.mp3");
-</script>
+
 <body>
 
-  <div id="login">
+  <div id="mainmenu" class="menu mainmenu">
+  <div id="GameTitleDisplay" class="MainMenuBanner"> The Tower Of Babel </div>
+  <div id="EnterBabelOption" class="mainmenuoption"> Enter Babel </div>
+  <div id="LoginOption" class="mainmenuoption"> Login </div>
+  <div id="LeaderBoardOption" class="mainmenuoption"> Stats and Leaderboard </div>  
+  <div id="SettingsOption" class="mainmenuoption"> Settings </div>
+  <div id="SocialsOption" class="mainmenuoption"> Socials </div>
+  <div id="ReleaseNotesOption" class="mainmenuoption"> Release Notes </div>
+  <div id="CreditsOption" class="mainmenuoption"> Credits </div>
+</div>
+
+  <div id="login" class="hide">
 <input class="gameOptionButton" id="userInputTerminal" placeholder=" Choose your username"> </input>
 <button class="gameOptionButton" id="userTerminalButton">
   Login to Babel
 </button>
-</div>
-
-<div class="topleft">
-  <div id="welcomeUser" class="gameDisplay"> 
-  </div>  
-
-</div>
-
-<div class="topright"> 
-  <div id="scoreElement" class="gameDisplay">
-  </div>
-</div>
-
-<div class="bottommid">
-  <div id="babelConvo" class="gameDisplayTopMid">
-  </div> 
-</div>
-
-<div class ="topright">
-  <div id="leaderBoard" class="gameDisplay"> LeaderBoard </div>
-  </div>
-
-<div class="bottomleft">
-  <div id="userChat" class="gameDisplay">
-    UserChat
-  </div>
-</div>
-
-<div class = "bottommid">
-  <!-- should display only one at a time... when in game you cant save... can only go back-->
-  <div id="goBack" class="gameOptionButton">Back</div>
-</div>
-
-<div class="bottomright">
-  <div id="userOptions">
-    <div class="gameOptionButton" id="takeScreenShot">takeScreenShot</div>
-    <div class="gameOptionButton" id="mute">Mute</div>
-  </div>
-  <button id="saveProgress" class="gameOptionButton">Save</button>
-</div>
-
-<div id="game" class="gamediv"> 
-  <div class="main-container">
-    <div id="lesson-container" class = "hide container">
-      <div id="lesson-buttons" class="btn-grid">
-        <button id="test-turkish" class="turkishLesson lesson-btn btn" onclick="audio.play()">Test your Türkish</button>
-        <button id="learn-turkish" class="hide" class="turkishLesson lesson-btn btn" onclick="audio.play()">Learn Türkish </button>
-        <button id="explore-tamil" class="tamilLesson lesson-btn btn" onclick="audio.play()">Explore தமிழ் with Babel</button>
-      </div>
-    </div>  
-  <div id="questions" class="container item">
-  <div id="question-container" class="hide">
-    <div id="question">Question</div>
-    <div id="answer-buttons" class="btn-grid">
-      <button class="btn">Answer 1</button>
-      <button class="btn">Answer 2</button>
-      <button class="btn">Answer 3</button>
-      <button class="btn">Answer 4</button>
-    </div>
-  </div>
-  <div class="controls">
-    <button id="start-learning-btn" onclick="audio.play()" class="start-lerning-btn btn">Enter Babel</button>
-    <button id="continue-learning-btn" onclick="audio.play()" class="btn">Continue Learning</button>
-    <button id="start-btn" onclick="audio.play()" class="start-btn btn hide">Start</button>
-    <button id="next-btn" onclick="audio.play()" class="next-btn btn hide">Next</button>
-  </div>
-
-</div>
-</div>
-</div>
 </div>
 
 </body>
