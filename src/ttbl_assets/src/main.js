@@ -61,9 +61,9 @@ class BabelUniverse {
     this._threejs.shadowMap.type = THREE.PCFSoftShadowMap;
     this._threejs.setPixelRatio(window.devicePixelRatio);
     this._threejs.setSize(window.innerWidth, window.innerHeight);
-    this._threejs.domElement.id = 'GameDiv';
+    this._threejs.domElement.id = 'threejs';
 
-    document.getElementById('container').appendChild(this._threejs.domElement);
+    document.getElementById('GameDiv').appendChild(this._threejs.domElement);
 
     window.addEventListener('resize', () => {
       this._OnWindowResize();
@@ -119,6 +119,10 @@ class BabelUniverse {
 
     this._previousRAF = null;
     this._RAF();
+    // Create the event
+    var event = new CustomEvent("name-of-event", { "detail": "Example of an event" });
+    // Dispatch/Trigger/Fire the event
+    document.dispatchEvent(event);
   }
 
   _LoadControllers() {
@@ -423,13 +427,5 @@ class BabelUniverse {
 let _APP = null;
 const EnterBabelOption = document.getElementById("EnterBabelOption");
 EnterBabelOption.addEventListener('click', () => {
-  
   _APP = new BabelUniverse();
-
-// Create the event
-var event = new CustomEvent("name-of-event", { "detail": "Example of an event" });
-
-// Dispatch/Trigger/Fire the event
-document.dispatchEvent(event);
-
 });
