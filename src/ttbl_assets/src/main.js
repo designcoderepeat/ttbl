@@ -131,6 +131,12 @@ class BabelUniverse {
     this._entityManager.Add(ui, 'ui');
   }
 
+  // enter home planet... 
+  // home planet, can have max size 100, 100
+  _SetupMap(params) {
+
+  }
+
   _LoadSky() {
     const hemiLight = new THREE.HemisphereLight(0xFFFFFF, 0xFFFFFFF, 0.6);
     hemiLight.color.setHSL(0.6, 1, 0.6);
