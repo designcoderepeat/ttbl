@@ -111,6 +111,7 @@ module.exports = {
         },
       },
     },
+    disableHostCheck: true,   // That solved it
     hot: true,
     contentBase: path.resolve(__dirname, "./src/ttbl_assets"),
     watchContentBase: true
