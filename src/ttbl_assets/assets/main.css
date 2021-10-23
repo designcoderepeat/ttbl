@@ -171,7 +171,7 @@ body {
     margin: 0;
     display: flex;
     width: 100vw;
-    height: 80vh;
+    height: 100vh;
     justify-content: center;
     align-items: center;
     background-color: hsl(var(--hue), 100%, 20%);

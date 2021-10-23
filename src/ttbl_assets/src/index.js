@@ -3,6 +3,9 @@ import {StoicIdentity} from "ic-stoic-identity";
 const Actor = require("@dfinity/agent").Actor;
 const HttpAgent = require("@dfinity/agent").HttpAgent;
 
+const LoaderDiv = document.getElementById("LoaderDiv");
+const GameDiv = document.getElementById("GameDiv");
+
 const mainmenu = document.getElementById("mainmenu");
 
 const EnterBabelOption = document.getElementById("EnterBabelOption");
@@ -14,7 +17,6 @@ const UserProfileOption = document.getElementById('UserProfileOption');
 const UserProfilePage = document.getElementById('UserProfile');
 const UserProfileDisplayName = document.getElementById('UserProfileDisplayName');
 const backToMainMenuFromProfile = document.getElementById("backToMainMenuFromProfile");
-
 
 // Make the front end tranisitions stateless
 startGame();
@@ -44,6 +46,22 @@ function attachEventHandlers() {
     hide(UserProfilePage);
     show(MainMenu);
   });
+
+
+  // load loader
+  EnterBabelOption.addEventListener('click', () => {
+    hide(MainMenu);
+    show(LoaderDiv);
+  });
+
+  //
+  // Add an event listener
+document.addEventListener("name-of-event", function(e) {
+  console.log(e.detail); // Prints "Example of an event"
+  hide(LoaderDiv);
+  show(GameDiv);
+});
+
 
 };
 
