@@ -282,7 +282,7 @@ class BabelUniverse {
     player.AddComponent(new player_input.BasicCharacterControllerInput(params));
     player.AddComponent(new player_entity.BasicCharacterController(params));
     player.AddComponent(
-      new equip_weapon_component.EquipWeapon({anchor: 'RightHandIndex1'}));
+    new equip_weapon_component.EquipWeapon({anchor: 'RightHandIndex1'}));
     player.AddComponent(new inventory_controller.InventoryController(params));
     player.AddComponent(new health_component.HealthComponent({
         updateUI: true,

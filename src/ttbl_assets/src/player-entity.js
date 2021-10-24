@@ -73,7 +73,6 @@ export const player_entity = (() => {
         this._params.scene.add(this._target);
   
         this._bones = {};
-
         for (let b of this._target.children[1].skeleton.bones) {
           this._bones[b.name] = b;
         }
