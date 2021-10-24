@@ -12,6 +12,8 @@ module {
 
   public type UserProgress = HashMap.HashMap<Text, Text>;
 
+  public type Batte = Challenge;
+
   public type ChallengeMetadata = {
       id: ChallengeId;
       status: ChallengeStatus;
@@ -25,6 +27,11 @@ module {
     location: Location;
     challenges: [ChallengeMetadata];    
     friends: [UserId];
+    // quests: [QuestsMetadata];
+    // maxvel: Nat;
+    // maxacc: Nat; 
+    // inventory: [Text]
+    // stats: HashMap // updateStats method will also act as cheat code check
   };
   
   // diff languages can have diff epochs

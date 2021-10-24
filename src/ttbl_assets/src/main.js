@@ -20,7 +20,6 @@ import {equip_weapon_component} from './equip-weapon-component.js';
 import {attack_controller} from './attacker-controller.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
 
-
 const _VS = `
 varying vec3 vWorldPosition;
 
@@ -45,6 +44,9 @@ void main() {
   gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h , 0.0), exponent ), 0.0 ) ), 1.0 );
 }`;
 
+function babelSays(msg) {
+  babelConvoDiv.innerText = msg;
+}
 
 // bugfix1. if there are 2 entities in same spot in hashgrid, move one out a lil
 
@@ -196,10 +198,9 @@ class BabelUniverse {
   _LoadFoliage() {
     for (let i = 0; i < 100; ++i) {
       const names = [
-          'CommonTree_Dead', 'CommonTree',
-          'BirchTree', 'BirchTree_Dead',
-          'Willow', 'Willow_Dead',
-          'PineTree',
+        'CommonTree',
+        'BirchTree',
+        'Willow', 'Grass', 'Rock_Moss'
       ];
       const name = names[math.rand_int(0, names.length - 1)];
       const index = math.rand_int(1, 5);
@@ -363,9 +364,9 @@ _LoadTTBL() {
     const player = new entity.Entity();
 
     player.SetPosition(new THREE.Vector3(
-      -2000 + (Math.random() * 2 - 1) * 3000,
+      1000 + (Math.random() * 2 - 1) * 3000,
       1000 + (Math.random() * 2 - 1) * 500,
-      -2000 + (Math.random() * 2 - 1) * 3000));
+      -1000 + (Math.random() * 2 - 1) * 3000));
 
     player.AddComponent(new player_input.BasicCharacterControllerInput(params));
     player.AddComponent(new player_entity.BasicCharacterController(params));
@@ -377,9 +378,7 @@ _LoadTTBL() {
         health: 100,
         maxHealth: 100,
         strength: 50,
-        wisdomness: 5,
-        benchpress: 20,
-        curl: 100,
+        wisdom: 5,
         experience: 0,
         level: 1,
     }));
@@ -469,14 +468,18 @@ _LoadTTBL() {
           camera: this._camera,
       }));
       npc.AddComponent(new attack_controller.AttackController({timing: 0.35}));
+      
+      // let degOfFreedom = 4;
+      // let spawnSeed = 300 + (Math.random() * 2 - 1) * 700
+      
       npc.SetPosition(new THREE.Vector3(
-          (Math.random() * 2 - 1) * 500,
+          500,
           0,
-          (Math.random() * 2 - 1) * 500));
+          500));
       this._entityManager.Add(npc);
     }
   }
-
+d
   _OnWindowResize() {
     this._camera.aspect = window.innerWidth / window.innerHeight;
     this._camera.updateProjectionMatrix();

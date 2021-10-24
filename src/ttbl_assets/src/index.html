@@ -23,6 +23,17 @@
   <div id="version" class="hide"></div> 
 </div>
 
+
+<div id="ingamemenu" class="menu mainmenu hide">
+  <div id="GameTitleDisplay" class="MainMenuBanner"> The Tower Of Babel</div>
+  <div id="SaveProgress" class="mainmenuoption"> Save Progress </div>
+  <div id="Stats" class="mainmenuoption"> Statistics </div>
+  <div id="EnterStoreOption" class="mainmenuoption"> Enter Store </div> 
+  <div id="BackToGameOption" class="mainmenuoption"> Back To Game </div>
+  <div id="ExitBabelOption" class="mainmenuoption"> Exit Babel </div>
+  <div id="version" class="hide"></div> 
+</div>
+
 <div id="Settings" class="hide">
   <!-- toggle bable convo div -->
   <div id="Toggle Dialog Box"> Toggle Dialog Box </div> 
@@ -91,7 +102,7 @@
     </div>
   </div>
   <div class="ui">
-    <div class="health-ui">
+    <div id="health-ui" class="health-ui">
       <div class="health-bar" id="health-bar"></div>
     </div>
   </div>
@@ -175,14 +186,19 @@
   <div id="conrolListed"> D - turn right </div>
   <div class="conrolsListed"> space - dance </div>
   <div id="conrolListed"> click - interact </div>
+  <>
+  On the top you can see the Health bar and you can click it to enter your profile or the main menu 
+  On the bottom you have your buttons, for stats, inventory and quests
 </div>
 
-<div id="InGameMenu" class="hide">
+<!-- <div id="InGameMenu" class="hide">
+  <div id="welcomeUserInBabel" class="MainMenuBanner"> Sign In To Save Progress</div>
   <div id="backToGame" class="mainmenuoption"> Back To Game</div>
   <div id="sessionStats" class="mainmenuoption"> Session Progress </div>
-  <div id="saveProgress" class="mainmenuoption"> Save Progress </div>
+  <div id="signinToSaveProgress" class="mainmenuoption"> Sign In To Save Progress </div>
+  <div id="saveProgressInBabel" class="mainmenuoption"> Save Progress </div>
   <div id="backToMainMenuFromGame" class="mainmenuoption"> Back To Main menu</div>
-</div>
+</div> -->
 
 <div id="pickups" class="hide"> 
   mushroom - grow in size temporarily
@@ -197,7 +213,20 @@ monsters, change sky to dark, surrounds the babel town, master Guru
 
 
 <div id="babelConvo" class="bottommid">
+  
 </div> 
+
+<div id="Store" class="Store hide"> 
+  <div class="StoreItem">
+    <div id="BuyHealth" class="StoreItemName"> Buy 20 Health </div>
+    <div id="BuyHealthCost" class="StoreItemCost"> Free </div>
+  </div>
+  <div class="StoreItem">
+    <div id="BuySpeed" class="StoreItemName"> Buy x2 speed for 10 mins </div>
+    <!-- integrate adsense -->
+    <div id="BuyHealthCost" class="StoreItemCost"> Watch Ad </div>
+  </div>
+</div>
 
 <div class="hide" id="gameUI">
 </div>

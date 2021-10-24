@@ -19,8 +19,10 @@ const UserProfileDisplayName = document.getElementById('UserProfileDisplayName')
 const backToMainMenuFromProfile = document.getElementById("backToMainMenuFromProfile");
 
 // Make the front end tranisitions stateless
-startGame();
 
+// add annotation to surround console.log with also motoko log
+// add logging at begining and end of every funciton
+startGame();
 
 function startGame() {
   attachEventHandlers();
@@ -52,16 +54,21 @@ function attachEventHandlers() {
   EnterBabelOption.addEventListener('click', () => {
     hide(MainMenu);
     show(LoaderDiv);
+    babelSays("Entering Babel...");
   });
 
   //
-  // Add an event listener
+  // Add an event listener 
 document.addEventListener("name-of-event", function(e) {
   console.log(e.detail); // Prints "Example of an event"
   hide(LoaderDiv);
   show(GameDiv);
 });
 
+document.getElementById("health-ui").addEventListener('click', () => {
+  console.log(e.detail); // Prints "Example of an event"
+  show(document.getElementById("ingamemenu"));
+});
 
 };
 
@@ -149,10 +156,10 @@ const babelConvoDiv = document.getElementById('babelConvo');
 // continueLearningButton.classList.add('hide');
 
 function babelSays(msg) {
-  babelConvoDiv.innerText = msg;
+  document.getElementById("babelConvo").innerText = msg;
 }
 
-babelSays("Hello Traveller");
+babelSays("");
 
 // userTerminalButton.addEventListener("click", async () => {
 //   var userName = userInputTerminal.value;
@@ -204,6 +211,7 @@ function loginViaStoic(userName) {
 
     welcomeUserDiv.innerText = userName;
     welcomeUserInBabel.innerText = userName;
+    
     // addTextToChatBox('User ' + userName + ' connected');
     
     // document.getElementById("userId").innerText = userId;

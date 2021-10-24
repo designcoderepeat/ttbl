@@ -10,6 +10,8 @@ module {
   type UserData = Types.UserData;
   type Location = Types.Location;
 
+  // type isUserActive = Types.Text;
+
   public class UserDb() {
     func isEq(x: UserId, y: UserId): Bool { x == y };
 

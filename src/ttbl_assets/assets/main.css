@@ -15,6 +15,12 @@ body {
   src: url(fonts/menu.ttf);
 }
 
+@font-face {
+  font-family: 'babel-convo';
+  src: url(fonts/POLYA.otf);
+}
+
+
  html {
   cursor: url("./cursors/axe32.cur"), default;
   width: 100%;
@@ -65,6 +71,16 @@ body {
   /* box-shadow: 1px 6px 6px 2px rgba(219, 14, 14, 0.6); */
 }
 
+
+
+#babelConvo {
+  font-family: babel-convo;
+  font-size: xx-large;
+  color: rgb(5, 233, 108);
+  background: transparent;
+  box-shadow: 1px 6px 6px 2px rgba(10, 53, 1, 0.6);
+}
+
 #version {
   display: flex; 
   width: 100%;
@@ -72,6 +88,8 @@ body {
   color: #f99448;
   font-family: babel-menu;
 }
+
+
 
 #question {
   background: linear-gradient(-30deg,
@@ -348,14 +366,15 @@ body {
   width: 75px;
   height: 75px;
   margin: 2px;
-  box-shadow: #e73c7e;
+  box-shadow: 0 6px 6px 6px #e73c7e;
 }
 
-.health-ui {
+#health-ui {
   background-image: url('./resources/icons/ui/health-bar.png');
   width: 200px;
   height: 120px;
-  z-index: 1;
+  box-shadow: 0 6px 6px 6px turquoise;
+  position: absolute;
 }
 
 .health-bar {

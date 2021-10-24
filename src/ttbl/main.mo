@@ -16,6 +16,11 @@ import User "./user";
 import Types "./types";
 
 actor { // actor is babel
+
+  let BabelTime = Time.now();
+  let BabelTimeDilation = 100;
+  let BabelTimeUnits = "Nano";
+
   type ChallengeId = Types.ChallengeId;
   type ChallengeMetadata = Types.ChallengeMetadata;
   type ChallengeStatus = Types.ChallengeStatus;
@@ -473,7 +478,6 @@ actor { // actor is babel
   // implement metachallengeservice
   // add the o,h,m encoder
   
-
   //User Default Options
   // test your french, spanish, german, english (via these other languages)
   // learn numbers (challenges)
