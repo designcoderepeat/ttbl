@@ -146,11 +146,11 @@ const babelConvoDiv = document.getElementById('babelConvo');
 // gameDiv.classList.add('hide');
 // continueLearningButton.classList.add('hide');
 
-// function babelSays(msg) {
-//   babelConvoDiv.innerText = msg;
-// }
+function babelSays(msg) {
+  babelConvoDiv.innerText = msg;
+}
 
-// babelSays("Hello Traveller");
+babelSays("Hello Traveller");
 
 // userTerminalButton.addEventListener("click", async () => {
 //   var userName = userInputTerminal.value;
