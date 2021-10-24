@@ -245,11 +245,11 @@ class BabelUniverse {
     guru.AddComponent(new player_input.PickableComponent());
     guru.AddComponent(new quest_component.QuestComponent());
     
-    // const randX = -100 + ((Math.random() * 2.0 - 1.0) * 200);
-    // const randZ = 300 + ((Math.random() * 2.0 - 1.0) * 150);
+    const randX = -100 + ((Math.random() * 2.0 - 1.0) * 200);
+    const randZ = 300 + ((Math.random() * 2.0 - 1.0) * 150);
 
-    const randX = 10;
-    const randZ  = 10;
+    // const randX = 10;
+    // const randZ  = 10;
 
     const posGuru = new THREE.Vector3(
       randX
@@ -361,6 +361,11 @@ _LoadTTBL() {
     this._entityManager.Add(girl);
 
     const player = new entity.Entity();
+
+    player.SetPosition(new THREE.Vector3(
+      -500 + (Math.random() * 2 - 1) * 250,
+      0,
+      -500 + (Math.random() * 2 - 1) * 250));
     player.AddComponent(new player_input.BasicCharacterControllerInput(params));
     player.AddComponent(new player_entity.BasicCharacterController(params));
     player.AddComponent(
