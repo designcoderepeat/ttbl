@@ -115,7 +115,7 @@ class BabelUniverse {
 
     this._LoadControllers();
     // this._LoadTower();
-    // this._LoadTTBL
+    this._LoadTTBL();
     this._LoadGuru();
     this._LoadFoliage();
     this._LoadClouds();
@@ -245,11 +245,11 @@ class BabelUniverse {
     guru.AddComponent(new player_input.PickableComponent());
     guru.AddComponent(new quest_component.QuestComponent());
     
-    const randX = -100 + ((Math.random() * 2.0 - 1.0) * 200);
-    const randZ = 300 + ((Math.random() * 2.0 - 1.0) * 150);
+    // const randX = -100 + ((Math.random() * 2.0 - 1.0) * 200);
+    // const randZ = 300 + ((Math.random() * 2.0 - 1.0) * 150);
 
-    // const randX = 10;
-    // const randZ  = 10;
+    const randX = 10;
+    const randZ  = 10;
 
     const posGuru = new THREE.Vector3(
       randX
@@ -258,7 +258,7 @@ class BabelUniverse {
 
     const posRubble = new THREE.Vector3(
       randX 
-     , 0
+     , 10
      , randZ + 1.25);
 
     guru.SetPosition(posGuru);
@@ -271,7 +271,7 @@ class BabelUniverse {
   _LoadBabelRubble(posRubble) {
     const loader = new GLTFLoader();
     loader.load('./resources/scenes/permanent/thing.glb', (gltf) => {
-      gltf.scene.scale.set(8, 8, 8);  
+      gltf.scene.scale.set(8, 8, 8);  // 8, 8, 8 for rubble
       gltf.scene.position.y = -3;
       gltf.scene.position.z = posRubble.z;
       gltf.scene.position.x = posRubble.x;
@@ -285,57 +285,23 @@ class BabelUniverse {
     });
 }
 
-  _LoadTTBL() {
+_LoadTTBL() {
+  const loader = new GLTFLoader();
+  loader.load('./resources/scenes/permanent/ttbl.glb', (gltf) => {
+    gltf.scene.scale.set(1, 1, 1);  
 
-      const pos = new THREE.Vector3(
-      (Math.random() * 2.0 - 1.0) * 100,
-      0,
-      (Math.random() * 2.0 - 1.0) * 100);
+    gltf.scene.position.y = 0;
+      gltf.scene.position.z = 0;
+      gltf.scene.position.x = 0;
 
-      const e = new entity.Entity();
-      e.AddComponent(new gltf_component.StaticModelComponent({
-        scene: this._scene,
-        resourcePath: './resources/scenes/ttbl/',
-        resourceName: 'scene' + '.gltf',
-        position: pos,
-        scale: 1,
-        emissive: new THREE.Color(0x808080),
-      }));
-      e.SetPosition(pos);
-      this._entityManager.Add(e);
-      e.SetActive(false);
-      console.log("Added ttbl")
-  }
+    // gltf.scene.rotation.y = -Math.PI ;
 
-  _LoadTower() {
-      const pos = new THREE.Vector3(
-          200 + (Math.random() * 2.0 - 1.0) * 200 ,
-          50,
-          -50 + (Math.random() * 2.0 - 1.0) * 100);
-          
-          // const pos = new THREE.Vector3(
-          //   0,
-          //   0,
-          //   0);
-
-      const e = new entity.Entity();
-      e.AddComponent(new gltf_component.StaticModelComponent({
-        scene: this._scene,
-        resourcePath: './resources/scenes/',
-        resourceName: 'ttbl.fbx',
-        scale: 0.0725,
-        emissive: new THREE.Color(0x000000),
-        specular: new THREE.Color(0x000000),
-        receiveShadow: true,
-        castShadow: true,
-      }));
-      e.AddComponent(
-          new spatial_grid_controller.SpatialGridController({grid: this._grid}));
-      e.SetPosition(pos);
-      e.SetQuaternion(-Math.PI / 2);
-      this._entityManager.Add(e);
-      e.SetActive(false);
-  }
+    gltf.scene.traverse(c => {
+          c.castShadow = true;
+      });
+      this._scene.add(gltf.scene);
+  });
+}
 
   _LoadPlayer() {
     const params = {
