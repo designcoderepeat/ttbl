@@ -18,6 +18,7 @@ import {spatial_grid_controller} from './spatial-grid-controller.js';
 import {inventory_controller} from './inventory-controller.js';
 import {equip_weapon_component} from './equip-weapon-component.js';
 import {attack_controller} from './attacker-controller.js';
+import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
 
 
 const _VS = `
@@ -45,6 +46,7 @@ void main() {
 }`;
 
 
+// bugfix1. if there are 2 entities in same spot in hashgrid, move one out a lil
 
 class BabelUniverse {
   constructor() {
@@ -112,10 +114,13 @@ class BabelUniverse {
         [[-1000, -1000], [1000, 1000]], [100, 100]);
 
     this._LoadControllers();
-    this._LoadPlayer();
+    // this._LoadTower();
+    // this._LoadTTBL
+    this._LoadGuru();
     this._LoadFoliage();
     this._LoadClouds();
     this._LoadSky();
+    this._LoadPlayer();
 
     this._previousRAF = null;
     this._RAF();
@@ -223,6 +228,115 @@ class BabelUniverse {
     }
   }
 
+  _LoadGuru() {
+    const guru = new entity.Entity();
+    guru.AddComponent(new gltf_component.AnimatedModelComponent({
+        scene: this._scene,
+        resourcePath: './resources/hero/',
+        resourceName: 'Ch39_nonPBR.fbx',
+        resourceAnimation: 'softpunch.fbx',
+        scale: 0.045,
+        receiveShadow: true,
+        castShadow: true,
+    }));
+    guru.AddComponent(new spatial_grid_controller.SpatialGridController({
+        grid: this._grid,
+    }));
+    guru.AddComponent(new player_input.PickableComponent());
+    guru.AddComponent(new quest_component.QuestComponent());
+    
+    const randX = -100 + ((Math.random() * 2.0 - 1.0) * 200);
+    const randZ = 300 + ((Math.random() * 2.0 - 1.0) * 150);
+
+    // const randX = 10;
+    // const randZ  = 10;
+
+    const posGuru = new THREE.Vector3(
+      randX
+     , 0
+     , randZ);
+
+    const posRubble = new THREE.Vector3(
+      randX 
+     , 0
+     , randZ + 1.25);
+
+    guru.SetPosition(posGuru);
+    this._entityManager.Add(guru);
+
+    this._LoadBabelRubble(posRubble);
+
+  }
+
+  _LoadBabelRubble(posRubble) {
+    const loader = new GLTFLoader();
+    loader.load('./resources/scenes/permanent/thing.glb', (gltf) => {
+      gltf.scene.scale.set(8, 8, 8);  
+      gltf.scene.position.y = -3;
+      gltf.scene.position.z = posRubble.z;
+      gltf.scene.position.x = posRubble.x;
+
+      // gltf.scene.rotation.y = -Math.PI ;
+
+      gltf.scene.traverse(c => {
+            c.castShadow = true;
+        });
+        this._scene.add(gltf.scene);
+    });
+}
+
+  _LoadTTBL() {
+
+      const pos = new THREE.Vector3(
+      (Math.random() * 2.0 - 1.0) * 100,
+      0,
+      (Math.random() * 2.0 - 1.0) * 100);
+
+      const e = new entity.Entity();
+      e.AddComponent(new gltf_component.StaticModelComponent({
+        scene: this._scene,
+        resourcePath: './resources/scenes/ttbl/',
+        resourceName: 'scene' + '.gltf',
+        position: pos,
+        scale: 1,
+        emissive: new THREE.Color(0x808080),
+      }));
+      e.SetPosition(pos);
+      this._entityManager.Add(e);
+      e.SetActive(false);
+      console.log("Added ttbl")
+  }
+
+  _LoadTower() {
+      const pos = new THREE.Vector3(
+          200 + (Math.random() * 2.0 - 1.0) * 200 ,
+          50,
+          -50 + (Math.random() * 2.0 - 1.0) * 100);
+          
+          // const pos = new THREE.Vector3(
+          //   0,
+          //   0,
+          //   0);
+
+      const e = new entity.Entity();
+      e.AddComponent(new gltf_component.StaticModelComponent({
+        scene: this._scene,
+        resourcePath: './resources/scenes/',
+        resourceName: 'ttbl.fbx',
+        scale: 0.0725,
+        emissive: new THREE.Color(0x000000),
+        specular: new THREE.Color(0x000000),
+        receiveShadow: true,
+        castShadow: true,
+      }));
+      e.AddComponent(
+          new spatial_grid_controller.SpatialGridController({grid: this._grid}));
+      e.SetPosition(pos);
+      e.SetQuaternion(-Math.PI / 2);
+      this._entityManager.Add(e);
+      e.SetActive(false);
+  }
+
   _LoadPlayer() {
     const params = {
       camera: this._camera,
@@ -260,6 +374,8 @@ class BabelUniverse {
     }));
     this._entityManager.Add(sword);
 
+
+    
     const girl = new entity.Entity();
     girl.AddComponent(new gltf_component.AnimatedModelComponent({
         scene: this._scene,
@@ -275,7 +391,7 @@ class BabelUniverse {
     }));
     girl.AddComponent(new player_input.PickableComponent());
     girl.AddComponent(new quest_component.QuestComponent());
-    girl.SetPosition(new THREE.Vector3(30, 0, 0));
+    girl.SetPosition(new THREE.Vector3(30, 0, 30));
     this._entityManager.Add(girl);
 
     const player = new entity.Entity();

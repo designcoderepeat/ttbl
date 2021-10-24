@@ -133,6 +133,8 @@ function hide(div) {
 // const gameDiv = document.getElementById('game');
 
 const welcomeUserDiv = document.getElementById('welcomeUser');
+const welcomeUserInBabel = document.getElementById('welcomeUserInBabel');
+
 const scoreElementDiv = document.getElementById('scoreElement');
 // const leaderBoardDiv = document.getElementById('leaderBoard');
 const babelConvoDiv = document.getElementById('babelConvo');
@@ -201,6 +203,7 @@ function loginViaStoic(userName) {
     console.log("holaa " + ttbl.getUser(userName));
 
     welcomeUserDiv.innerText = userName;
+    welcomeUserInBabel.innerText = userName;
     // addTextToChatBox('User ' + userName + ' connected');
     
     // document.getElementById("userId").innerText = userId;
