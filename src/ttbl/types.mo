@@ -31,7 +31,7 @@ module {
     // maxvel: Nat;
     // maxacc: Nat; 
     // inventory: [Text]
-    // stats: HashMap // updateStats method will also act as cheat code check
+    // stats: HashMap // updateStats method will also act as cheat code check; 
   };
   
   // diff languages can have diff epochs

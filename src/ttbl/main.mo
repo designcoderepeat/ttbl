@@ -17,9 +17,15 @@ import Types "./types";
 
 actor { // actor is babel
 
-  let BabelTime = Time.now();
+  let BabelTime = Time.now(); 
   let BabelTimeDilation = 100;
   let BabelTimeUnits = "Nano";
+
+  enterBabel() {
+    // log user 
+    create random user name with 2 strings and a number 
+    return BabelTime, playerpos, quests, challenges, and preloaded next challenges and quests for the user (whether he is signed in or not)
+  }
 
   type ChallengeId = Types.ChallengeId;
   type ChallengeMetadata = Types.ChallengeMetadata;

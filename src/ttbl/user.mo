@@ -7,10 +7,12 @@ import Types "./types";
 module {
   type UserId = Types.UserId;
   type ChallengeId = Types.ChallengeId;
+  
+  // user data 
   type UserData = Types.UserData;
   type Location = Types.Location;
 
-  // type isUserActive = Types.Text;
+  type isUserActive = Types.Text;
 
   public class UserDb() {
     func isEq(x: UserId, y: UserId): Bool { x == y };
