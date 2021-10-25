@@ -45,7 +45,13 @@ void main() {
 }`;
 
 function babelSays(msg) {
+  const babelConvoDiv = document.getElementById('babelConvo');
   babelConvoDiv.innerText = msg;
+}
+
+function updateClock(msg) {
+  const clockDiv = document.getElementById('clockDiv');
+  clockDiv.innerText = msg;
 }
 
 // bugfix1. if there are 2 entities in same spot in hashgrid, move one out a lil
@@ -56,6 +62,7 @@ class BabelUniverse {
   }
 
   _Initialize() {
+    this._frame = -100;
     this._threejs = new THREE.WebGLRenderer({
       antialias: true,
     });
@@ -123,6 +130,7 @@ class BabelUniverse {
     this._LoadClouds();
     this._LoadSky();
     this._LoadPlayer();
+    
 
     this._previousRAF = null;
     this._RAF();
@@ -265,10 +273,16 @@ class BabelUniverse {
      , 10
      , randZ + 1.25);
 
+     const posBabel = new THREE.Vector3(
+      10 
+     , 0
+     , 10);
+
     guru.SetPosition(posGuru);
     this._entityManager.Add(guru);
 
     this._LoadBabelRubble(posRubble);
+    this._LoadBabel(posBabel);
 
   }
 
@@ -287,6 +301,23 @@ class BabelUniverse {
         });
         this._scene.add(gltf.scene);
     });
+}
+
+_LoadBabel(posRubble) {
+  const loader = new GLTFLoader();
+  loader.load('./resources/scenes/permanent/thing.glb', (gltf) => {
+    gltf.scene.scale.set(30, 30, 30);  // 8, 8, 8 for rubble
+    gltf.scene.position.y = posRubble.y;
+    gltf.scene.position.z = posRubble.z;
+    gltf.scene.position.x = posRubble.x;
+
+    // gltf.scene.rotation.y = -Math.PI ;
+
+    gltf.scene.traverse(c => {
+          c.castShadow = true;
+      });
+      this._scene.add(gltf.scene);
+  });
 }
 
 _LoadTTBL() {
@@ -503,10 +534,26 @@ d
   }
 
   _RAF() {
+ 
+    this._frame ++;
+    
+    if (this._frame < 0) {
+      babelSays("Entering Babel..");
+    } // once the front end loads the backend this will be updated to the babel clock
+    else  {
+      babelSays("");
+      updateClock((this._frame > 108 ? this._frame /= 108 : this._frame));
+    }
+
+
     requestAnimationFrame((t) => {
       if (this._previousRAF === null) {
         this._previousRAF = t;
       }
+
+
+
+
 
       this._RAF();
 

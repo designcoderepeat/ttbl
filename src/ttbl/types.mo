@@ -12,8 +12,6 @@ module {
 
   public type UserProgress = HashMap.HashMap<Text, Text>;
 
-  public type Batte = Challenge;
-
   public type ChallengeMetadata = {
       id: ChallengeId;
       status: ChallengeStatus;
