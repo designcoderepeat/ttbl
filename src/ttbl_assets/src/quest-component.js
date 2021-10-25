@@ -4,11 +4,8 @@ import {entity} from "./entity.js";
 export const quest_component = (() => {
 
   const _TITLE = 'Welcome Traveller!';
-  const _TEXT = 'Finally you arrive...'; 
+  const _TEXT = 'Finally you arrive... Begin your journey by visiting Master Guru... I hear he lives up North. Beware of the monsters though... use your sword to protect yourself'; 
 
-  // quest alone is handled in the UI.. 
-  // quest can be of 2(this will keep increasing) type
-  // right now.. it is lesson (also known as wisdom or cutscenev0) or challenge
   class QuestComponent extends entity.Component {
     constructor() {
       super();
@@ -22,12 +19,21 @@ export const quest_component = (() => {
 
     _OnPicked(msg) {
       // HARDCODE A QUEST
+
+      // read from the quests avilable for user and display them... 
+      // here 
       const quest = {
         id: 'foo',
         title: _TITLE,
         text: _TEXT,
       };
+
+
+
       this._AddQuestToJournal(quest);
+    }
+
+    _ShowResponses(quest) {
     }
 
     _AddQuestToJournal(quest) {
