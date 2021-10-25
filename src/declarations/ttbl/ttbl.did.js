@@ -10,6 +10,7 @@ export const idlFactory = ({ IDL }) => {
       ),
     'createUser' : IDL.Func([IDL.Text], [IDL.Text], []),
     'displayChallenge' : IDL.Func([ChallengeId], [IDL.Text], ['query']),
+    'enterBabel' : IDL.Func([IDL.Text], [IDL.Text], []),
     'exploreLanguage' : IDL.Func([IDL.Text], [IDL.Text], []),
     'getUser' : IDL.Func([IDL.Text], [IDL.Text], ['query']),
     'greet' : IDL.Func([IDL.Text], [IDL.Text], []),

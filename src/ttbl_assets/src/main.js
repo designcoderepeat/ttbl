@@ -525,7 +525,7 @@ d
   _UpdateSun() {
     const player = this._entityManager.Get('player');
     const pos = player._position;
-
+    var sunpos = new THREE.Vector3(-10, 500, -10);
     this._sun.position.copy(pos);
     this._sun.position.add(new THREE.Vector3(-10, 500, -10));
     this._sun.target.position.copy(pos);
@@ -536,14 +536,9 @@ d
   _RAF() {
  
     this._frame ++;
-    
-    if (this._frame < 0) {
-      babelSays("Entering Babel..");
-    } // once the front end loads the backend this will be updated to the babel clock
-    else  {
-      babelSays("");
-      updateClock((this._frame > 108 ? this._frame /= 108 : this._frame));
-    }
+
+    //update with babelTimeonce its ready
+    updateClock((this._frame > 108 ? this._frame /= 108 : this._frame));
 
 
     requestAnimationFrame((t) => {

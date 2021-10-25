@@ -17,7 +17,7 @@ const UserProfileOption = document.getElementById('UserProfileOption');
 const UserProfilePage = document.getElementById('UserProfile');
 const UserProfileDisplayName = document.getElementById('UserProfileDisplayName');
 const backToMainMenuFromProfile = document.getElementById("backToMainMenuFromProfile");
-
+var babelTime = 0;
 // Make the front end tranisitions stateless
 
 // add annotation to surround console.log with also motoko log
@@ -49,15 +49,19 @@ function attachEventHandlers() {
     show(MainMenu);
   });
 
-
   // load loader
   EnterBabelOption.addEventListener('click', () => {
     hide(MainMenu);
     show(LoaderDiv);
     babelSays("Entering Babel...");
+        // call the createOrRegisterUser API
+        ttbl.enterBabel(userNameLoggedIn).then(result => {
+          // get user details from here!
+          console.log("New user entered Babel = " + result);
+          babelSays(result);
+        });
   });
 
-  //
   // Add an event listener 
 document.addEventListener("name-of-event", function(e) {
   console.log(e.detail); // Prints "Example of an event"
@@ -159,7 +163,6 @@ function babelSays(msg) {
   document.getElementById("babelConvo").innerText = msg;
 }
 
-babelSays("");
 
 // userTerminalButton.addEventListener("click", async () => {
 //   var userName = userInputTerminal.value;
@@ -183,7 +186,7 @@ const idlFactory = ({ IDL }) => {
 const canisterId = "rbsr6-fyaaa-aaaai-aarwa-cai";
 // // console.log("CanisterId = " + canisterId);
 
-var userNameLoggedIn = "";
+var userNameLoggedIn = "Cool Money";
 var userIdLoggedIn = "";
 
 function loginViaStoic(userName) {

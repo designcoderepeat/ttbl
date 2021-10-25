@@ -22,12 +22,6 @@ actor { // actor is babel
   let BabelTimeDilation = 100;
   let BabelTimeUnits = "Nano";
 
-  // enterBabel() {
-  //   // log user 
-  //   // create random user name with 2 strings and a number 
-  //   // return BabelTime, playerpos, quests, challenges, and preloaded next challenges and quests for the user (whether he is signed in or not)
-  // };
-
   type ChallengeId = Types.ChallengeId;
   type ChallengeMetadata = Types.ChallengeMetadata;
   type ChallengeStatus = Types.ChallengeStatus;
@@ -48,6 +42,13 @@ actor { // actor is babel
       return "Hello, " # name # "!";
   };  
 
+  public shared(msg) func enterBabel(userName: Text): async Text {
+    return "BabelTime Baby";
+    // log user 
+    // create random user name with 2 strings and a number 
+    // return BabelTime, playerpos, quests, challenges, and preloaded next challenges and quests for the user (whether he is signed in or not)
+  };
+
   // ------------------------------- public API
   // NOTE: For rapid prototyping (via dfx or Candid UI) all the functions below return values
   // as human-readable text.  In the final application the public API should return structured
@@ -58,6 +59,7 @@ actor { // actor is babel
     var userData : UserData = userDb.createOrReturn(msg.caller, username);
     userDataAsText(userData);
   };
+
 
   // Accepts the given challenge for the current user (if the user has registered previously).
   public shared(msg) func acceptChallenge(challengeId : ChallengeId) : async Text {
@@ -245,9 +247,10 @@ actor { // actor is babel
     };
     let username = userData.name;
 
-    let challenge = Challenge.Challenge(challengeCounter.get_new_id(), title, description, question, answer, ?msg.caller);
-    challengeDB.add(challenge);
-    "A new challenge with id " # Nat.toText(challenge.get_id()) # " is created by user " # username
+    // let challenge = Challenge.Challenge(challengeCounter.get_new_id(), title, description, question, answer, ?msg.caller);
+    // challengeDB.add(challenge);
+    // "A new challenge with id " # Nat.toText(challenge.get_id()) # " is created by user " # username
+    ""
   };
 
     // Picks at random an existing challenge from the challenge DB.
@@ -322,24 +325,24 @@ actor { // actor is babel
   
 
   // Populate the challenge database with some initial challenges.
-  for (tuple in DefaultChallenges.turkishBook.vals()) {
-    let desc = "";
-    challengeDB.add(
-      Challenge.Challenge(
-        challengeCounter.get_new_id(),
-        "turkish basics", // title
-        "learn the word", // desc. add tags
-        tuple.0,
-        tuple.1,
-        null
-      ));
-  };
+  // for (tuple in DefaultChallenges.turkishBook.vals()) {
+  //   let desc = "";
+  //   challengeDB.add(
+  //     Challenge.Challenge(
+  //       challengeCounter.get_new_id(),
+  //       "turkish basics", // title
+  //       "learn the word", // desc. add tags
+  //       tuple.0,
+  //       tuple.1,
+  //       null
+  //     ));
+  // };
 
 
   // Populate the challenge database with some initial challenges.
-  for (kural in DefaultChallenges.thirukural.vals()) {
-    challengeDB.add(Challenge.Challenge(challengeCounter.get_new_id(), "kural_" # Nat.toText(kural.number), kuralAsText(kural), kural.line1 # kural.line2,kural.transliteration1 # kural.transliteration2,null));
-  };
+  // for (kural in DefaultChallenges.thirukural.vals()) {
+  //   challengeDB.add(Challenge.Challenge(challengeCounter.get_new_id(), "kural_" # Nat.toText(kural.number), kuralAsText(kural), kural.line1 # kural.line2,kural.transliteration1 # kural.transliteration2,null));
+  // };
 
   // Comparison of ChallengeStatus-values.
   func eqStatus(s1: ChallengeStatus, s2 : ChallengeStatus) : Bool {

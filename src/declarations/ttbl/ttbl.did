@@ -5,6 +5,7 @@ service : {
   createChallenge: (text, text, text, text) -> (text);
   createUser: (text) -> (text);
   displayChallenge: (ChallengeId) -> (text) query;
+  enterBabel: (text) -> (text);
   exploreLanguage: (text) -> (text);
   getUser: (text) -> (text) query;
   greet: (text) -> (text);
