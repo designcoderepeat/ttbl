@@ -63,6 +63,7 @@ class BabelUniverse {
 
   _Initialize() {
     this._frame = -100;
+    this._clock = 0;
     this._threejs = new THREE.WebGLRenderer({
       antialias: true,
     });
@@ -534,11 +535,12 @@ d
   }
 
   _RAF() {
- 
     this._frame ++;
-
+    
+    // float to int
+    if ((this._frame | 0 )% 10800 == 0) this._clock ++;
     //update with babelTimeonce its ready
-    updateClock((this._frame > 108 ? this._frame /= 108 : this._frame));
+    updateClock((this._clock) + " " + (this._frame > 108 ? this._frame /= 108 : this._frame));
 
 
     requestAnimationFrame((t) => {
