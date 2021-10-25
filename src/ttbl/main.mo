@@ -367,6 +367,15 @@ actor { // actor is babel
     }
   };
 
+  // quest1 -> So you arrive at Babel... (walk through babel and )
+  //On Finish -> The Excalibur -> inventory.add
+  //on finish -> Dim the lights and spawn monsters around the player
+
+  // on finish -> add attack to controls
+
+  // quest2 -> gain ancient wisdom 
+  // on finish -> Axe of Zeus
+
   // Adds the challenge given in `new_cm` to the spefified user's challenges.
   func addNewChallenge(userdata : UserData, new_cm: ChallengeMetadata) : UserData {
     let updated_userdata : UserData = {

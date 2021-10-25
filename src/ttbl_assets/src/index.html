@@ -8,8 +8,6 @@
 </head>
 
 <body>
-
-
   <div id="mainmenu" class="menu mainmenu">
   <div id="GameTitleDisplay" class="MainMenuBanner"> The Tower Of Babel</div>
   <div id="EnterBabelOption" class="mainmenuoption"> Enter Babel </div>
@@ -59,8 +57,9 @@
   <div class="ui">
     <div class="icon-ui">
       <div class="icon-bar" id="icon-bar">
-        <div class="icon-bar-item" id="icon-bar-stats" style="background-image: url('./resources/icons/ui/skills.png');"></div>
+        <div class="icon-bar-item" id="icon-bar-controls" style="background-image: url('./resources/icons/ui/controls.png');"></div>
         <div class="icon-bar-item" id="icon-bar-inventory" style="background-image: url('./resources/icons/ui/backpack.png');"></div>
+        <div class="icon-bar-item" id="icon-bar-stats" style="background-image: url('./resources/icons/ui/skills.png');"></div>
         <div class="icon-bar-item" id="icon-bar-quests" style="background-image: url('./resources/icons/ui/tied-scroll.png');"></div>
       </div>
     </div>
@@ -184,16 +183,21 @@
     <div id="backToMainMenuFromProfile" class="mainmenuoption"> Back To Main menu</div>
 </div>
 
-<div id="controls" class="controlsDiv hide"> 
-  <div id="conrolListed"> W - move forward </div>
-  <div id="shiftListed"> Toggle Run </div>
-  <div id="conrolListed"> A - turn left </div>
-  <div id="conrolListed"> D - turn right </div>
-  <div class="conrolsListed"> space - dance </div>
-  <div id="conrolListed"> click - interact </div>
-  <>
-  On the top you can see the Health bar and you can click it to enter your profile or the main menu 
-  On the bottom you have your buttons, for stats, inventory and quests
+  <div id="controls-menu" class="hide">
+    <div class="ui"> 
+      <div class="menu-ui">
+      <div id="controls-menu" class="controls-containers menu-controller">
+        <div id="controls-title" class="menu-title">Controls</div>
+        <div id="controls-subtitle" class="menu-subtitle">keyboard</div>
+        <div id="controls-item1"  class="menu-item">W - Move Forward</div>
+        <div id="controls-item2"  class="menu-item">S - Move Backward</div>
+        <div id="controls-item3"  class="menu-item">A - Turn Left</div>
+        <div id="controls-item4"  class="menu-item">D - Turn Right</div>
+        <div id="controls-item5"  class="menu-item">Shift - Hold to Run</div>
+        <div id="controls-item6"  class="menu-item">Click - Interact with Babel</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- <div id="InGameMenu" class="hide">

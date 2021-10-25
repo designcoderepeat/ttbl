@@ -469,6 +469,7 @@ body {
   font-size: 3em;
   color: white;
   text-shadow: 4px 4px black;
+  font-family: babel-menu;
 }
 
 .stats {
@@ -486,6 +487,7 @@ body {
   padding: 20px 20px;
   width: 250px;
   padding-top: 5px;
+  font-family: babel-menu;
   /* box-shadow: 0 6px 6px 6px rgb(8, 133, 4) */
 }
 
@@ -549,4 +551,56 @@ body {
   margin: 2px;
   background-size: cover;
   box-shadow: 0 2px 2px 2px rgb(238, 120, 10);
+}
+
+.menu-ui {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+}
+
+.menu-title {
+  font-family: babel-menu;
+  justify-content: center;
+  align-items: center;
+  color: #ddd5e9;
+  font-size: 3em;
+  text-shadow: 3px 3px black;
+  background-color: black;
+  opacity: 0.75;
+  padding: 3px;
+}
+
+.menu-subtitle {
+  font-family: babel-menu;
+  color: #0b011b;
+  font-size: 1em;
+  padding: 3px;
+  justify-content: center;
+  align-items: center;
+  color: #ddd5e9;
+  text-shadow: 3px 3px black;
+  background-color: black;
+  opacity: 0.75;
+}
+
+.menu-item {
+  font-family: babel-menu;
+  color: #0b011b;
+  border-style: solid;
+  /* border-radius: 5%; */
+  border-color: #0b011b;
+  font-size: 2em;
+  color: white;
+  text-shadow: 4px 4px black;
+  background-color: blueviolet;
+  opacity: 0.75;
+  padding: 3px;
+}
+
+#controls-menu-inner{
+  background-color: blueviolet;
+  box-shadow: 0 3px 3px 3px brown;
 }

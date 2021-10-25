@@ -7,7 +7,7 @@ const LoaderDiv = document.getElementById("LoaderDiv");
 const GameDiv = document.getElementById("GameDiv");
 
 const mainmenu = document.getElementById("mainmenu");
-
+const controlsMenu = document.getElementById("controls-menu");
 const EnterBabelOption = document.getElementById("EnterBabelOption");
 const LoginOption = document.getElementById("LoginOption");
 const MainMenu = document.getElementById("mainmenu");
@@ -53,6 +53,7 @@ function attachEventHandlers() {
   EnterBabelOption.addEventListener('click', () => {
     hide(MainMenu);
     show(LoaderDiv);
+    show(controlsMenu);
     babelSays("Entering Babel...");
         // call the createOrRegisterUser API
         ttbl.enterBabel(userNameLoggedIn).then(result => {
