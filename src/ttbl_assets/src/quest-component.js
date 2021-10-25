@@ -6,6 +6,8 @@ export const quest_component = (() => {
   const _TITLE = 'Welcome Traveller!';
   const _TEXT = 'Finally you arrive... Begin your journey by visiting Master Guru... I hear he lives up North. Beware of the monsters though... use your sword to protect yourself'; 
 
+  const _QUESTOPTIONS = "Quest Options";
+
   class QuestComponent extends entity.Component {
     constructor() {
       super();
@@ -26,9 +28,8 @@ export const quest_component = (() => {
         id: 'foo',
         title: _TITLE,
         text: _TEXT,
+        questOptions: _QUESTOPTIONS,
       };
-
-
 
       this._AddQuestToJournal(quest);
     }

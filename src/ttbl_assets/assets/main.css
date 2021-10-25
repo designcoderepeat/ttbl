@@ -315,11 +315,11 @@ body {
 .quest-ui {
   background: rgba(1.0, 1.0, 1.0, 0.75);
   padding: 20px 20px;
-  width: 80vw;
+  width: 97vw;
   height: 97vh;
   opacity: 0.97;
-  font-family: cursive;
-  flex-direction: row;
+  font-family: babel-menu;
+  flex-direction: column;
   justify-content: center;
   z-index: 2;
   background: linear-gradient(-30deg,
@@ -327,7 +327,7 @@ body {
   #e73c7e,
   #0b011b,
   hsl(257, 40%, 39%));
- background-size: 200% 100%;
+ background-size: 175% 100%;
  animation: gradient 120s ease infinite;
  background-image: url("./bg/bg0.jpeg");
 }
@@ -336,13 +336,23 @@ body {
   font-size: 3em;
   color: white;
   text-shadow: 4px 4px black;
+  display: flex;
+  justify-content: center;
 }
 
 .quest-text-title {
   font-size: 3em;
   color: white;
   padding-bottom: 10px;
+  display: flex;
   justify-content: center;
+}
+
+.quest-options {
+  display: flex;
+  justify-content: center;
+  font-size: 2em;
+  color: white;
 }
 
 .quest-text {
@@ -361,7 +371,7 @@ body {
 .quest-journal {
   display: flex;
   flex-direction: column;
-  font-family: quest-scroll;
+  font-family: babel-menu;
   background: rgba(1.0, 1.0, 1.0, 0.75);
   margin: 30px;
   padding: 20px 20px;
@@ -370,7 +380,6 @@ body {
   height: 80vh;
   justify-content: center;
   z-index: 1;
-  box-shadow: 0 6px 6px 6px rgb(194, 167, 194);
 }
 
 .quest-entry {
@@ -380,7 +389,8 @@ body {
   border-style: solid;
   border-width: thick;
   padding: 5px;
-  box-shadow: 0 6px 6px 6px rgb(2, 34, 136);
+  box-shadow: 0 6px 6px 6px #e73c7e;
+
 
 }
 

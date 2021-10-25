@@ -444,7 +444,7 @@ function loginViaStoic(userName) {
 // })
 
 function changeBG(e) {
-  const newbg = './bg/images/' + Math.ceil(Math.random() * 60) + '.jpg';
+  const newbg = './bg/images/' + Math.ceil(Math.random() * 58) + '.jpg';
   e.backgroundImage =  "url(" + newbg + ")";
 }
 

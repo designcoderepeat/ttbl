@@ -56,8 +56,10 @@ export const ui_controller = (() => {
       const quest = this._quests[id];
 
       const e = document.getElementById('quest-ui');
-      const newbg = '/bg/images/' + Math.ceil(Math.random() * 60) + '.jpg';
-      console.log(newbg);
+
+      // get this as config from bg
+      const newbg = '/bg/images/' + Math.ceil(Math.random() * 58) + '.jpg';
+      // console.log(newbg);
       e.style.backgroundImage =  "url(" + newbg + ")";
       
       e.style.visibility = '';
@@ -69,6 +71,9 @@ export const ui_controller = (() => {
       title.innerText = quest.title;
 
       const options = document.getElementById('quest-options');
+      options.innerText = quest.questOptions;
+
+      this._HideUI();
     }
 
     _HideUI() {
