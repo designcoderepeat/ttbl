@@ -6,8 +6,8 @@ import {entity} from "./entity.js";
 export const player_input = (() => {
 
   class PickableComponent extends entity.Component {
-    constructor() {
-      super();
+    constructor(params) {
+      super(params);
     }
 
     InitComponent() {

@@ -443,10 +443,10 @@ function loginViaStoic(userName) {
 //   setNextQuestion()
 // })
 
-// function changeBG() {
-//   const newbg = './bg/images/' + Math.ceil(Math.random() * 60) + '.jpg';
-//   document.body.style.backgroundImage =  "url(" + newbg + ")";
-// }
+function changeBG(e) {
+  const newbg = './bg/images/' + Math.ceil(Math.random() * 60) + '.jpg';
+  e.backgroundImage =  "url(" + newbg + ")";
+}
 
 // function changeBGToBabel() {
 //   const newbg = './bg/bg0.jpeg';

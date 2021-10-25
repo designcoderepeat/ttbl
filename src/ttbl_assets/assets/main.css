@@ -15,6 +15,18 @@ body {
   src: url(fonts/menu.ttf);
 }
 
+
+@font-face {
+  font-family: 'quest-scroll';
+  src: url(fonts/quest-scroll.ttf);
+}
+
+@font-face {
+  font-family: 'cursive';
+  src: url(fonts/cursive.ttf);
+}
+
+
 @font-face {
   font-family: 'babel-convo';
   src: url(fonts/POLYA.otf);
@@ -70,8 +82,6 @@ body {
   color: #e6dfe1;
   /* box-shadow: 1px 6px 6px 2px rgba(219, 14, 14, 0.6); */
 }
-
-
 
 #babelConvo {
   font-family: babel-convo;
@@ -305,8 +315,21 @@ body {
 .quest-ui {
   background: rgba(1.0, 1.0, 1.0, 0.75);
   padding: 20px 20px;
-  width: 700px;
+  width: 80vw;
+  height: 97vh;
+  opacity: 0.97;
+  font-family: cursive;
+  flex-direction: row;
+  justify-content: center;
   z-index: 2;
+  background: linear-gradient(-30deg,
+  hsl(257, 77%, 15%),
+  #e73c7e,
+  #0b011b,
+  hsl(257, 40%, 39%));
+ background-size: 200% 100%;
+ animation: gradient 120s ease infinite;
+ background-image: url("./bg/bg0.jpeg");
 }
 
 .quest-title {
@@ -319,11 +342,13 @@ body {
   font-size: 3em;
   color: white;
   padding-bottom: 10px;
+  justify-content: center;
 }
 
 .quest-text {
-  font-size: 1em;
+  font-size: 2em;
   color: white;
+  justify-content: center;
 }
 
 .quest-journal-layout {
@@ -336,13 +361,16 @@ body {
 .quest-journal {
   display: flex;
   flex-direction: column;
+  font-family: quest-scroll;
   background: rgba(1.0, 1.0, 1.0, 0.75);
   margin: 30px;
   padding: 20px 20px;
   padding-top: 5px;
-  width: 300px;
-  height: 600px;
+  width: 30vw;
+  height: 80vh;
+  justify-content: center;
   z-index: 1;
+  box-shadow: 0 6px 6px 6px rgb(194, 167, 194);
 }
 
 .quest-entry {
@@ -352,6 +380,8 @@ body {
   border-style: solid;
   border-width: thick;
   padding: 5px;
+  box-shadow: 0 6px 6px 6px rgb(2, 34, 136);
+
 }
 
 .icon-ui {
@@ -381,7 +411,7 @@ body {
   background-image: url('./resources/icons/ui/health-bar.png');
   width: 200px;
   height: 120px;
-  box-shadow: 0 6px 6px 6px turquoise;
+  /* box-shadow: 0 6px 6px 6px turquoise; */
   position: absolute;
 }
 
@@ -446,6 +476,7 @@ body {
   padding: 20px 20px;
   width: 250px;
   padding-top: 5px;
+  /* box-shadow: 0 6px 6px 6px rgb(8, 133, 4) */
 }
 
 .stats-row {
@@ -507,4 +538,5 @@ body {
   height: 50px;
   margin: 2px;
   background-size: cover;
+  box-shadow: 0 2px 2px 2px rgb(238, 120, 10);
 }

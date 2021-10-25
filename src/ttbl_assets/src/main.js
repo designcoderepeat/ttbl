@@ -381,9 +381,9 @@ _LoadTTBL() {
     const girl = new entity.Entity();
     girl.AddComponent(new gltf_component.AnimatedModelComponent({
         scene: this._scene,
-        resourcePath: './resources/girl/',
+        resourcePath: './resources/hero/',
         resourceName: 'peasant_girl.fbx',
-        resourceAnimation: 'Standing Idle.fbx',
+        resourceAnimation: 'sigh.fbx',
         scale: 0.035,
         receiveShadow: true,
         castShadow: true,
