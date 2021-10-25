@@ -15,12 +15,14 @@ export const ui_controller = (() => {
         stats: document.getElementById('icon-bar-stats'),
         inventory: document.getElementById('icon-bar-inventory'),
         quests: document.getElementById('icon-bar-quests'),
+        controls: document.getElementById('icon-bar-controls'),
       };
 
       this._ui = {
         inventory: document.getElementById('inventory'),
         stats: document.getElementById('stats'),
-        quests: document.getElementById('quest-journal'),
+        quests: document.getElementById('quest-journal-container'),
+        controls: document.getElementById('controls-menu'),
       };
 
       this._userProfile = {
@@ -31,7 +33,9 @@ export const ui_controller = (() => {
       this._iconBar.inventory.onclick = (m) => { this._OnInventoryClicked(m); };
       this._iconBar.stats.onclick = (m) => { this._OnStatsClicked(m); };
       this._iconBar.quests.onclick = (m) => { this._OnQuestsClicked(m); };
+      this._iconBar.controls.onclick = (m) => {this._OnControlsClicked(m); };
       this._HideUI();
+      this._OnControlsClicked({});
     }
 
     AddQuest(quest) {
@@ -80,6 +84,7 @@ export const ui_controller = (() => {
       this._ui.inventory.style.visibility = 'hidden';
       this._ui.stats.style.visibility = 'hidden';
       this._ui.quests.style.visibility = 'hidden';
+      this._ui.controls.classList.add("hide");
     }
     
     _OnQuestsClicked(msg) {
@@ -98,6 +103,13 @@ export const ui_controller = (() => {
       const visibility = this._ui.inventory.style.visibility;
       this._HideUI();
       this._ui.inventory.style.visibility = (visibility ? '' : 'hidden');
+    }
+
+    _OnControlsClicked(msg) {
+      const hidden = this._ui.controls.classList.contains("hide");
+      this._HideUI();
+      if (hidden) this._ui.controls.classList.remove("hide");
+      else this._ui.controls.classList.add("hide");
     }
 
     Update(timeInSeconds) {

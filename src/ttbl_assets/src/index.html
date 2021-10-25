@@ -39,8 +39,9 @@
 </div>
 
 <div id="GameDiv" class="hide">
-  <div class="ui">
-    <div class="quest-journal-layout">
+  <div class="ui" id="quest-journal-layout-container">
+    <div class="quest-journal-layout" id="quest-journal-container">
+      <div id="quests-title" class="menu-title"> Active Quests</div>
       <div class="quest-journal" id="quest-journal">
       </div>
     </div>
@@ -67,9 +68,9 @@
   <div class="ui">
     <div class="stats" id="stats">
       <div class="stats-inner">
-        <div class="stats-title">Statistics</div>
+        <div class="stats-title" class="menu-title" >Statistics</div>
         <div class="stats-row">
-          <div class="stats-tooltip"> Courage
+          <div class="stats-tooltip" class="menu-item"> Courage
             <div class="stats-tooltiptext">
               Gauges how confident you are. 
             </div>
@@ -83,7 +84,7 @@
           <div id="stats-wisdomness">0</div>
         </div>
         <div class="stats-row">
-          <div class="stats-tooltip"> Geld
+          <div class="stats-tooltip"> Diamonds Mined
             <div class="stats-tooltiptext"> $$$ </div>
           </div>
           <div id="stats-benchpress">0</div>
