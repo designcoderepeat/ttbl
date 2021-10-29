@@ -6,15 +6,16 @@ import Array "mo:base/Array";
 import HashMap "mo:base/HashMap";
 import Iter "mo:base/Iter";
 import Debug "mo:base/Debug";
+import Time "mo:base/Time";
 
 // local imports
 import Random = "Random";
 import Challenge "./challenge";
+import Quest "./quest";
 import ChallengeDB "./challengedb";
 import DefaultChallenges "./defaultchallenges";
 import User "./user";
 import Types "./types";
-import Time "mo:base/Time";
 
 actor { // actor is babel
 
@@ -236,8 +237,65 @@ actor { // actor is babel
     "updated progress for challenge: " # Nat.toText(challengeId) # "\n" # userDataAsText(userData)
   };
 
+
+  // public getDefaultEpics() {
+  //   let demoEpic : Epic 
+  // }
+
+  // public _loadBabelQuet() {
+
+  // }
+
+
+    // id: ChallengeId,
+    // title: Text,
+    // subtitle: Text,
+    // question: Text,
+    // challengeType: Text, // can be made enum
+    // options: ?[Text],
+    // answer: Text,
+    // beforeChallenge: Text,
+    // afterChallenge: Text,
+    // challengeTrigger: Text, // can be for example: the girl hides random challenges in parts of the map.. 
+    // // babelSays.. what is the faint noise you hear.. and then you notice a small mushroom somewhere in the scene and get reminded of the girl on clicking it, and the girl speaks a random language and you try to decipher it
+    // creator: ?UserId
+
   // Creates on behalf of the current user a new challenge, and adds it to the public challenge DB.
-  public shared(msg) func createChallenge(title: Text, description: Text,
+  public shared(msg) func createChallenge(title: Text, subtitle: Text,
+    question: Text, challengeType: Text, options: ?[Text], answer: Text
+  ) : async Text {
+    // Verify the user
+    let userData = switch (userDb.findById(msg.caller)) {
+      case (null) { return "you need to be a registered user to create challenges" };
+      case (?user) user
+    };
+    let username = userData.name;
+
+    let challenge = Challenge.Challenge(challengeCounter.get_new_id(),
+     title, subtitle, question, challengeType, options, answer, "", "", "", ?msg.caller);
+    challengeDB.add(challenge);
+    "A new challenge with id " # Nat.toText(challenge.get_id()) # " is created by user " # username
+  };
+
+    // Creates on behalf of the current user a new Quest, and adds it to the public challenge DB.
+  public shared(msg) func createQuest(title: Text, description: Text,
+    question: Text, answer: Text
+  ) : async Text {
+    // Verify the user
+    let userData = switch (userDb.findById(msg.caller)) {
+      case (null) { return "you need to be a registered user to create challenges" };
+      case (?user) user
+    };
+    let username = userData.name;
+
+    // let challenge = Challenge.Challenge(challengeCounter.get_new_id(), title, description, question, answer, ?msg.caller);
+    // challengeDB.add(challenge);
+    // "A new challenge with id " # Nat.toText(challenge.get_id()) # " is created by user " # username
+    ""
+  };
+
+  // Creates on behalf of the current user a new challenge, and adds it to the public challenge DB.
+  public shared(msg) func createEpic(title: Text, description: Text,
     question: Text, answer: Text
   ) : async Text {
     // Verify the user
@@ -322,10 +380,10 @@ actor { // actor is babel
     public func get_new_id() : Nat { let id = count; count += 1; id };
     public func get_count() : Nat { count };
   };
-  
+
 
   // Populate the challenge database with some initial challenges.
-  // for (tuple in DefaultChallenges.turkishBook.vals()) {
+  // for (tuple in DefaultChalenges.turkishBook.vals()) {
   //   let desc = "";
   //   challengeDB.add(
   //     Challenge.Challenge(
@@ -460,11 +518,13 @@ actor { // actor is babel
     let acception_count = Nat.toText(challenge.get_acception_count());
     let completion_count = Nat.toText(challenge.get_completion_count());
       
-      return id # "," # challenge.get_title() 
-      # challenge.get_description()
-      # challenge.get_question() # "," # challenge.get_answer()
-      # acception_count
-      # completion_count
+      return id 
+      # ", " # challenge.get_title() 
+      # ", " # challenge.get_subtitle()
+      # ", " # challenge.get_question() 
+      # ", " # challenge.get_answer()
+      # ", " # acception_count
+      # ", " # completion_count
 
       //"{Challenge:" # id 
       //# "\nTitle: " # 
@@ -482,16 +542,15 @@ actor { // actor is babel
   // Returns username of the specified user (if present).
   func getUsernameFromOption(maybe_user_id : ? UserId) : Text {
     switch (maybe_user_id) {
-      case null { "DUAL" };
+      case null { "dummyUserName" };
       case (?user_id) {
         switch (userDb.findById(user_id)) {
-          case (null) { "DUAL" };
+          case (null) { "dummyUserName" };
           case (?user) { user.name };
         }
       }
     }
-  }
-};
+  };
   
 
   // implement metachallengeservice
@@ -510,3 +569,39 @@ actor { // actor is babel
   // 0. 3d worlds
   // 1. create lessons on top of create challenge
   // 2. custom lessons
+
+  // -> populate DB with epics and campaigns and quests
+
+  // this operation can be made atomic for extra safety, or each individual item can be stored separately as the map
+   func loadOiginStoryIntoDB(): Text {
+        // Populate the challenge database with originStory challenges.
+
+        // let demoStoryChallenges: [Types.ChallengeId]  = [];
+        let i = 0;
+        for (entry in DefaultChallenges.TTBLOriginStory.vals()) {
+            let challengeId = challengeCounter.get_new_id();
+            // demoStoryChallenges.push(challengeId);
+            challengeDB.add(
+                Challenge.Challenge(
+                challengeCounter.get_new_id(),
+                "The Tower Of Babel ", // title
+                "Learn the Origin Story", // subtitle
+                entry,  // question
+                "Lesson",
+                null,
+                entry,
+                "",
+                "", 
+                "",
+                null
+            ));
+    };
+
+        Debug.print("Loaded Challenges for Origin Db");
+        "loaded origin Story"
+    };
+
+
+  loadOiginStoryIntoDB();  
+
+};

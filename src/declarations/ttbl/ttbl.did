@@ -2,7 +2,9 @@ type ChallengeId = nat;
 service : {
   acceptChallenge: (ChallengeId) -> (text);
   completeChallenge: (ChallengeId) -> (text);
-  createChallenge: (text, text, text, text) -> (text);
+  createChallenge: (text, text, text, text, opt vec text, text) -> (text);
+  createEpic: (text, text, text, text) -> (text);
+  createQuest: (text, text, text, text) -> (text);
   createUser: (text) -> (text);
   displayChallenge: (ChallengeId) -> (text) query;
   enterBabel: (text) -> (text);

@@ -4,6 +4,23 @@ export const idlFactory = ({ IDL }) => {
     'acceptChallenge' : IDL.Func([ChallengeId], [IDL.Text], []),
     'completeChallenge' : IDL.Func([ChallengeId], [IDL.Text], []),
     'createChallenge' : IDL.Func(
+        [
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Opt(IDL.Vec(IDL.Text)),
+          IDL.Text,
+        ],
+        [IDL.Text],
+        [],
+      ),
+    'createEpic' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [IDL.Text],
+        [],
+      ),
+    'createQuest' : IDL.Func(
         [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
         [IDL.Text],
         [],

@@ -10,16 +10,14 @@ import Time "mo:base/Time";
 module {
   public type ChallengeId = Nat;
   type UserId = Types.UserId;
-  
-  public class campaign(
-    campaignId: ChallengeId, // clone ChallengeId
-    difficulty: Nat,
-  ) {
-    var acception_count: Nat = 0;
-    var completion_count: Nat = 0;
-  };
-
-
+    
+  // public class campaign(
+  //   campaignId: ChallengeId, // clone ChallengeId
+  //   difficulty: Nat,
+  // ) {
+  //   var acception_count: Nat = 0;
+  //   var completion_count: Nat = 0;
+  // };
 
   // easyCampaigns
   // 1. learn turkish via english - easy
@@ -83,14 +81,17 @@ module {
   public class Challenge ( // also known as battle
     id: ChallengeId,
     title: Text,
-    description: Text,
+    subtitle: Text,
     question: Text,
     challengeType: Text, // can be made enum
     options: ?[Text],
     answer: Text,
-    generateEntity: ?[Text],
+    beforeChallenge: Text,
+    afterChallenge: Text,
+    challengeTrigger: Text, // can be for example: the girl hides random challenges in parts of the map.. 
+    // babelSays.. what is the faint noise you hear.. and then you notice a small mushroom somewhere in the scene and get reminded of the girl on clicking it, and the girl speaks a random language and you try to decipher it
     creator: ?UserId) {
-
+ 
     var acception_count: Nat = 0;
     var completion_count: Nat = 0;
 
@@ -110,8 +111,8 @@ module {
       title
     };
 
-    public func get_description() : Text {
-      description
+    public func get_subtitle() : Text {
+      subtitle
     };
 
     public func get_creator() : ?UserId {

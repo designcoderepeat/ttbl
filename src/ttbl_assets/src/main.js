@@ -449,7 +449,7 @@ _LoadTTBL() {
             target: this._entityManager.Get('player')}));
     this._entityManager.Add(camera, 'player-camera');
 
-    for (let i = 0; i < 50; ++i) {
+    for (let i = 0; i < 30; ++i) {
       const monsters = [
         {
           resourceName: 'Ghost.fbx',
@@ -510,9 +510,9 @@ _LoadTTBL() {
       // let spawnSeed = 300 + (Math.random() * 2 - 1) * 700
       
       npc.SetPosition(new THREE.Vector3(
-          500,
+        250 + (Math.random() * 2 - 1) * 250,
           0,
-          500));
+          250 + (Math.random() * 2 - 1) * 250));
       this._entityManager.Add(npc);
     }
   }
@@ -540,7 +540,7 @@ d
     // float to int
     if ((this._frame | 0 )% 10800 == 0) this._clock ++;
     //update with babelTimeonce its ready
-    updateClock((this._clock) + " " + (this._frame > 108 ? this._frame /= 108 : this._frame));
+    // updateClock((this._clock) + " " + (this._frame > 108 ? this._frame /= 108 : this._frame));
 
 
     requestAnimationFrame((t) => {

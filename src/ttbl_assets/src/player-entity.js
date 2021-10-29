@@ -53,6 +53,12 @@ export const player_entity = (() => {
       this._stateMachine = new CharacterFSM(
           new BasicCharacterControllerProxy(this._animations));
   
+      document.getElementById("icon-bar-life").addEventListener('click', () => {
+        console.log("Life clicked");
+        this._stateMachine.SetState('idle');
+        console.log("Idle set (apparently)")
+      });
+
       this._LoadModels();
     }
 
@@ -62,6 +68,9 @@ export const player_entity = (() => {
 
     _OnDeath(msg) {
       this._stateMachine.SetState('death');
+      // show respawn button
+      document.getElementById("icon-bar-life").classList.remove("hide");
+      // this has to be made a component
     }
 
     _LoadModels() {

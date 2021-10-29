@@ -421,6 +421,14 @@ body {
   z-index: 1;
 }
 
+.icon-bar-top {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-bottom: 10px;
+  z-index: 1;
+}
+
 .icon-bar-item {
   background-size: cover;
   width: 75px;
