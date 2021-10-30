@@ -5,7 +5,7 @@ export const quest_component = (() => {
 
   const _TITLE = 'So you come to Babel...';
   const _TEXT = 'Finally you arrive, traveller. Begin your journey by visiting Master Guru... I hear he lives up North. Beware of the monsters though... use your sword to protect yourself'; 
-
+  const _OBJECTIVE = 'Find Master Guru';
   const _QUESTOPTIONS = "<div class='btn-grid'><button id='quest-continue' class='btn'>Continue Quest</quest></div>";
 
   class QuestComponent extends entity.Component {
@@ -20,14 +20,18 @@ export const quest_component = (() => {
     }
 
     _OnPicked(msg) {
+
+      this._babelSays("Quest started...");
+
       // HARDCODE A QUEST
 
       // read from the quests avilable for user and display them... 
       // here 
       const quest = {
-        id: 'foo',
+        id: 'DemoQuest',
         title: _TITLE,
         text: _TEXT,
+        objective: _OBJECTIVE,
         questOptions: _QUESTOPTIONS,
       };
 
@@ -35,6 +39,7 @@ export const quest_component = (() => {
     }
 
     _ShowResponses(quest) {
+
     }
 
     _AddQuestToJournal(quest) {
@@ -45,11 +50,18 @@ export const quest_component = (() => {
     _CompleteQuest(quest) {
       // remove from book
       // show effects
-      // 
+      // change the quest values to the next quest details.. in case of campaigns
+    }
+
+    _babelSays(msg) {
+      const babelConvoDiv = document.getElementById('babelConvo');
+      babelConvoDiv.innerText = msg;
     }
 
   };
 
+
+  
   return {
       QuestComponent: QuestComponent,
   };

@@ -359,6 +359,15 @@ body {
   justify-content: center;
 }
 
+.quest-objective {
+  font-size: 3em;
+  color: white;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 3px 3px 3px #ddd5e9;
+}
+
 .quest-options {
   display: flex;
   flex: none;

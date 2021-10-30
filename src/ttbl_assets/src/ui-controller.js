@@ -74,7 +74,7 @@ export const ui_controller = (() => {
       qtitle.innerText = quest.title;
 
       const qtext = document.getElementById('quest-text');
-      qtext.innerText = quest.text;
+      qtext.innerText = quest.text + "\n\nObjective: " + quest.objective;
 
       const qoptions = document.getElementById('quest-options');
       qoptions.innerHTML = quest.questOptions;
