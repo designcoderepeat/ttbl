@@ -48,7 +48,7 @@ export const ui_controller = (() => {
       e.id = 'quest-entry-' + quest.id;
       e.innerText = quest.title;
       e.onclick = (evt) => {
-        this._OnQuestSelected(e.id);
+        this._OnQuestSelected(quest.id);
       };
       document.getElementById('quest-journal').appendChild(e);
 
@@ -58,7 +58,8 @@ export const ui_controller = (() => {
 
     _OnQuestSelected(id) {
       const quest = this._quests[id];
-
+      console.log(id);
+      console.log(quest);
       const e = document.getElementById('quest-ui');
 
       // get this as config from bg
@@ -69,14 +70,14 @@ export const ui_controller = (() => {
       
       e.style.visibility = '';
 
-      const text = document.getElementById('quest-text');
-      text.innerText = quest.text;
+      const qtitle = document.getElementById('quest-text-title');
+      qtitle.innerText = quest.title;
 
-      const title = document.getElementById('quest-text-title');
-      title.innerText = quest.title;
+      const qtext = document.getElementById('quest-text');
+      qtext.innerText = quest.text;
 
-      const options = document.getElementById('quest-options');
-      options.innerText = quest.questOptions;
+      const qoptions = document.getElementById('quest-options');
+      qoptions.innerHTML = quest.questOptions;
 
       this._HideUI();
     }

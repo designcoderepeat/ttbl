@@ -3,10 +3,10 @@ import {entity} from "./entity.js";
 
 export const quest_component = (() => {
 
-  const _TITLE = 'Welcome Traveller!';
-  const _TEXT = 'Finally you arrive... Begin your journey by visiting Master Guru... I hear he lives up North. Beware of the monsters though... use your sword to protect yourself'; 
+  const _TITLE = 'So you come to Babel...';
+  const _TEXT = 'Finally you arrive, traveller. Begin your journey by visiting Master Guru... I hear he lives up North. Beware of the monsters though... use your sword to protect yourself'; 
 
-  const _QUESTOPTIONS = "Quest Options";
+  const _QUESTOPTIONS = "<div class='btn-grid'><button id='quest-continue' class='btn'>Continue Quest</quest></div>";
 
   class QuestComponent extends entity.Component {
     constructor() {
