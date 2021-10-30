@@ -1,5 +1,6 @@
 export const idlFactory = ({ IDL }) => {
   const ChallengeId = IDL.Nat;
+  const UserId = IDL.Principal;
   return IDL.Service({
     'acceptChallenge' : IDL.Func([ChallengeId], [IDL.Text], []),
     'completeChallenge' : IDL.Func([ChallengeId], [IDL.Text], []),
@@ -21,7 +22,17 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'createQuest' : IDL.Func(
-        [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          ChallengeId,
+          IDL.Vec(ChallengeId),
+          IDL.Vec(IDL.Vec(ChallengeId)),
+          IDL.Opt(UserId),
+        ],
         [IDL.Text],
         [],
       ),

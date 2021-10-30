@@ -6,21 +6,24 @@ import Principal "mo:base/Principal";
 import Types "./types";
 import Time "mo:base/Time";
 
+
 module {
   public type ChallengeId = Nat;
+  public type QuestId = Nat;
+
   type UserId = Types.UserId;
 
+
   // new Quest=demoquest (discover the origin story)
-  public class Quest (
+  public class Epic (
     id: ChallengeId,
-    questTitle: Text,
-    questSubtitle: Text,
-    questTrigger: Text,
-    beforeQuest: Text, 
-    afterQuest: Text,
-    rootChallenge: ChallengeId,
-    challenges: [ChallengeId],
-    challengeGraph: [[ChallengeId]],
+    epicTitle: Text,
+    epicSubtitle: Text,
+    beforeEpic: Text, 
+    afterEpic: Text,
+    rootCampaign: QuestId,
+    campaigns: [QuestId],
+    campaignGraph: [[QuestId]],
     creator: ?UserId) {
 
     var acception_count: Nat = 0;
@@ -30,24 +33,24 @@ module {
         id
     };
 
-    public func getRootChallenge(): ChallengeId {
-      rootChallenge
+    public func getRootCampaign(): ChallengeId {
+      rootCampaign
     };
 
-    public func getChallenges(): [ChallengeId] {
-      challenges
+    public func getCampaigns(): [ChallengeId] {
+      campaigns
     };
 
-    public func getChallengeGraph() : [[ChallengeId]] {
-      challengeGraph
+    public func getCampaignGraph() : [[ChallengeId]] {
+      campaignGraph
     };
 
     public func getTitle() : Text {
-      questTitle
+      epicTitle
     };
 
     public func getSubtitle() : Text {
-      questSubtitle
+      epicSubtitle
     };
 
     public func get_creator() : ?UserId {

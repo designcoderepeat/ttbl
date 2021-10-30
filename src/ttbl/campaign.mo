@@ -30,6 +30,10 @@ module {
     var acception_count: Nat = 0;
     var completion_count: Nat = 0;
 
+    public func get_id(): ChallengeId {
+        id
+    };
+
     public func getRootQuest(): ChallengeId {
       rootQuest
     };

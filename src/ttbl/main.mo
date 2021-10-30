@@ -37,6 +37,10 @@ actor { // actor is babel
   flexible var userDb : User.UserDb = User.UserDb();
   flexible var onlineUserDb : User.UserDb = User.UserDb();
   flexible var challengeDB: ChallengeDB.ChallengeDB = ChallengeDB.ChallengeDB();
+  flexible var questDb: ChallengeDB.QuestDB = ChallengeDB.QuestDB();
+  flexible var campaignDb: ChallengeDB.CampaignDB = ChallengeDB.CampaignDB();
+  flexible var epicDb: ChallengeDB.EpicDB = ChallengeDB.EpicDB();
+
   flexible var challengeMetaDataDB: ChallengeDB.ChallengeDB = ChallengeDB.ChallengeDB();
 
   public func greet(name : Text) : async Text {
@@ -278,8 +282,16 @@ actor { // actor is babel
   };
 
     // Creates on behalf of the current user a new Quest, and adds it to the public challenge DB.
-  public shared(msg) func createQuest(title: Text, description: Text,
-    question: Text, answer: Text
+  public shared(msg) func createQuest(
+    questTitle: Text,
+    questSubtitle: Text,
+    questTrigger: Text,
+    beforeQuest: Text, 
+    afterQuest: Text,
+    rootChallenge: ChallengeId,
+    challenges: [ChallengeId],
+    challengeGraph: [[ChallengeId]],
+    creator: ?UserId
   ) : async Text {
     // Verify the user
     let userData = switch (userDb.findById(msg.caller)) {
@@ -287,9 +299,15 @@ actor { // actor is babel
       case (?user) user
     };
     let username = userData.name;
-
-    // let challenge = Challenge.Challenge(challengeCounter.get_new_id(), title, description, question, answer, ?msg.caller);
-    // challengeDB.add(challenge);
+    let questid = challengeCounter.get_new_id();
+    // let quest = {id = questid; questTitle = questTitle; questSubtitle = questSubtitle; questTrigger = questTrigger;
+    // beforeQuest = beforeQuest; afterQuest = afterQuest; rootChallenge = rootChallenge; challenges = challenges;
+    // challengeGraph = challengeGraph; creator = creator;};
+    
+    let quest = Quest.Quest(questid, questTitle, questSubtitle, questTrigger, beforeQuest, afterQuest, rootChallenge, challenges,
+    challengeGraph, creator);
+    
+    questDb.add(quest);
     // "A new challenge with id " # Nat.toText(challenge.get_id()) # " is created by user " # username
     ""
   };
@@ -573,17 +591,16 @@ actor { // actor is babel
   // -> populate DB with epics and campaigns and quests
 
   // this operation can be made atomic for extra safety, or each individual item can be stored separately as the map
-   func loadOiginStoryIntoDB(): Text {
+   func loadOiginStoryChallengesIntoDB(): [Types.ChallengeId] {
         // Populate the challenge database with originStory challenges.
 
-        // let demoStoryChallenges: [Types.ChallengeId]  = [];
+        var demoStoryChallenges: [Types.ChallengeId]  = [];
         let i = 0;
         for (entry in DefaultChallenges.TTBLOriginStory.vals()) {
             let challengeId = challengeCounter.get_new_id();
-            // demoStoryChallenges.push(challengeId);
-            challengeDB.add(
-                Challenge.Challenge(
-                challengeCounter.get_new_id(),
+            demoStoryChallenges := Array.append<Types.ChallengeId> (demoStoryChallenges, [challengeId]);
+            let challenge = Challenge.Challenge(
+                challengeId,
                 "The Tower Of Babel ", // title
                 "Learn the Origin Story", // subtitle
                 entry,  // question
@@ -594,14 +611,24 @@ actor { // actor is babel
                 "", 
                 "",
                 null
-            ));
+            );
+            Debug.print(fullChallengeAsText(challenge));
+            challengeDB.add(challenge);
     };
 
-        Debug.print("Loaded Challenges for Origin Db");
-        "loaded origin Story"
+        Debug.print(getQuestIdsAsString(demoStoryChallenges));
+        demoStoryChallenges
     };
 
 
-  loadOiginStoryIntoDB();  
+  func getQuestIdsAsString(demoStoryChallenges: [Types.ChallengeId]) : Text {
+    var res = "";
+    for (ch in demoStoryChallenges.vals()) {
+      res := res # Nat.toText(ch) # ",";
+    };
+    res
+  };
+
+  loadOiginStoryChallengesIntoDB();  
 
 };
