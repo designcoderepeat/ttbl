@@ -21,6 +21,7 @@ module {
     rootChallenge: ChallengeId,
     challenges: [ChallengeId],
     challengeGraph: [[ChallengeId]],
+    // questTerrain: Nat, // for now it can have BG
     creator: ?UserId) {
 
     var acception_count: Nat = 0;

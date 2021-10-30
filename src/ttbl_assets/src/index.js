@@ -55,13 +55,16 @@ function attachEventHandlers() {
     show(LoaderDiv);
     show(controlsMenu);
     babelSays("Entering Babel...");
-        // call the createOrRegisterUser API
-        ttbl.enterBabel(userNameLoggedIn).then(result => {
-          // get user details from here!
-          console.log("New user entered Babel = " + result);
-          babelSays(result);
-        });
+  
+    // call the createOrRegisterUser API
+  ttbl.enterBabel(userNameLoggedIn).then(result => {
+    // get user details from here!
+    console.log("New user entered Babel = " + result);
+    babelSays(result);
+    ttbl.start_campaign(); 
   });
+  
+});
 
   // Add an event listener 
 document.addEventListener("name-of-event", function(e) {

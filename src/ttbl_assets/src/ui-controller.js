@@ -63,6 +63,7 @@ export const ui_controller = (() => {
 
       // get this as config from bg
       const newbg = '/bg/images/' + Math.ceil(Math.random() * 58) + '.jpg';
+      // const newbg = '/bg/images/' + Math.ceil( parseInt(id) %  58) + '.jpg'; // will be same for the quest... for its lessons and challenges
       // console.log(newbg);
       e.style.backgroundImage =  "url(" + newbg + ")";
       

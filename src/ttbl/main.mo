@@ -291,6 +291,7 @@ actor { // actor is babel
     rootChallenge: ChallengeId,
     challenges: [ChallengeId],
     challengeGraph: [[ChallengeId]],
+    // questTerrain: Nat,
     creator: ?UserId
   ) : async Text {
     // Verify the user
@@ -305,7 +306,7 @@ actor { // actor is babel
     // challengeGraph = challengeGraph; creator = creator;};
     
     let quest = Quest.Quest(questid, questTitle, questSubtitle, questTrigger, beforeQuest, afterQuest, rootChallenge, challenges,
-    challengeGraph, creator);
+    challengeGraph, creator); //questid % 58,
     
     questDb.add(quest);
     // "A new challenge with id " # Nat.toText(challenge.get_id()) # " is created by user " # username
@@ -571,6 +572,27 @@ actor { // actor is babel
   };
   
 
+  public shared(msg) func start_campaign(): async Text {
+    let userData = switch (userDb.findById(msg.caller)) {
+      case (null) { return "you need to be a registered user to start campaigns" };
+      case (?user) user
+    };
+    let username = userData.name;
+
+    return "campaign " # "campaignTitle" # " started by " # "user_id" # " " # username;
+  };
+
+  public shared(msg) func finish_campaign(): async Text {
+    let userData = switch (userDb.findById(msg.caller)) {
+      case (null) { return "you need to be a registered user to start campaigns" };
+      case (?user) user
+    };
+    let username = userData.name;
+
+    return  "campaign " # "campaignTitle" # " finished by " # "user_id" # " " # username;
+  };
+
+
   // implement metachallengeservice
   // add the o,h,m encoder
   
@@ -628,6 +650,9 @@ actor { // actor is babel
     };
     res
   };
+
+// we have 5 game modes now in the UI: 1. Explore Mode (This is the default mode) 2. Epic Mode (User has chosen to play some Epic)
+// 3. Campaign Mode (User has chosen to play some Campaign) // 4. Quest Mode (user has chosen to play some Quest) // 5. Challenge/Lesson Mode.. user is in the middle of a quest learning a lesson or challenging himself
 
   loadOiginStoryChallengesIntoDB();  
 

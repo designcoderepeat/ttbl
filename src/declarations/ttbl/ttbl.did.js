@@ -40,11 +40,13 @@ export const idlFactory = ({ IDL }) => {
     'displayChallenge' : IDL.Func([ChallengeId], [IDL.Text], ['query']),
     'enterBabel' : IDL.Func([IDL.Text], [IDL.Text], []),
     'exploreLanguage' : IDL.Func([IDL.Text], [IDL.Text], []),
+    'finish_campaign' : IDL.Func([], [IDL.Text], []),
     'getUser' : IDL.Func([IDL.Text], [IDL.Text], ['query']),
     'greet' : IDL.Func([IDL.Text], [IDL.Text], []),
     'learnLanguage' : IDL.Func([IDL.Text], [IDL.Text], []),
     'pickMeAChallenge' : IDL.Func([IDL.Text], [IDL.Text], []),
     'setProgress' : IDL.Func([ChallengeId, IDL.Nat], [IDL.Text], []),
+    'start_campaign' : IDL.Func([], [IDL.Text], []),
     'suggestChallenge' : IDL.Func([IDL.Text, ChallengeId], [IDL.Text], []),
   });
 };

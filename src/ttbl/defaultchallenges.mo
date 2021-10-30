@@ -14,6 +14,7 @@ public let TTBLOriginStory: [Text] =
     "Therefore is the name of it called Babel; because the LORD did there confound the language of all the earth: and from thence did the LORD scatter them abroad upon the face of all the earth"]
 ;
 
+
 // public let aathichude: [Types.Aathichudi] = [
 //     {
 

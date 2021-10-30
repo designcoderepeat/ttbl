@@ -401,9 +401,9 @@ _LoadTTBL() {
     const player = new entity.Entity();
 
     player.SetPosition(new THREE.Vector3(
-      1000 + (Math.random() * 2 - 1) * 3000,
+      -1500 + (Math.random() * 2 - 1) * 3000,
       1000 + (Math.random() * 2 - 1) * 500,
-      -1000 + (Math.random() * 2 - 1) * 3000));
+      -4000 + (Math.random() * 2 - 1) * 3000));
 
     player.AddComponent(new player_input.BasicCharacterControllerInput(params));
     player.AddComponent(new player_entity.BasicCharacterController(params));

@@ -11,10 +11,12 @@ service : {
   displayChallenge: (ChallengeId) -> (text) query;
   enterBabel: (text) -> (text);
   exploreLanguage: (text) -> (text);
+  finish_campaign: () -> (text);
   getUser: (text) -> (text) query;
   greet: (text) -> (text);
   learnLanguage: (text) -> (text);
   pickMeAChallenge: (text) -> (text);
   setProgress: (ChallengeId, nat) -> (text);
+  start_campaign: () -> (text);
   suggestChallenge: (text, ChallengeId) -> (text);
 }

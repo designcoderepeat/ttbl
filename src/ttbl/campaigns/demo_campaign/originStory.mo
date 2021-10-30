@@ -2,7 +2,6 @@ import Types "./types";
 import Debug "mo:base/Debug";
 
 module {
-
     public ChallengeId = Types.ChallengeId;
 
 
@@ -13,7 +12,6 @@ public class OriginStoryEpic {
     public let demoQuest: Epic = {
 
     };
-
 
     public let TTBLOriginStory: [Text] = 
         ["And the whole earth was of one language, and of one speech",
@@ -27,34 +25,35 @@ public class OriginStoryEpic {
         "Therefore is the name of it called Babel; because the LORD did there confound the language of all the earth: and from thence did the LORD scatter them abroad upon the face of all the earth"]
     ;
 
-
     // this operation can be made atomic for extra safety, or each individual item can be stored separately as the map
     public func loadOiginStoryIntoDB(): Text {
         // Populate the challenge database with originStory challenges.
 
         let demoStoryChallenges: [ChallengeId]  = [];
         let i = 0;
-        for (entry in TTBLOriginStory.vals()) {
-            let challengeId: ChallengeId = challengeCounter.get_new_id();
-            demoStoryChallenges.push(challengeId);
-            challengeDB.add(
-                Challenge.Challenge(
-                challengeId,
-                "The Tower Of Babel ", // title
-                "Learn the Origin Story", // subtitle
-                entry,
-                null,
-                "Lesson",
-                entry,
-                null,
-                null, 
-                null
-            ));
+        
+        // for (entry in TTBLOriginStory.vals()) {
+        //     let challengeId: ChallengeId = challengeCounter.get_new_id();
+        //     demoStoryChallenges.push(challengeId);
+        //     challengeDB.add(
+        //         Challenge.Challenge(
+        //         challengeId,
+        //         "The Tower Of Babel ", // title
+        //         "Learn the Origin Story", // subtitle
+        //         entry,
+        //         null,
+        //         "Lesson",
+        //         entry,
+        //         null,
+        //         null, 
+        //         null
+        //     ));
+        
     };
 
         Debug.print("Loaded Challenges for Origin Db");
     };
 
-    };
+};
 
 };
