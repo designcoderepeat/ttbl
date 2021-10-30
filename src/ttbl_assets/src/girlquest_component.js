@@ -6,7 +6,7 @@ export const girlquest_component = (() => {
   const GIRLQUEST_TITLE = 'So you come to Babel...';
   const GIRLQUEST_TEXT = 'Finally you arrive, traveller. Begin your journey by visiting Master Guru... I hear he lives up North. Beware of the monsters though... use your sword to protect yourself. I wonder what secrets he is about to share with you.. He never shares any with me anyway'; 
   const GIRLQUEST_OBJECTIVE = 'Find Master Guru';
-  const GIRLQUEST_QUESTOPTIONS = "<div class='btn-grid'><button id='quest-continue' class='btn'>Continue Quest</quest></div>";
+  // const GIRLQUEST_QUESTOPTIONS = "<div class='btn-grid'><button id='quest-continue' class='btn'>Continue Quest</quest></div>";
 
   class GirlQuestComponent extends entity.Component {
     constructor() {
@@ -36,7 +36,7 @@ export const girlquest_component = (() => {
         title: GIRLQUEST_TITLE,
         text: GIRLQUEST_TEXT,
         objective: GIRLQUEST_OBJECTIVE,
-        questOptions: GIRLQUEST_QUESTOPTIONS,
+        // questOptions: GIRLQUEST_QUESTOPTIONS,
       };
 
       this._AddQuestToJournal(quest);

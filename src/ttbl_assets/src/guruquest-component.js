@@ -1,12 +1,14 @@
-import {entity} from "./entity.js";
+import {entity} from './entity.js';
 
+const continueButton = document.getElementById('continue-learning-btn');
+const startButton = document.getElementById('start-learning-btn');
 
 export const Guruquest_component = (() => {
 
-  const GuruQUEST_TITLE = 'Hmmm...';
-  const GuruQUEST_TEXT = 'Who are you? What do you want?'; 
+  const GuruQUEST_TITLE = 'Welcome to Babel seeker';
+  const GuruQUEST_TEXT = 'You must be curious if you made it all the way here'; 
   const GuruQUEST_OBJECTIVE = 'Learn The origin stories';
-  const GuruQUEST_QUESTOPTIONS = "<div class='btn-grid'><button id='quest-continue' class='btn'>Are you.. master Guru?</quest></div>";
+  // const GuruQUEST_QUESTOPTIONS = "";
 
   class GuruQuestComponent extends entity.Component {
     constructor() {
@@ -25,7 +27,9 @@ export const Guruquest_component = (() => {
 
     _OnPicked(msg) {
 
-      this._babelSays("Quest: " + GuruQUEST_OBJECTIVE);
+      this._babelSays('Quest: ' + GuruQUEST_OBJECTIVE);
+      continueButton.classList.add('hide');
+      startButton.classList.remove('hide');
 
       // HARDCODE A QUEST
 
@@ -36,7 +40,7 @@ export const Guruquest_component = (() => {
         title: GuruQUEST_TITLE,
         text: GuruQUEST_TEXT,
         objective: GuruQUEST_OBJECTIVE,
-        questOptions: GuruQUEST_QUESTOPTIONS,
+        // questOptions: GuruQUEST_QUESTOPTIONS,
       };
 
       this._AddQuestToJournal(quest);
@@ -64,7 +68,6 @@ export const Guruquest_component = (() => {
     }
 
   };
-
 
   
   return {
