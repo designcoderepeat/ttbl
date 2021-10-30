@@ -13,12 +13,15 @@ import {spatial_hash_grid} from './spatial-hash-grid.js';
 import {ui_controller} from './ui-controller.js';
 import {health_bar} from './health-bar.js';
 import {level_up_component} from './level-up-component.js';
-import {quest_component} from './quest-component.js';
+import {girlquest_component} from './girlquest_component.js';
 import {spatial_grid_controller} from './spatial-grid-controller.js';
 import {inventory_controller} from './inventory-controller.js';
 import {equip_weapon_component} from './equip-weapon-component.js';
 import {attack_controller} from './attacker-controller.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
+import { Guruquest_component } from './guruquest-component.js';
+// import { Erikaquest_component } from './erikaquest-component.js';
+
 
 const _VS = `
 varying vec3 vWorldPosition;
@@ -255,8 +258,9 @@ class BabelUniverse {
     guru.AddComponent(new spatial_grid_controller.SpatialGridController({
         grid: this._grid,
     }));
+
     guru.AddComponent(new player_input.PickableComponent());
-    guru.AddComponent(new quest_component.QuestComponent());
+    guru.AddComponent(new Guruquest_component.GuruQuestComponent());
     
     const randX = -100 + ((Math.random() * 2.0 - 1.0) * 200);
     const randZ = 300 + ((Math.random() * 2.0 - 1.0) * 150);
@@ -394,7 +398,7 @@ _LoadTTBL() {
     girl.AddComponent(new player_input.PickableComponent());
 
     // so it begins...
-    girl.AddComponent(new quest_component.QuestComponent());
+    girl.AddComponent(new girlquest_component.GirlQuestComponent());
     girl.SetPosition(new THREE.Vector3(30, 0, 30));
     this._entityManager.Add(girl);
 

@@ -1,14 +1,14 @@
 import {entity} from "./entity.js";
 
 
-export const quest_component = (() => {
+export const girlquest_component = (() => {
 
-  const _TITLE = 'So you come to Babel...';
-  const _TEXT = 'Finally you arrive, traveller. Begin your journey by visiting Master Guru... I hear he lives up North. Beware of the monsters though... use your sword to protect yourself'; 
-  const _OBJECTIVE = 'Find Master Guru';
-  const _QUESTOPTIONS = "<div class='btn-grid'><button id='quest-continue' class='btn'>Continue Quest</quest></div>";
+  const GIRLQUEST_TITLE = 'So you come to Babel...';
+  const GIRLQUEST_TEXT = 'Finally you arrive, traveller. Begin your journey by visiting Master Guru... I hear he lives up North. Beware of the monsters though... use your sword to protect yourself. I wonder what secrets he is about to share with you.. He never shares any with me anyway'; 
+  const GIRLQUEST_OBJECTIVE = 'Find Master Guru';
+  const GIRLQUEST_QUESTOPTIONS = "<div class='btn-grid'><button id='quest-continue' class='btn'>Continue Quest</quest></div>";
 
-  class QuestComponent extends entity.Component {
+  class GirlQuestComponent extends entity.Component {
     constructor() {
       super();
       const e = document.getElementById('quest-ui');
@@ -19,9 +19,13 @@ export const quest_component = (() => {
       this._RegisterHandler('input.picked', (m) => this._OnPicked(m));
     }
 
+    _AttachHandlers() {
+
+    }
+
     _OnPicked(msg) {
 
-      this._babelSays("Quest started...");
+      this._babelSays("Quest: " + GIRLQUEST_OBJECTIVE);
 
       // HARDCODE A QUEST
 
@@ -29,13 +33,14 @@ export const quest_component = (() => {
       // here 
       const quest = {
         id: 'DemoQuest',
-        title: _TITLE,
-        text: _TEXT,
-        objective: _OBJECTIVE,
-        questOptions: _QUESTOPTIONS,
+        title: GIRLQUEST_TITLE,
+        text: GIRLQUEST_TEXT,
+        objective: GIRLQUEST_OBJECTIVE,
+        questOptions: GIRLQUEST_QUESTOPTIONS,
       };
 
       this._AddQuestToJournal(quest);
+      this._AttachHandlers();
     }
 
     _ShowResponses(quest) {
@@ -63,6 +68,6 @@ export const quest_component = (() => {
 
   
   return {
-      QuestComponent: QuestComponent,
+      GirlQuestComponent: GirlQuestComponent,
   };
 })();
