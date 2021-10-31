@@ -352,7 +352,7 @@ actor { // actor is babel
     //let validChallengeRanges: [(Nat, Nat)]; 
     //let sizes: [Nat, Nat]; // (lessons vs quizzes)
     var lesson = "";
-    for (j in Iter.range(1960, 1968)) {      
+    for (j in Iter.range(2960, 2968)) {      
       if (langauge == "English") {
         lesson := lesson # pickChallenge(j)  # ":" ;
       };

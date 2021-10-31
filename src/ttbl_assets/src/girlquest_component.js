@@ -12,7 +12,7 @@ export const girlquest_component = (() => {
     constructor() {
       super();
       const e = document.getElementById('quest-ui');
-      e.style.visibility = 'hidden';
+      e.classList.add('hide');
     }
 
     InitComponent() {
@@ -24,8 +24,12 @@ export const girlquest_component = (() => {
     }
 
     _OnPicked(msg) {
+      
+      document.getElementById('quest-ui').classList.remove('hide');
+      
       const e = document.getElementById('quest-ui');
       e.style.visibility = 'visible';
+
       this._babelSays("Quest: " + GIRLQUEST_OBJECTIVE);
 
       // HARDCODE A QUEST

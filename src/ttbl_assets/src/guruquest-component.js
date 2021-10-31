@@ -14,7 +14,7 @@ export const Guruquest_component = (() => {
     constructor() {
       super();
       const e = document.getElementById('quest-ui');
-      e.style.visibility = 'hidden';
+      e.classList.add('hide');
     }
 
     InitComponent() {
@@ -27,6 +27,10 @@ export const Guruquest_component = (() => {
     }
 
     _OnPicked(msg) {
+
+      document.getElementById('save-btn').classList.add('hide');
+      document.getElementById('quest-ui').classList.remove('hide');
+    
       const e = document.getElementById('quest-ui');
       e.style.visibility = 'visible';
 

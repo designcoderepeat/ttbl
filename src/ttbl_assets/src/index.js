@@ -35,8 +35,23 @@ function attachEventHandlers() {
 //     document.getElementById('quest-ui').style.visibility = 'hidden';
 // });
 
+document.getElementById("save-btn").addEventListener('click', () => {
+  document.getElementById('quest-ui').style.visibility = 'hidden';
+  
+  // save progress here
+
+  // show question container below
+
+});
+
   document.getElementById("continue-learning-btn").addEventListener('click', () => {
-      document.getElementById('quest-ui').style.visibility = 'hidden';
+      document.getElementById('save-btn').classList.remove('hide');
+      document.getElementById('continue-learning-btn').classList.add('hide');
+
+
+      // hide question-container below
+      document.getElementById('question-container').classList.add('hide');
+
   });
 
   LoginButtonStoic.addEventListener('click', function (event) {
@@ -362,6 +377,7 @@ function startLesson(syllabus, type) {
   // scoreElementDiv.innerText = score;
   lessonButtons.classList.add("hide");
   questionsElement.classList.remove("hide");
+  document.getElementById('question-container').classList.remove('hide'); // check this
   formLesson(syllabus, type);
   startButton.classList.remove("hide");
 }
