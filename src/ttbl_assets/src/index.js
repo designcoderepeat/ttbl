@@ -377,7 +377,7 @@ function startLesson(syllabus, type) {
   // scoreElementDiv.innerText = score;
   lessonButtons.classList.add("hide");
   questionsElement.classList.remove("hide");
-  document.getElementById('question-container').classList.remove('hide'); // check this
+  // document.getElementById('question-container').classList.remove('hide'); // check this
   formLesson(syllabus, type);
   startButton.classList.remove("hide");
 }
