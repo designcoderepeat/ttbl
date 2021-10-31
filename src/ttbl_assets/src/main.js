@@ -202,7 +202,7 @@ class BabelUniverse {
         emissive: new THREE.Color(0x808080),
       }));
       e.SetPosition(pos);
-      this._entityManager.Add(e);
+      this._entityManager.Add(e, 'cloud_' + i);
       e.SetActive(false);
     }
   }
@@ -239,7 +239,7 @@ class BabelUniverse {
       e.AddComponent(
           new spatial_grid_controller.SpatialGridController({grid: this._grid}));
       e.SetPosition(pos);
-      this._entityManager.Add(e);
+      this._entityManager.Add(e, 'foliage_' + i);
       e.SetActive(false);
     }
   }
@@ -284,7 +284,7 @@ class BabelUniverse {
      , 10);
 
     guru.SetPosition(posGuru);
-    this._entityManager.Add(guru);
+    this._entityManager.Add(guru, 'guru');
 
     this._LoadBabelRubble(posRubble);
     this._LoadBabel(posBabel);
@@ -366,7 +366,7 @@ _LoadTTBL() {
           icon: 'war-axe-64.png',
         },
     }));
-    this._entityManager.Add(axe);
+    this._entityManager.Add(axe, 'axe');
 
     const sword = new entity.Entity();
     sword.AddComponent(new inventory_controller.InventoryItem({
@@ -378,7 +378,7 @@ _LoadTTBL() {
           icon: 'pointy-sword-64.png',
         },
     }));
-    this._entityManager.Add(sword);
+    this._entityManager.Add(sword, 'sword');
 
 
     
@@ -400,7 +400,7 @@ _LoadTTBL() {
     // so it begins...
     girl.AddComponent(new girlquest_component.GirlQuestComponent());
     girl.SetPosition(new THREE.Vector3(30, 0, 30));
-    this._entityManager.Add(girl);
+    this._entityManager.Add(girl, 'girl');
 
     const player = new entity.Entity();
 
@@ -513,11 +513,19 @@ _LoadTTBL() {
       // let degOfFreedom = 4;
       // let spawnSeed = 300 + (Math.random() * 2 - 1) * 700
       
+      var x = 250 + (Math.random() * 2 - 1) * 250;
+      var z = 250 + (Math.random() * 2 - 1) * 250;
+
+      if (i % 4 == 0) { x *= 1; z *= 1; }
+      if (i % 4 == 1) { x *= 1; z *= -1; }
+      if (i % 4 == 2) { x *= -1; z *= 1; }
+      if (i % 4 == 3) { x *= -1; z *= -1; }
+
       npc.SetPosition(new THREE.Vector3(
-        250 + (Math.random() * 2 - 1) * 250,
-          0,
-          250 + (Math.random() * 2 - 1) * 250));
-      this._entityManager.Add(npc);
+      x,
+      0,
+      z));
+      this._entityManager.Add(npc, npc + '_' + i);
     }
   }
 d
