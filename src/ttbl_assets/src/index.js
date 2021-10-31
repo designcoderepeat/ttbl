@@ -7,6 +7,7 @@ const LoaderDiv = document.getElementById("LoaderDiv");
 const GameDiv = document.getElementById("GameDiv");
 
 const mainmenu = document.getElementById("mainmenu");
+const questControls = document.getElementById("quest-controls");
 const controlsMenu = document.getElementById("controls-menu");
 const EnterBabelOption = document.getElementById("EnterBabelOption");
 const LoginOption = document.getElementById("LoginOption");
@@ -30,24 +31,13 @@ function startGameV1() {
 
 function attachEventHandlers() {
 
+//   document.getElementById("continue-learning-girl-btn").addEventListener('click', () => {
+//     document.getElementById('quest-ui').style.visibility = 'hidden';
+// });
+
   document.getElementById("continue-learning-btn").addEventListener('click', () => {
       document.getElementById('quest-ui').style.visibility = 'hidden';
   });
-
-  document.getElementById("test-turkish").addEventListener("click", async () => {
-    // Interact with hlo actor, calling the greet method
-    const lesson = await ttbl.learnLanguage("Turkish");
-    console.log(lesson);
-    startLesson(lesson, "Quiz")
-  });
-
-  document.getElementById("learn-turkish").addEventListener("click", async () => {
-    // Interact with hlo actor, calling the greet method
-    const lesson = await ttbl.learnLanguage("Turkish");
-    console.log(lesson);
-    startLesson(lesson, "Lesson")
-  });
-
 
   LoginButtonStoic.addEventListener('click', function (event) {
     console.log(event);
@@ -311,12 +301,14 @@ startLearningButton.addEventListener('click', startLearning);
 // });
 
 function startLearning() {
-  startLearningButton.classList.add('hide')
-  lessonButtons.classList.remove("hide")
-  questionsElement.classList.add("hide")
+  startLearningButton.classList.add('hide');
+  lessonButtons.classList.remove("hide");
+  questionsElement.classList.add("hide");
 
   document.getElementById("test-turkish").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
+    lessonButtons.classList.add("hide");
+
     const lesson = await ttbl.learnLanguage("Turkish");
     console.log(lesson);
     startLesson(lesson, "Quiz")
@@ -324,6 +316,8 @@ function startLearning() {
   
   document.getElementById("learn-turkish").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
+    lessonButtons.classList.add("hide");
+
     const lesson = await ttbl.learnLanguage("Turkish");
     console.log(lesson);
     startLesson(lesson, "Lesson")
