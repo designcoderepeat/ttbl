@@ -44,6 +44,10 @@ export const Guruquest_component = (() => {
 
       this._AddQuestToJournal(quest);
       this._AttachHandlers();
+
+      const guru = this.FindEntity('ui').GetComponent('guru');
+      guru.AddComponent(new player_input.PickableComponent());
+
     }
 
     _ShowResponses(quest) {
