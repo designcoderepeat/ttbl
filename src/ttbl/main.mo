@@ -371,6 +371,9 @@ actor { // actor is babel
       if (langauge == "Turkish") {
         lesson := lesson # pickMeATurkishChallenge()  # ":" ;
       };
+      if (langauge == "German") {
+        lesson := lesson # pickMeAGermanChallenge()  # ":" ;
+      };
       Debug.print(lesson);
     };
     
@@ -378,8 +381,15 @@ actor { // actor is babel
   };
 
   // Picks at random an existing challenge from the challenge DB.
+   func pickMeAGermanChallenge() :  Text {
+    switch (challengeDB.get(random.next() % 1000 + 1960)) {
+      case (null) { "There are no challenges in the database" };
+      case (?challenge) { challengeAsText(challenge) }
+    }
+  };
+
+  // Picks at random an existing challenge from the challenge DB.
    func pickMeATurkishChallenge() :  Text {
-    
     switch (challengeDB.get(random.next() % 1960)) {
       case (null) { "There are no challenges in the database" };
       case (?challenge) { challengeAsText(challenge) }
@@ -424,9 +434,10 @@ actor { // actor is babel
     public func get_count() : Nat { count };
   };
 
-  Debug.print("Turkish start " # Nat.toText(challengeCounter.get_count()));
+  func loadLangauges() : (Nat, Nat) {
+  let starti = challengeCounter.get_count();
 
-  // Populate the challenge database with some initial challenges.
+  Debug.print("Turkish start " # Nat.toText(challengeCounter.get_count()));
   for (tuple in DefaultChallenges.turkishBook.vals()) {
     let desc = "";
     challengeDB.add(
@@ -444,8 +455,33 @@ actor { // actor is babel
         null
       ));
   };
-
   Debug.print("Turkish end " # Nat.toText(challengeCounter.get_count()));
+
+  Debug.print(" German start " # Nat.toText(challengeCounter.get_count()));
+  
+  for (tuple in DefaultChallenges.germanBook.vals()) {
+    let desc = "";
+    challengeDB.add(
+      Challenge.Challenge(
+        challengeCounter.get_new_id(),
+        "German basics", // title
+        "learn the word", // desc. add tags
+        tuple.0,
+        "qa",
+        null,
+        tuple.1,
+        "",
+        "",
+        "",
+        null
+      ));
+  };
+  let endi = challengeCounter.get_count();
+  Debug.print(" Gmeran end " # Nat.toText(challengeCounter.get_count()));
+  return (starti, endi);
+  };
+
+
 
   // Populate the challenge database with some initial challenges.
   // for (kural in DefaultChallenges.thirukural.vals()) {
@@ -690,6 +726,9 @@ actor { // actor is babel
 // we have 5 game modes now in the UI: 1. Explore Mode (This is the default mode) 2. Epic Mode (User has chosen to play some Epic)
 // 3. Campaign Mode (User has chosen to play some Campaign) // 4. Quest Mode (user has chosen to play some Quest) // 5. Challenge/Lesson Mode.. user is in the middle of a quest learning a lesson or challenging himself
 
+  // let turkishrange = loadLangauge("turkishBook");
+  // let germanrange = loadLangauge("germanBook");
+  let langsrange = loadLangauges();
   loadOiginStoryChallengesIntoDB();  
 
 };

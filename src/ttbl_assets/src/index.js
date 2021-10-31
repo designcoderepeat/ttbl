@@ -312,6 +312,14 @@ function startLearning() {
     console.log(lesson);
     startLesson(lesson, "Quiz")
   });
+
+  document.getElementById("test-german").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    lessonButtons.classList.add("hide");
+    const lesson = await ttbl.learnLanguage("German");
+    console.log(lesson);
+    startLesson(lesson, "Quiz")
+  });
   
   document.getElementById("learn-turkish").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
@@ -320,6 +328,15 @@ function startLearning() {
     console.log(lesson);
     startLesson(lesson, "Lesson")
   });
+
+  document.getElementById("learn-german").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    lessonButtons.classList.add("hide");
+    const lesson = await ttbl.learnLanguage("German");
+    console.log(lesson);
+    startLesson(lesson, "Lesson")
+  });
+
 
   document.getElementById("learn-origin-story").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method

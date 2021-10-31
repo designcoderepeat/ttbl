@@ -24,7 +24,8 @@ export const girlquest_component = (() => {
     }
 
     _OnPicked(msg) {
-
+      const e = document.getElementById('quest-ui');
+      e.style.visibility = 'visible';
       this._babelSays("Quest: " + GIRLQUEST_OBJECTIVE);
 
       // HARDCODE A QUEST

@@ -27,6 +27,9 @@ export const Guruquest_component = (() => {
     }
 
     _OnPicked(msg) {
+      const e = document.getElementById('quest-ui');
+      e.style.visibility = 'visible';
+
       this._babelSays('Quest: ' + GuruQUEST_OBJECTIVE);
       continueButton.classList.add('hide');
       startButton.classList.remove('hide');
