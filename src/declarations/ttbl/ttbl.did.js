@@ -44,6 +44,7 @@ export const idlFactory = ({ IDL }) => {
     'getUser' : IDL.Func([IDL.Text], [IDL.Text], ['query']),
     'greet' : IDL.Func([IDL.Text], [IDL.Text], []),
     'learnLanguage' : IDL.Func([IDL.Text], [IDL.Text], []),
+    'learnOriginStory' : IDL.Func([IDL.Text], [IDL.Text], []),
     'pickMeAChallenge' : IDL.Func([IDL.Text], [IDL.Text], []),
     'setProgress' : IDL.Func([ChallengeId, IDL.Nat], [IDL.Text], []),
     'start_campaign' : IDL.Func([], [IDL.Text], []),

@@ -345,6 +345,22 @@ actor { // actor is babel
     return "oops nothing found";
   };
 
+
+  // groupings for Users or challenge (challengeMetaData)
+  public shared(msg) func learnOriginStory(langauge: Text) : async Text {
+    //turkish [(1-2000)] 
+    //let validChallengeRanges: [(Nat, Nat)]; 
+    //let sizes: [Nat, Nat]; // (lessons vs quizzes)
+    var lesson = "";
+    for (j in Iter.range(1960, 1968)) {      
+      if (langauge == "English") {
+        lesson := lesson # pickChallenge(j)  # ":" ;
+      };
+      Debug.print(lesson);
+    };
+    return lesson;
+  };
+
   // groupings for Users or challenge (challengeMetaData)
   public func learnLanguage(langauge: Text) : async Text {
     //turkish [(1-2000)] 
@@ -365,6 +381,14 @@ actor { // actor is babel
    func pickMeATurkishChallenge() :  Text {
     
     switch (challengeDB.get(random.next() % 1960)) {
+      case (null) { "There are no challenges in the database" };
+      case (?challenge) { challengeAsText(challenge) }
+    }
+  };
+
+   // Picks at random an existing challenge from the challenge DB.
+   func pickChallenge(id: Nat) :  Text {
+    switch (challengeDB.get(id)) {
       case (null) { "There are no challenges in the database" };
       case (?challenge) { challengeAsText(challenge) }
     }
@@ -400,6 +424,7 @@ actor { // actor is babel
     public func get_count() : Nat { count };
   };
 
+  Debug.print("Turkish start " # Nat.toText(challengeCounter.get_count()));
 
   // Populate the challenge database with some initial challenges.
   for (tuple in DefaultChallenges.turkishBook.vals()) {
@@ -420,6 +445,7 @@ actor { // actor is babel
       ));
   };
 
+  Debug.print("Turkish end " # Nat.toText(challengeCounter.get_count()));
 
   // Populate the challenge database with some initial challenges.
   // for (kural in DefaultChallenges.thirukural.vals()) {
@@ -623,6 +649,10 @@ actor { // actor is babel
 
         var demoStoryChallenges: [Types.ChallengeId]  = [];
         let i = 0;
+
+
+        Debug.print("Origin story start " # Nat.toText(challengeCounter.get_count()));
+
         for (entry in DefaultChallenges.TTBLOriginStory.vals()) {
             let challengeId = challengeCounter.get_new_id();
             demoStoryChallenges := Array.append<Types.ChallengeId> (demoStoryChallenges, [challengeId]);
@@ -639,13 +669,14 @@ actor { // actor is babel
                 "",
                 null
             );
-            Debug.print(fullChallengeAsText(challenge));
             challengeDB.add(challenge);
-    };
+        };
+        Debug.print("Origin story end " # Nat.toText(challengeCounter.get_count()));
 
         Debug.print(getQuestIdsAsString(demoStoryChallenges));
         demoStoryChallenges
     };
+
 
 
   func getQuestIdsAsString(demoStoryChallenges: [Types.ChallengeId]) : Text {
@@ -659,6 +690,6 @@ actor { // actor is babel
 // we have 5 game modes now in the UI: 1. Explore Mode (This is the default mode) 2. Epic Mode (User has chosen to play some Epic)
 // 3. Campaign Mode (User has chosen to play some Campaign) // 4. Quest Mode (user has chosen to play some Quest) // 5. Challenge/Lesson Mode.. user is in the middle of a quest learning a lesson or challenging himself
 
-  // loadOiginStoryChallengesIntoDB();  
+  loadOiginStoryChallengesIntoDB();  
 
 };

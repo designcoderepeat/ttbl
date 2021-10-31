@@ -134,7 +134,6 @@ class BabelUniverse {
     this._LoadClouds();
     this._LoadSky();
     this._LoadPlayer();
-    
 
     this._previousRAF = null;
     this._RAF();
@@ -212,13 +211,6 @@ class BabelUniverse {
     const items = ['BirchTree_1.fbx', 'BirchTree_2.fbx', 'BirchTree_3.fbx', 'BirchTree_4.fbx', 'BirchTree_5.fbx', 'BirchTree_Autumn_1.fbx', 'BirchTree_Autumn_2.fbx', 'BirchTree_Autumn_3.fbx', 'BirchTree_Autumn_4.fbx', 'BirchTree_Autumn_5.fbx', 'BirchTree_Dead_1.fbx', 'BirchTree_Dead_2.fbx', 'BirchTree_Dead_3.fbx', 'BirchTree_Dead_4.fbx', 'BirchTree_Dead_5.fbx', 'BirchTree_Dead_Snow_1.fbx', 'BirchTree_Dead_Snow_2.fbx', 'BirchTree_Dead_Snow_3.fbx', 'BirchTree_Dead_Snow_4.fbx', 'BirchTree_Dead_Snow_5.fbx', 'BirchTree_Snow_1.fbx', 'BirchTree_Snow_2.fbx', 'BirchTree_Snow_3.fbx', 'BirchTree_Snow_4.fbx', 'BirchTree_Snow_5.fbx', 'Bush_1.fbx', 'Bush_2.fbx', 'Bush_Snow_1.fbx', 'Bush_Snow_2.fbx', 'BushBerries_1.fbx', 'BushBerries_2.fbx', 'Cactus_1.fbx', 'Cactus_2.fbx', 'Cactus_3.fbx', 'Cactus_4.fbx', 'Cactus_5.fbx', 'CactusFlower_1.fbx', 'CactusFlowers_2.fbx', 'CactusFlowers_3.fbx', 'CactusFlowers_4.fbx', 'CactusFlowers_5.fbx', 'CommonTree_1.fbx', 'CommonTree_2.fbx', 'CommonTree_3.fbx', 'CommonTree_4.fbx', 'CommonTree_5.fbx', 'CommonTree_Autumn_1.fbx', 'CommonTree_Autumn_2.fbx', 'CommonTree_Autumn_3.fbx', 'CommonTree_Autumn_4.fbx', 'CommonTree_Autumn_5.fbx', 'CommonTree_Dead_1.fbx', 'CommonTree_Dead_2.fbx', 'CommonTree_Dead_3.fbx', 'CommonTree_Dead_4.fbx', 'CommonTree_Dead_5.fbx', 'CommonTree_Dead_Snow_1.fbx', 'CommonTree_Dead_Snow_2.fbx', 'CommonTree_Dead_Snow_3.fbx', 'CommonTree_Dead_Snow_4.fbx', 'CommonTree_Dead_Snow_5.fbx', 'CommonTree_Snow_1.fbx', 'CommonTree_Snow_2.fbx', 'CommonTree_Snow_3.fbx', 'CommonTree_Snow_4.fbx', 'CommonTree_Snow_5.fbx', 'Corn_1.fbx', 'Corn_2.fbx', 'Flowers.fbx', 'Grass_2.fbx', 'Grass_Short.fbx', 'Grass.fbx', 'Lilypad.fbx', 'PalmTree_1.fbx', 'PalmTree_2.fbx', 'PalmTree_3.fbx', 'PalmTree_4.fbx', 'PineTree_1.fbx', 'PineTree_2.fbx', 'PineTree_3.fbx', 'PineTree_4.fbx', 'PineTree_5.fbx', 'PineTree_Autumn_1.fbx', 'PineTree_Autumn_2.fbx', 'PineTree_Autumn_3.fbx', 'PineTree_Autumn_4.fbx', 'PineTree_Autumn_5.fbx', 'PineTree_Snow_1.fbx', 'PineTree_Snow_2.fbx', 'PineTree_Snow_3.fbx', 'PineTree_Snow_4.fbx', 'PineTree_Snow_5.fbx', 'Plant_1.fbx', 'Plant_2.fbx', 'Plant_3.fbx', 'Plant_4.fbx', 'Plant_5.fbx', 'Rock_1.fbx', 'Rock_2.fbx', 'Rock_3.fbx', 'Rock_4.fbx', 'Rock_5.fbx', 'Rock_6.fbx', 'Rock_7.fbx', 'Rock_Moss_1.fbx', 'Rock_Moss_2.fbx', 'Rock_Moss_3.fbx', 'Rock_Moss_4.fbx', 'Rock_Moss_5.fbx', 'Rock_Moss_6.fbx', 'Rock_Moss_7.fbx', 'Rock_Snow_1.fbx', 'Rock_Snow_2.fbx', 'Rock_Snow_3.fbx', 'Rock_Snow_4.fbx', 'Rock_Snow_5.fbx', 'Rock_Snow_6.fbx', 'Rock_Snow_7.fbx', 'TreeStump_Moss.fbx', 'TreeStump_Snow.fbx', 'TreeStump.fbx', 'Wheat.fbx', 'Willow_1.fbx', 'Willow_2.fbx', 'Willow_3.fbx', 'Willow_4.fbx', 'Willow_5.fbx', 'Willow_Autumn_1.fbx', 'Willow_Autumn_2.fbx', 'Willow_Autumn_3.fbx', 'Willow_Autumn_4.fbx', 'Willow_Autumn_5.fbx', 'Willow_Dead_1.fbx', 'Willow_Dead_2.fbx', 'Willow_Dead_3.fbx', 'Willow_Dead_4.fbx', 'Willow_Dead_5.fbx', 'Willow_Dead_Snow_1.fbx', 'Willow_Dead_Snow_2.fbx', 'Willow_Dead_Snow_3.fbx', 'Willow_Dead_Snow_4.fbx', 'Willow_Dead_Snow_5.fbx', 'Willow_Snow_1.fbx', 'Willow_Snow_2.fbx', 'Willow_Snow_3.fbx', 'Willow_Snow_4.fbx', 'Willow_Snow_5.fbx', 'WoodLog_Moss.fbx', 'WoodLog_Snow.fbx', 'WoodLog.fbx'];
 
     for (let i = 0; i < items.length; ++i) {
-      // const names = [
-      //   'CommonTree',
-      //   'BirchTree',
-      //   'Willow', 'Grass', 'Rock_Moss'
-      // ];
-      // const name = names[math.rand_int(0, names.length - 1)];
-      // const index = math.rand_int(1, 5);
 
       const pos = new THREE.Vector3(
           (Math.random() * 2.0 - 1.0) * 500,
@@ -560,10 +552,6 @@ d
         this._previousRAF = t;
       }
 
-
-
-
-
       this._RAF();
 
       this._threejs.render(this._scene, this._camera);
@@ -580,7 +568,6 @@ d
     this._entityManager.Update(timeElapsedS);
   }
 }
-
 
 let _APP = null;
 const EnterBabelOption = document.getElementById("EnterBabelOption");

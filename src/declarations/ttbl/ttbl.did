@@ -15,6 +15,7 @@ service : {
   getUser: (text) -> (text) query;
   greet: (text) -> (text);
   learnLanguage: (text) -> (text);
+  learnOriginStory: (text) -> (text);
   pickMeAChallenge: (text) -> (text);
   setProgress: (ChallengeId, nat) -> (text);
   start_campaign: () -> (text);

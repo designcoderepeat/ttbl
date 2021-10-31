@@ -37,6 +37,7 @@ export interface _SERVICE {
   'getUser' : (arg_0: string) => Promise<string>,
   'greet' : (arg_0: string) => Promise<string>,
   'learnLanguage' : (arg_0: string) => Promise<string>,
+  'learnOriginStory' : (arg_0: string) => Promise<string>,
   'pickMeAChallenge' : (arg_0: string) => Promise<string>,
   'setProgress' : (arg_0: ChallengeId, arg_1: bigint) => Promise<string>,
   'start_campaign' : () => Promise<string>,

@@ -308,7 +308,6 @@ function startLearning() {
   document.getElementById("test-turkish").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
     lessonButtons.classList.add("hide");
-
     const lesson = await ttbl.learnLanguage("Turkish");
     console.log(lesson);
     startLesson(lesson, "Quiz")
@@ -317,10 +316,17 @@ function startLearning() {
   document.getElementById("learn-turkish").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
     lessonButtons.classList.add("hide");
-
     const lesson = await ttbl.learnLanguage("Turkish");
     console.log(lesson);
     startLesson(lesson, "Lesson")
+  });
+
+  document.getElementById("learn-origin-story").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    lessonButtons.classList.add("hide");
+    const lesson = await ttbl.learnOriginStory("English");
+    console.log(lesson);
+    startLesson(lesson, "OriginStory")
   });
 
   // document.getElementById("explore-tamil").addEventListener("click", async () => {
@@ -333,6 +339,7 @@ function startLearning() {
 }
 
 function startLesson(syllabus, type) {
+  console.log(syllabus);
   syllabus = syllabus.substring(0, syllabus.length - 1);
   correctAnswers = [];
   // scoreElementDiv.innerText = score;
@@ -356,6 +363,8 @@ function formLesson(syllabus, type) {
   if (type == "exploreThirukural") {
     var syllabusforTamil = getSyllabusFromThirukural(syllabus);
     getQuestions(syllabusforTamil, 3).forEach(q => questions.push(q));
+  } else if (type == "OriginStory") {
+    getQuestionsForOriginStory(syllabus, 0).forEach(q => questions.push(q));
   }
   else if (type == "Quiz") {
     getQuestions(syllabus, 3).forEach(q => questions.push(q));
@@ -400,9 +409,64 @@ var options = ["a", "ability", "able", "about", "above", "accept", "according", 
 var welldones = ["well done!", "bravo", "nice job commander!", "aye aye", "keep going", "that's correct", "yes indeed", "indeed", "100%", "you got this", "you're a winner", "wow, you are good at this", "can't stop me", "that's correct", "ba dmm tssss", "*clap clap*", "süper", "nice job", "keep it up", "keep going to rescue humanity", "you're smartrer now", "the world is one bit better now", "indeed", "hmm... you're good at this","you’re on the right track now!", "you’ve got it mate", "super!", "that’s right!", "that’s good", "you’re really working hard today", "you are very good at that", "that’s coming along nicely", "good work!", "i’m happy to see you working like that", "that’s much, much better!", "exactly right", "you’re doing that much better today", "you’ve just about got it", "that’s the best you’ve ever done", "you’re doing a good job", "that’s it!", "now you’ve figured it out", "that’s quite an improvement", "great!", "i knew you could do it", "congratulations!", "not bad", "keep working on it", "you’re improving", "now you have it!", "you are learning fast", "good for you!", "couldn’t have done it better myself", "aren’t you proud of yourself?", "one more time and you’ll have it", "you really make my job fun", "that’s the right way to do it", "you’re getting better every day", "you did it that time!", "that’s not half bad", "nice going", "you haven’t missed a thing!", "wow!", "that’s the way!", "keep up the good work", "terrific!", "nothing can stop you now", "that’s the way to do it", "sensational!", "you’ve got your brain in gear today", "that’s better", "that was first class work", "excellent!", "that’s the best ever", "you’ve just about mastered it", "perfect!", "that’s better than ever", "much better!", "wonderful!", "you must have been practicing", "you did that very well", "fine!", "nice going", "you’re really going to town", "outstanding!", "fantastic!", "tremendous!", "that’s how to handle that", "now that’s what i call a fine job", "that’s great", "right on!", "you’re really improving", "you’re doing beautifully!", "superb!", "good remembering", "you’ve got that down pat", "you certainly did well today", "keep it up!", "congratulations you got it right!", "you did a lot of work today", "well look at you go", "that’s it", "i like knowing you", "marvelous!", "i like that", "way to go!", "now you have the hang of it", "you’re doing fine!", "good thinking", "you are really learning a lot", "good going", "i’ve never seen anyone do it better", "you outdid yourself today!", "i think you’ve got it now", "good job", "you figured that out fast", "you remembered!", "that’s really nice", "that kind of work makes me happy", "it’s such a pleasure to teach when you work like that!", "i think you’re doing the right thing", "you must be proud of yourself", "give yourself a pat on the back", "lead us captain", "no wonder the humans chose you"];
 var notquites = ["not quite", "try again", "better luck next time", "keep practising", "practise makes perfect", "everyone started somewhere", "if you are in hell, why would you stop? keep going", "practise makes the man perfect", "the master has failed more times than the student", "if a victory is told in enough details, it can not be distinguised from a defeat", "we learn more from our defeats", "retry mission", "that was close", "well.. not quite", "babel says no", "better luck next time", "even the best falter", "hmm... not really", "are you sure? ", "are you sure", "i beg your pardon"];
 var identities = ["your highness", "your royal majesty", "your honor", "your majesty", "your grace", "my lord", "your excellency", "your mightiness", "my king", "my ruler", "my emperor", "king of kings", "my king", "my knight", "king", "winner"];
+
 // if learn just one
 // if quiz introduce random options
-function getQuestions(syllabus, optionssize) {
+
+function getQuestionsForOriginStory(syllabus, optionssize) {
+  console.log(syllabus);
+  const pairs = syllabus.split(":");
+  var questions = [];
+  pairs.forEach(pair => {
+      const qa = pair.split(",");
+      const id = qa[0];
+      const q = qa[1];
+      const a = qa[2];
+      if (a != "") {
+        options.push(a);
+      }
+  });
+
+  pairs.forEach(pair => {
+    {
+      const qa = pair.split(",");
+      const id = qa[0];
+      const q = qa[1];
+      const a = qa[2];
+      if (q != "" && a != "") {
+        var ques = {
+          id: id,
+          question:  (id - 1960) + ' :' +  q ,
+          answers: [
+            { text: '' + a + '', correct: true }
+          ]
+        };
+        // add extra options based on options size
+        for (let i = 0; i <optionssize; i++) {
+
+          var wrongoption = options[Math.floor(
+            Math.random() * options.length
+          )];
+
+          while (wrongoption == a) {
+            wrongoption = options[Math.floor(
+              Math.random() * options.length
+            )];
+          }
+          var wronganswer = { text: wrongoption, correct: false }
+          ques.answers.push(wronganswer);
+        }
+        // randomize options
+        shuffleArray(ques.answers);
+        questions.push(ques);
+        }
+      }
+  });
+  // shuffleArray(questions);
+  return questions;
+}
+
+function getQuestions(syllabus, optionssize, _shuffle) {
   const pairs = syllabus.split(":");
   var questions = [];
   pairs.forEach(pair => {
@@ -551,6 +615,9 @@ continueLearningButton.addEventListener("click", async () => {
 function updateScoreBoard() {
   // scoreElementDiv.innerText = score;
   var totalQuestions = correctAnswers.length + wrongAnswers.length;
+  
+  // hack
+  if (totalQuestions > 0)
   babelSays("You got " + correctAnswers.length + " correct out of " + totalQuestions + ", " + get_random(identities));
   saveProgressDiv.classList.remove("hide");
   // updateUserScoreOnUI();
@@ -585,3 +652,22 @@ var questions = [
 function get_random (list) {
   return list[Math.floor((Math.random()*list.length))];
 }
+
+String.prototype.formatUnicorn = String.prototype.formatUnicorn ||
+function () {
+    "use strict";
+    var str = this.toString();
+    if (arguments.length) {
+        var t = typeof arguments[0];
+        var key;
+        var args = ("string" === t || "number" === t) ?
+            Array.prototype.slice.call(arguments)
+            : arguments[0];
+
+        for (key in args) {
+            str = str.replace(new RegExp("\\{" + key + "\\}", "gi"), args[key]);
+        }
+    }
+
+    return str;
+};
