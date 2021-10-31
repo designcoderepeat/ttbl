@@ -22,17 +22,16 @@ export const Guruquest_component = (() => {
     }
 
     _AttachHandlers() {
-
+      // on click continue.. start story
+      // on finishing demo story attach the rest of the options
     }
 
     _OnPicked(msg) {
-
       this._babelSays('Quest: ' + GuruQUEST_OBJECTIVE);
       continueButton.classList.add('hide');
       startButton.classList.remove('hide');
 
       // HARDCODE A QUEST
-
       // read from the quests avilable for user and display them... 
       // here 
       const quest = {

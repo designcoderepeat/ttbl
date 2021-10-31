@@ -355,7 +355,7 @@ actor { // actor is babel
       if (langauge == "Turkish") {
         lesson := lesson # pickMeATurkishChallenge()  # ":" ;
       };
-      // Debug.print(lesson);
+      Debug.print(lesson);
     };
     
     return lesson;
@@ -402,18 +402,23 @@ actor { // actor is babel
 
 
   // Populate the challenge database with some initial challenges.
-  // for (tuple in DefaultChalenges.turkishBook.vals()) {
-  //   let desc = "";
-  //   challengeDB.add(
-  //     Challenge.Challenge(
-  //       challengeCounter.get_new_id(),
-  //       "turkish basics", // title
-  //       "learn the word", // desc. add tags
-  //       tuple.0,
-  //       tuple.1,
-  //       null
-  //     ));
-  // };
+  for (tuple in DefaultChallenges.turkishBook.vals()) {
+    let desc = "";
+    challengeDB.add(
+      Challenge.Challenge(
+        challengeCounter.get_new_id(),
+        "turkish basics", // title
+        "learn the word", // desc. add tags
+        tuple.0,
+        "qa",
+        null,
+        tuple.1,
+        "",
+        "",
+        "",
+        null
+      ));
+  };
 
 
   // Populate the challenge database with some initial challenges.
@@ -654,6 +659,6 @@ actor { // actor is babel
 // we have 5 game modes now in the UI: 1. Explore Mode (This is the default mode) 2. Epic Mode (User has chosen to play some Epic)
 // 3. Campaign Mode (User has chosen to play some Campaign) // 4. Quest Mode (user has chosen to play some Quest) // 5. Challenge/Lesson Mode.. user is in the middle of a quest learning a lesson or challenging himself
 
-  loadOiginStoryChallengesIntoDB();  
+  // loadOiginStoryChallengesIntoDB();  
 
 };

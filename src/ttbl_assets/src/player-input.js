@@ -59,7 +59,7 @@ export const player_input = (() => {
           this._params.camera).sub(ray.origin).normalize();
 
       // hack
-      document.getElementById('quest-ui').style.visibility = 'hidden';
+      // document.getElementById('quest-ui').style.visibility = 'hidden';
 
       for (let p of pickables) {
         // GOOD ENOUGH

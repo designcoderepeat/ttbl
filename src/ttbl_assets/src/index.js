@@ -30,6 +30,25 @@ function startGameV1() {
 
 function attachEventHandlers() {
 
+  document.getElementById("continue-learning-btn").addEventListener('click', () => {
+      document.getElementById('quest-ui').style.visibility = 'hidden';
+  });
+
+  document.getElementById("test-turkish").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    const lesson = await ttbl.learnLanguage("Turkish");
+    console.log(lesson);
+    startLesson(lesson, "Quiz")
+  });
+
+  document.getElementById("learn-turkish").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    const lesson = await ttbl.learnLanguage("Turkish");
+    console.log(lesson);
+    startLesson(lesson, "Lesson")
+  });
+
+
   LoginButtonStoic.addEventListener('click', function (event) {
     console.log(event);
     getUserTextInputAndLogin();
@@ -310,19 +329,19 @@ function startLearning() {
     startLesson(lesson, "Lesson")
   });
 
-  document.getElementById("explore-tamil").addEventListener("click", async () => {
-    // Interact with hlo actor, calling the greet method
-    const lesson = await ttbl.exploreLanguage("Tamil|Thirukural");
-    console.log(lesson);
-    exploreTamil(lesson);
-  });
+  // document.getElementById("explore-tamil").addEventListener("click", async () => {
+  //   // Interact with hlo actor, calling the greet method
+  //   const lesson = await ttbl.exploreLanguage("Tamil|Thirukural");
+  //   console.log(lesson);
+  //   exploreTamil(lesson);
+  // });
   
 }
 
 function startLesson(syllabus, type) {
   syllabus = syllabus.substring(0, syllabus.length - 1);
   correctAnswers = [];
-  scoreElementDiv.innerText = score;
+  // scoreElementDiv.innerText = score;
   lessonButtons.classList.add("hide");
   questionsElement.classList.remove("hide");
   formLesson(syllabus, type);
@@ -447,10 +466,10 @@ nextButton.addEventListener('click', () => {
   setNextQuestion()
 })
 
-function changeBG(e) {
-  const newbg = './bg/images/' + Math.ceil(Math.random() * 58) + '.jpg';
-  e.backgroundImage =  "url(" + newbg + ")";
-}
+// function changeBG(e) {
+//   const newbg = './bg/images/' + Math.ceil(Math.random() * 58) + '.jpg';
+//   e.backgroundImage =  "url(" + newbg + ")";
+// }
 
 function changeBGToBabel() {
   const newbg = './bg/bg0.jpeg';
@@ -459,12 +478,12 @@ function changeBGToBabel() {
 
 
 function startGame() {
-  changeBG();
-  startButton.classList.add('hide')
+  // changeBG();
+  startButton.classList.add('hide');
   shuffledQuestions = questions;
-  currentQuestionIndex = 0
-  questionContainerElement.classList.remove('hide')
-  setNextQuestion()
+  currentQuestionIndex = 0;
+  questionContainerElement.classList.remove('hide');
+  setNextQuestion();
 }
 
 function setNextQuestion() {
@@ -536,7 +555,7 @@ continueLearningButton.addEventListener("click", async () => {
 });
 
 function updateScoreBoard() {
-  scoreElementDiv.innerText = score;
+  // scoreElementDiv.innerText = score;
   var totalQuestions = correctAnswers.length + wrongAnswers.length;
   babelSays("You got " + correctAnswers.length + " correct out of " + totalQuestions + ", " + get_random(identities));
   saveProgressDiv.classList.remove("hide");
