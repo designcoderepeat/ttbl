@@ -48,7 +48,6 @@ document.getElementById("save-btn").addEventListener('click', () => {
       document.getElementById('save-btn').classList.remove('hide');
       document.getElementById('continue-learning-btn').classList.add('hide');
 
-
       // hide question-container below
       document.getElementById('question-container').classList.add('hide');
 
