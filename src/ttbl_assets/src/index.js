@@ -18,6 +18,10 @@ const UserProfilePage = document.getElementById('UserProfile');
 const UserProfileDisplayName = document.getElementById('UserProfileDisplayName');
 const backToMainMenuFromProfile = document.getElementById("backToMainMenuFromProfile");
 var babelTime = 0;
+var score = 0;
+var correctAnswers = [];
+var wrongAnswers = [];
+
 // Make the front end tranisitions stateless
 
 // add annotation to surround console.log with also motoko log
@@ -280,18 +284,16 @@ function loginViaStoic(userName) {
   });
 }
 
-var score = 0;
+// async function getUserAsync() {
+//   const users = await ttbl.getUser(userId);
+//   return users;
+// }
 
-async function getUserAsync() {
-  const users = await ttbl.getUser(userId);
-  return users;
-}
-
-getUserAsync().then(users => {
-  users;
-  console.log("users = " + users);
-  score = users;
-});
+// getUserAsync().then(users => {
+//   users;
+//   console.log("users = " + users);
+//   score = users;
+// });
 
 var correctAnswers = [];
 var wrongAnswers = [];
@@ -360,12 +362,12 @@ function startLearning() {
 }
 
 function startLesson(syllabus, type) {
+  console.log("Lesson = " + syllabus)
   syllabus = syllabus.substring(0, syllabus.length - 1);
   correctAnswers = [];
   // scoreElementDiv.innerText = score;
   lessonButtons.classList.add("hide");
   questionsElement.classList.remove("hide");
-  document.getElementById("questions").classList.remove("hide");
   document.getElementById("questions").classList.remove("hide");
   formLesson(syllabus, type);
   startButton.classList.remove("hide");
