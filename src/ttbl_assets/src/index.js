@@ -52,7 +52,7 @@ function attachEventHandlers() {
     // Interact with hlo actor, calling the greet method
     document.getElementById("lesson-buttons").classList.add('hide');
     const lesson = await ttbl.learnLanguage("Turkish");
-    document.getElementById("lesson-buttons").classList.remove('hide');
+    // document.getElementById("lesson-buttons").classList.remove('hide');
     console.log(lesson);
     startLesson(lesson, "Quiz");
   });
@@ -61,7 +61,7 @@ function attachEventHandlers() {
     // Interact with hlo actor, calling the greet method
     document.getElementById("lesson-buttons").classList.add('hide');
     const lesson = await ttbl.learnLanguage("Turkish");
-    document.getElementById("lesson-buttons").classList.remove('hide');
+    // document.getElementById("lesson-buttons").classList.remove('hide');
     console.log(lesson);
     startLesson(lesson, "Lesson");
   });
@@ -176,7 +176,7 @@ const continueLearningButton = document.getElementById('continue-learning-btn');
 const nextButton = document.getElementById('next-btn')
 const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
-const questionsElement = document.getElementById('questions')
+const questionsElement = document.getElementById('questions-div')
 const answerButtonsElement = document.getElementById('answer-buttons');
 const exploretamilButton = document.getElementById('explore-tamil');
 // const userInputTerminal = document.getElementById('userInputTerminal');
@@ -308,57 +308,35 @@ function addTextToChatBox(msg) {
 
 let shuffledQuestions, currentQuestionIndex;
 
-startLearningButton.addEventListener('click', startLearning);
+startLearningButton.addEventListener('click', startLearningUIActions);
 
-saveProgressDiv.addEventListener("click", async () => {
-  // Interact with hlo actor, calling the greet method
-var lCorrectAnswers = correctAnswers;
-var lWrongAnswers = wrongAnswers;
+// saveProgressDiv.addEventListener("click", async () => {
+//   // Interact with hlo actor, calling the greet method
+// var lCorrectAnswers = correctAnswers;
+// var lWrongAnswers = wrongAnswers;
 
-console.log(lCorrectAnswers);
-console.log(lWrongAnswers);
+// console.log(lCorrectAnswers);
+// console.log(lWrongAnswers);
 
-saveProgressDiv.classList.add("hide");
+// saveProgressDiv.classList.add("hide");
 
-lCorrectAnswers.forEach(q => {
-  var a1 =  ttbl.acceptChallenge(q);
-  var a2 =  ttbl.completeChallenge(q);   
-  // console.log(a1 + a2);
-});
+// lCorrectAnswers.forEach(q => {
+//   var a1 =  ttbl.acceptChallenge(q);
+//   var a2 =  ttbl.completeChallenge(q);   
+//   // console.log(a1 + a2);
+// });
 
-lWrongAnswers.forEach(q => {
-  var a1 =  ttbl.acceptChallenge(q);
-  // console.log(a1);
-});
+// lWrongAnswers.forEach(q => {
+//   var a1 =  ttbl.acceptChallenge(q);
+//   // console.log(a1);
+// });
 
-});
+// });
 
-function startLearning() {
+function startLearningUIActions() {
   startLearningButton.classList.add('hide')
   lessonButtons.classList.remove("hide")
   questionsElement.classList.add("hide")
-
-  document.getElementById("test-turkish").addEventListener("click", async () => {
-    // Interact with hlo actor, calling the greet method
-    const lesson = await ttbl.learnLanguage("Turkish");
-    console.log(lesson);
-    startLesson(lesson, "Quiz")
-  });
-  
-  document.getElementById("learn-turkish").addEventListener("click", async () => {
-    // Interact with hlo actor, calling the greet method
-    const lesson = await ttbl.learnLanguage("Turkish");
-    console.log(lesson);
-    startLesson(lesson, "Lesson")
-  });
-
-  document.getElementById("explore-tamil").addEventListener("click", async () => {
-    // Interact with hlo actor, calling the greet method
-    const lesson = await ttbl.exploreLanguage("Tamil|Thirukural");
-    console.log(lesson);
-    exploreTamil(lesson);
-  });
-  
 }
 
 function startLesson(syllabus, type) {
@@ -368,7 +346,7 @@ function startLesson(syllabus, type) {
   // scoreElementDiv.innerText = score;
   lessonButtons.classList.add("hide");
   questionsElement.classList.remove("hide");
-  document.getElementById("questions").classList.remove("hide");
+  document.getElementById("questions-div").classList.remove("hide");
   formLesson(syllabus, type);
   startButton.classList.remove("hide");
 }
@@ -388,7 +366,7 @@ function formLesson(syllabus, type) {
     var syllabusforTamil = getSyllabusFromThirukural(syllabus);
     getQuestions(syllabusforTamil, 3).forEach(q => questions.push(q));
   } else if (type = "OriginStory") {
-    console.log()
+    // console.log()
     // var syllabusforOriginStory = getSyllabusFromOriginStory(syllabus);
     // getQuestions(syllabusforOriginStory, 3).forEach(q => questions.push(q));
   }
@@ -514,6 +492,7 @@ function startGame() {
   // changeBG();
   startButton.classList.add('hide');
   shuffledQuestions = questions;
+  console.log("Shuffled questions = " + questions);
   currentQuestionIndex = 0;
   questionContainerElement.classList.remove('hide');
   setNextQuestion();
@@ -549,8 +528,6 @@ function resetState() {
 }
 
 function selectAnswer(e, question) {
-
-
   console.log( question);
   const selectedButton = e.target
   const correct = selectedButton.dataset.correct
