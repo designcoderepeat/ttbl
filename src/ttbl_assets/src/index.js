@@ -34,20 +34,41 @@ function attachEventHandlers() {
       document.getElementById('quest-ui').style.visibility = 'hidden';
   });
 
+  document.getElementById("learn-origin-story").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    document.getElementById("lesson-buttons").classList.add('hide');
+    console.log("Origin story");
+    // const lesson = await ttbl.start_campaign();
+    // console.log(lesson);
+    // startLesson(lesson, "Lesson");
+  });
+
+
   document.getElementById("test-turkish").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
+    document.getElementById("lesson-buttons").classList.add('hide');
     const lesson = await ttbl.learnLanguage("Turkish");
+    document.getElementById("lesson-buttons").classList.remove('hide');
     console.log(lesson);
-    startLesson(lesson, "Quiz")
+    startLesson(lesson, "Quiz");
   });
 
   document.getElementById("learn-turkish").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
+    document.getElementById("lesson-buttons").classList.add('hide');
     const lesson = await ttbl.learnLanguage("Turkish");
+    document.getElementById("lesson-buttons").classList.remove('hide');
     console.log(lesson);
-    startLesson(lesson, "Lesson")
+    startLesson(lesson, "Lesson");
   });
 
+  document.getElementById("explore-tamil").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    document.getElementById("lesson-buttons").classList.add('hide');
+    const lesson = await ttbl.exploreLanguage("Tamil|Thirukural");
+    console.log(lesson);
+    exploreTamil(lesson);
+  });
 
   LoginButtonStoic.addEventListener('click', function (event) {
     console.log(event);
@@ -287,28 +308,28 @@ let shuffledQuestions, currentQuestionIndex;
 
 startLearningButton.addEventListener('click', startLearning);
 
-// saveProgressDiv.addEventListener("click", async () => {
-//   // Interact with hlo actor, calling the greet method
-// var lCorrectAnswers = correctAnswers;
-// var lWrongAnswers = wrongAnswers;
+saveProgressDiv.addEventListener("click", async () => {
+  // Interact with hlo actor, calling the greet method
+var lCorrectAnswers = correctAnswers;
+var lWrongAnswers = wrongAnswers;
 
-// console.log(lCorrectAnswers);
-// console.log(lWrongAnswers);
+console.log(lCorrectAnswers);
+console.log(lWrongAnswers);
 
-// saveProgressDiv.classList.add("hide");
+saveProgressDiv.classList.add("hide");
 
-// lCorrectAnswers.forEach(q => {
-//   var a1 =  ttbl.acceptChallenge(q);
-//   var a2 =  ttbl.completeChallenge(q);   
-//   // console.log(a1 + a2);
-// });
+lCorrectAnswers.forEach(q => {
+  var a1 =  ttbl.acceptChallenge(q);
+  var a2 =  ttbl.completeChallenge(q);   
+  // console.log(a1 + a2);
+});
 
-// lWrongAnswers.forEach(q => {
-//   var a1 =  ttbl.acceptChallenge(q);
-//   // console.log(a1);
-// });
+lWrongAnswers.forEach(q => {
+  var a1 =  ttbl.acceptChallenge(q);
+  // console.log(a1);
+});
 
-// });
+});
 
 function startLearning() {
   startLearningButton.classList.add('hide')
@@ -329,12 +350,12 @@ function startLearning() {
     startLesson(lesson, "Lesson")
   });
 
-  // document.getElementById("explore-tamil").addEventListener("click", async () => {
-  //   // Interact with hlo actor, calling the greet method
-  //   const lesson = await ttbl.exploreLanguage("Tamil|Thirukural");
-  //   console.log(lesson);
-  //   exploreTamil(lesson);
-  // });
+  document.getElementById("explore-tamil").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    const lesson = await ttbl.exploreLanguage("Tamil|Thirukural");
+    console.log(lesson);
+    exploreTamil(lesson);
+  });
   
 }
 
@@ -344,13 +365,15 @@ function startLesson(syllabus, type) {
   // scoreElementDiv.innerText = score;
   lessonButtons.classList.add("hide");
   questionsElement.classList.remove("hide");
+  document.getElementById("questions").classList.remove("hide");
+  document.getElementById("questions").classList.remove("hide");
   formLesson(syllabus, type);
   startButton.classList.remove("hide");
 }
 
 function exploreTamil(syllabus) {
   correctAnswers = [];
-  scoreElementDiv.innerText = score;
+  // scoreElementDiv.innerText = score;
   lessonButtons.classList.add("hide");
   questionsElement.classList.remove("hide");
   formLesson(syllabus, "exploreThirukural");
@@ -362,6 +385,10 @@ function formLesson(syllabus, type) {
   if (type == "exploreThirukural") {
     var syllabusforTamil = getSyllabusFromThirukural(syllabus);
     getQuestions(syllabusforTamil, 3).forEach(q => questions.push(q));
+  } else if (type = "OriginStory") {
+    console.log()
+    // var syllabusforOriginStory = getSyllabusFromOriginStory(syllabus);
+    // getQuestions(syllabusforOriginStory, 3).forEach(q => questions.push(q));
   }
   else if (type == "Quiz") {
     getQuestions(syllabus, 3).forEach(q => questions.push(q));
@@ -369,13 +396,17 @@ function formLesson(syllabus, type) {
     babelSays("Learn these new words, " + get_random(identities) + ". We will later be quizzed on it");
     // split into 3 quizzes
     var syllabusp1 = syllabus.slice(0, syllabus.length / 3); // lesson is 66% length from the backend
-    var syllabusp2 = syllabus.slice(syllabus.length / 3);
+    var syllabusp2 = syllabus.slice(syllabus.length / 4);
     getQuestions(syllabusp1, 0).forEach(q => questions.push(q));
     getQuestions(syllabusp1, 1).forEach(q => questions.push(q));
     getQuestions(syllabusp2, 0).forEach(q => questions.push(q));
     // getQuestions(syllabusp2, 1).forEach(q => questions.push(q));
     getQuestions(syllabus, 3).forEach(q => questions.push(q));
   }
+}
+
+function getSyllabusFromOriginStory(syllabus) {
+
 }
 
 function getSyllabusFromThirukural(syllabus) {
