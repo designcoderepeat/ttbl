@@ -44,6 +44,13 @@ document.getElementById("save-btn").addEventListener('click', () => {
 
 });
 
+document.getElementById("back-to-babel-from-learning").addEventListener('click', () => {
+  document.getElementById('quest-ui').classList.add('hide');
+  
+  const e = document.getElementById('quest-ui');
+  e.style.visibility = 'hidden';
+});
+
   document.getElementById("continue-learning-btn").addEventListener('click', () => {
       document.getElementById('save-btn').classList.remove('hide');
       document.getElementById('continue-learning-btn').classList.add('hide');
