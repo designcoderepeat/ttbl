@@ -39,6 +39,7 @@ document.getElementById("save-btn").addEventListener('click', () => {
   document.getElementById('quest-ui').style.visibility = 'hidden';
   
   // save progress here
+  saveProgress();
 
   // show question container below
 
@@ -46,7 +47,10 @@ document.getElementById("save-btn").addEventListener('click', () => {
 
 document.getElementById("back-to-babel-from-learning").addEventListener('click', () => {
   document.getElementById('quest-ui').classList.add('hide');
-  
+    
+  // save progress here
+  saveProgress();
+
   const e = document.getElementById('quest-ui');
   e.style.visibility = 'hidden';
 });
@@ -109,6 +113,41 @@ document.getElementById("health-ui").addEventListener('click', () => {
 });
 
 };
+
+var experience = 0.0, wisdom = 0.0;
+
+async function saveProgress() {
+var lCorrectAnswers = correctAnswers;
+var lWrongAnswers = wrongAnswers;
+
+experience += correctAnswers ;
+wisdom += (wrongAnswers * 5) + correctAnswers;
+
+document.getElementById('stats-wisdomness').innerText = wisdom;
+document.getElementById('stats-experience').innerText = experience;
+
+// update stats
+
+console.log(lCorrectAnswers);
+console.log(lWrongAnswers);
+
+// save to icp
+// store stuff in userData
+
+
+// saveProgressDiv.classList.add("hide");
+
+lCorrectAnswers.forEach(q => {
+  var a1 =  ttbl.acceptChallenge(q);
+  var a2 =  ttbl.completeChallenge(q);   
+  console.log(a1 + a2);
+});
+
+lWrongAnswers.forEach(q => {
+  var a1 =  ttbl.acceptChallenge(q);
+  console.log(a1);
+});
+}
 
 const ShowMainMenu = function showMainMenu() {
   show(MainMenu);
@@ -298,29 +337,6 @@ let shuffledQuestions, currentQuestionIndex;
 
 startLearningButton.addEventListener('click', startLearning);
 
-// saveProgressDiv.addEventListener("click", async () => {
-//   // Interact with hlo actor, calling the greet method
-// var lCorrectAnswers = correctAnswers;
-// var lWrongAnswers = wrongAnswers;
-
-// console.log(lCorrectAnswers);
-// console.log(lWrongAnswers);
-
-// saveProgressDiv.classList.add("hide");
-
-// lCorrectAnswers.forEach(q => {
-//   var a1 =  ttbl.acceptChallenge(q);
-//   var a2 =  ttbl.completeChallenge(q);   
-//   // console.log(a1 + a2);
-// });
-
-// lWrongAnswers.forEach(q => {
-//   var a1 =  ttbl.acceptChallenge(q);
-//   // console.log(a1);
-// });
-
-// });
-
 function startLearning() {
   startLearningButton.classList.add('hide');
   lessonButtons.classList.remove("hide");
@@ -333,14 +349,6 @@ function startLearning() {
     console.log(lesson);
     startLesson(lesson, "Quiz")
   });
-
-  document.getElementById("test-german").addEventListener("click", async () => {
-    // Interact with hlo actor, calling the greet method
-    lessonButtons.classList.add("hide");
-    const lesson = await ttbl.learnLanguage("German");
-    console.log(lesson);
-    startLesson(lesson, "Quiz")
-  });
   
   document.getElementById("learn-turkish").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
@@ -350,10 +358,36 @@ function startLearning() {
     startLesson(lesson, "Lesson")
   });
 
+
+  document.getElementById("test-german").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    lessonButtons.classList.add("hide");
+    const lesson = await ttbl.learnLanguage("German");
+    console.log(lesson);
+    startLesson(lesson, "Quiz")
+  });
+
   document.getElementById("learn-german").addEventListener("click", async () => {
     // Interact with hlo actor, calling the greet method
     lessonButtons.classList.add("hide");
     const lesson = await ttbl.learnLanguage("German");
+    console.log(lesson);
+    startLesson(lesson, "Lesson")
+  });
+
+
+  document.getElementById("test-spanish").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    lessonButtons.classList.add("hide");
+    const lesson = await ttbl.learnLanguage("Spanish");
+    console.log(lesson);
+    startLesson(lesson, "Quiz")
+  });
+  
+  document.getElementById("learn-spanish").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    lessonButtons.classList.add("hide");
+    const lesson = await ttbl.learnLanguage("Spanish");
     console.log(lesson);
     startLesson(lesson, "Lesson")
   });
@@ -380,6 +414,7 @@ function startLesson(syllabus, type) {
   console.log(syllabus);
   syllabus = syllabus.substring(0, syllabus.length - 1);
   correctAnswers = [];
+  wrongAnswers = [];
   // scoreElementDiv.innerText = score;
   lessonButtons.classList.add("hide");
   questionsElement.classList.remove("hide");
@@ -390,6 +425,7 @@ function startLesson(syllabus, type) {
 
 function exploreTamil(syllabus) {
   correctAnswers = [];
+  wrongAnswers = [];
   scoreElementDiv.innerText = score;
   lessonButtons.classList.add("hide");
   questionsElement.classList.remove("hide");
@@ -658,7 +694,7 @@ function updateScoreBoard() {
   // hack
   if (totalQuestions > 0)
   babelSays("You got " + correctAnswers.length + " correct out of " + totalQuestions + ", " + get_random(identities));
-  saveProgressDiv.classList.remove("hide");
+  // saveProgressDiv.classList.remove("hide");
   // updateUserScoreOnUI();
   // updateUserScoreBackend();
 }

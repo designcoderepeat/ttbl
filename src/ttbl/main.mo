@@ -352,7 +352,7 @@ actor { // actor is babel
     //let validChallengeRanges: [(Nat, Nat)]; 
     //let sizes: [Nat, Nat]; // (lessons vs quizzes)
     var lesson = "";
-    for (j in Iter.range(2960, 2968)) {      
+    for (j in Iter.range(3960, 3968)) {      
       if (langauge == "English") {
         lesson := lesson # pickChallenge(j)  # ":" ;
       };
@@ -374,6 +374,9 @@ actor { // actor is babel
       if (langauge == "German") {
         lesson := lesson # pickMeAGermanChallenge()  # ":" ;
       };
+      if (langauge == "Spanish") {
+        lesson := lesson # pickMeASpanishChallenge()  # ":" ;
+      };
       Debug.print(lesson);
     };
     
@@ -383,6 +386,14 @@ actor { // actor is babel
   // Picks at random an existing challenge from the challenge DB.
    func pickMeAGermanChallenge() :  Text {
     switch (challengeDB.get(random.next() % 1000 + 1960)) {
+      case (null) { "There are no challenges in the database" };
+      case (?challenge) { challengeAsText(challenge) }
+    }
+  };
+
+  // Picks at random an existing challenge from the challenge DB.
+   func pickMeASpanishChallenge() :  Text {
+    switch (challengeDB.get(random.next() % 1000 + 2960)) {
       case (null) { "There are no challenges in the database" };
       case (?challenge) { challengeAsText(challenge) }
     }
@@ -478,6 +489,30 @@ actor { // actor is babel
   };
   let endi = challengeCounter.get_count();
   Debug.print(" Gmeran end " # Nat.toText(challengeCounter.get_count()));
+  
+  Debug.print(" Spanish start " # Nat.toText(challengeCounter.get_count()));
+  
+  for (tuple in DefaultChallenges.spanishBook.vals()) {
+    let desc = "";
+    challengeDB.add(
+      Challenge.Challenge(
+        challengeCounter.get_new_id(),
+        "Spanish basics", // title
+        "learn the word", // desc. add tags
+        tuple.0,
+        "qa",
+        null,
+        tuple.1,
+        "",
+        "",
+        "",
+        null
+      ));
+  };
+  let endi = challengeCounter.get_count();
+  Debug.print(" Spanish end " # Nat.toText(challengeCounter.get_count()));
+  
+  
   return (starti, endi);
   };
 
