@@ -1,25 +1,25 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118.1/build/three.module.js';
 
-import {third_person_camera} from './third-person-camera.js';
-import {entity_manager} from './entity-manager.js';
-import {player_entity} from './player-entity.js'
-import {entity} from './entity.js';
-import {gltf_component} from './gltf-component.js';
-import {health_component} from './health-component.js';
-import {player_input} from './player-input.js';
-import {npc_entity} from './npc-entity.js';
-import {math} from './math.js';
-import {spatial_hash_grid} from './spatial-hash-grid.js';
-import {ui_controller} from './ui-controller.js';
-import {health_bar} from './health-bar.js';
-import {level_up_component} from './level-up-component.js';
-import {girlquest_component} from './girlquest_component.js';
-import {spatial_grid_controller} from './spatial-grid-controller.js';
-import {inventory_controller} from './inventory-controller.js';
-import {equip_weapon_component} from './equip-weapon-component.js';
-import {attack_controller} from './attacker-controller.js';
+import {third_person_camera} from '../src/third-person-camera.js';
+import {entity_manager} from '../src/entity-manager.js';
+import {player_entity} from '../src/player-entity.js'
+import {entity} from '../src/entity.js';
+import {gltf_component} from '../src/gltf-component.js';
+import {health_component} from '../src/health-component.js';
+import {player_input} from '../src/player-input.js';
+import {npc_entity} from '../src/npc-entity.js';
+import {math} from '../src/math.js';
+import {spatial_hash_grid} from '../src/spatial-hash-grid.js';
+import {ui_controller} from '../src/ui-controller.js';
+import {health_bar} from '../src/health-bar.js';
+import {level_up_component} from '../src/level-up-component.js';
+import {girlquest_component} from '../src/girlquest_component.js';
+import {spatial_grid_controller} from '../src/spatial-grid-controller.js';
+import {inventory_controller} from '../src/inventory-controller.js';
+import {equip_weapon_component} from '../src/equip-weapon-component.js';
+import {attack_controller} from '../src/attacker-controller.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
-import { Guruquest_component } from './guruquest-component.js';
+import { Guruquest_component } from '../src/guruquest-component.js';
 // import { Erikaquest_component } from './erikaquest-component.js';
 
 
