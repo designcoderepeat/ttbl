@@ -1,6 +1,5 @@
 import {entity} from "./entity.js";
 
-
 export const girlquest_component = (() => {
 
   const GIRLQUEST_TITLE = 'So you come to Babel...';

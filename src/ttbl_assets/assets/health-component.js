@@ -1,6 +1,5 @@
 import {entity} from "./entity.js";
 
-
 export const health_component = (() => {
 
   class HealthComponent extends entity.Component {

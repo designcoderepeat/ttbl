@@ -7,7 +7,6 @@ import {entity} from './entity.js';
 import {player_entity} from './player-entity.js'
 import {player_state} from './player-state.js';
 
-
 export const npc_entity = (() => {
   
   class AIInput {

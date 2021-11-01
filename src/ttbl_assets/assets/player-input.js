@@ -2,7 +2,6 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118/build/three.mod
 
 import {entity} from "./entity.js";
 
-
 export const player_input = (() => {
 
   class PickableComponent extends entity.Component {

@@ -1,6 +1,5 @@
 import {entity} from './entity.js';
 
-
 export const quest_controller = (() => {
 
   class QuestController extends entity.Component {

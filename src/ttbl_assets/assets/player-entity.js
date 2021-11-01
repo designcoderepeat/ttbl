@@ -1,11 +1,9 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118.1/build/three.module.js';
-
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
 
 import {entity} from './entity.js';
 import {finite_state_machine} from './finite-state-machine.js';
 import {player_state} from './player-state.js';
-
 
 export const player_entity = (() => {
 

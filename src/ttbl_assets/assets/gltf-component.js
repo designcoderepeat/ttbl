@@ -5,7 +5,6 @@ import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm
 
 import {entity} from './entity.js';
 
-
 export const gltf_component = (() => {
 
   class StaticModelComponent extends entity.Component {

@@ -1,6 +1,5 @@
 import {entity} from './entity.js';
 
-
 export const inventory_controller = (() => {
 
   class InventoryController extends entity.Component {

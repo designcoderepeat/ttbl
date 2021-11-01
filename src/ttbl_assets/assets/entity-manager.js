@@ -1,5 +1,3 @@
-
-
 export const entity_manager = (() => {
 
   class EntityManager {
