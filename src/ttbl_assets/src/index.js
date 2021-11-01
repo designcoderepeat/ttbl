@@ -445,6 +445,9 @@ function startLearning() {
 }
 
 function startLesson(syllabus, type) {
+  startLearningButton.classList.add('hide');
+  document.getElementById('save-btn').classList.add('hide');
+  
   console.log(syllabus);
   syllabus = syllabus.substring(0, syllabus.length - 1);
   correctAnswers = [];
