@@ -340,7 +340,7 @@ actor { // actor is babel
 
   public func exploreLanguage(tags: Text): async Text {
     if (tags == "Tamil|Thirukural") {
-      return pickMeAThirukural();
+      // return pickMeAThirukural();
     };
     return "oops nothing found";
   };
@@ -349,10 +349,10 @@ actor { // actor is babel
   // groupings for Users or challenge (challengeMetaData)
   public shared(msg) func learnOriginStory(langauge: Text) : async Text {
     //turkish [(1-2000)] 
-    //let validChallengeRanges: [(Nat, Nat)]; 
+    //let validChallengeRanges: [(Nat, Nat)];  
     //let sizes: [Nat, Nat]; // (lessons vs quizzes)
     var lesson = "";
-    for (j in Iter.range(3960, 3968)) {      
+    for (j in Iter.range(5960, 5968)) {      
       if (langauge == "English") {
         lesson := lesson # pickChallenge(j)  # ":" ;
       };
@@ -377,11 +377,26 @@ actor { // actor is babel
       if (langauge == "Spanish") {
         lesson := lesson # pickMeASpanishChallenge()  # ":" ;
       };
+      if (langauge == "Hindi") {
+        lesson := lesson # pickMeAHindiChallenge()  # ":" ;
+      };
+      if (langauge == "Tamil") {
+        lesson := lesson # pickMeATamilChallenge()  # ":" ;
+      };
       Debug.print(lesson);
     };
     
     return lesson;
   };
+
+    // Picks at random an existing challenge from the challenge DB.
+   func pickMeATurkishChallenge() :  Text {
+    switch (challengeDB.get(random.next() % 1960)) {
+      case (null) { "There are no challenges in the database" };
+      case (?challenge) { challengeAsText(challenge) }
+    }
+  };
+
 
   // Picks at random an existing challenge from the challenge DB.
    func pickMeAGermanChallenge() :  Text {
@@ -400,8 +415,17 @@ actor { // actor is babel
   };
 
   // Picks at random an existing challenge from the challenge DB.
-   func pickMeATurkishChallenge() :  Text {
-    switch (challengeDB.get(random.next() % 1960)) {
+   func pickMeAHindiChallenge() :  Text {
+    switch (challengeDB.get(random.next() % 1000 + 3960)) {
+      case (null) { "There are no challenges in the database" };
+      case (?challenge) { challengeAsText(challenge) }
+    }
+  };
+
+
+  // Picks at random an existing challenge from the challenge DB.
+   func pickMeATamilChallenge() :  Text {
+    switch (challengeDB.get(random.next() % 1000 + 4960)) {
       case (null) { "There are no challenges in the database" };
       case (?challenge) { challengeAsText(challenge) }
     }
@@ -416,12 +440,12 @@ actor { // actor is babel
   };
 
   // Picks at random an existing challenge from the challenge DB.
-   func pickMeAThirukural() :  Text {
-    switch (challengeDB.get(random.next() % 1330 + 1960)) {
-      case (null) { "There are no challenges in the database" };
-      case (?challenge) { challengeAsText(challenge) }
-    }
-  };
+  //  func pickMeAThirukural() :  Text {
+  //   switch (challengeDB.get(random.next() % 1330 + 1960)) {
+  //     case (null) { "There are no challenges in the database" };
+  //     case (?challenge) { challengeAsText(challenge) }
+  //   }
+  // };
 
     // Returns the given `thirukural` as a human-readable text.
   func kuralAsText(kural: ThiruKural) : Text {
@@ -487,7 +511,6 @@ actor { // actor is babel
         null
       ));
   };
-  let endi = challengeCounter.get_count();
   Debug.print(" Gmeran end " # Nat.toText(challengeCounter.get_count()));
   
   Debug.print(" Spanish start " # Nat.toText(challengeCounter.get_count()));
@@ -509,9 +532,50 @@ actor { // actor is babel
         null
       ));
   };
-  let endi = challengeCounter.get_count();
   Debug.print(" Spanish end " # Nat.toText(challengeCounter.get_count()));
   
+    Debug.print(" Hindi start " # Nat.toText(challengeCounter.get_count()));
+  
+  for (tuple in DefaultChallenges.hindiBook.vals()) {
+    let desc = "";
+    challengeDB.add(
+      Challenge.Challenge(
+        challengeCounter.get_new_id(),
+        "Hindi basics", // title
+        "learn the word", // desc. add tags
+        tuple.0,
+        "qa",
+        null,
+        tuple.1,
+        "",
+        "",
+        "",
+        null
+      ));
+  };
+  Debug.print(" Hindi end " # Nat.toText(challengeCounter.get_count()));
+
+    Debug.print(" Tamil start " # Nat.toText(challengeCounter.get_count()));
+  
+  for (tuple in DefaultChallenges.tamilBook.vals()) {
+    let desc = "";
+    challengeDB.add(
+      Challenge.Challenge(
+        challengeCounter.get_new_id(),
+        "Tamil basics", // title
+        "learn the word", // desc. add tags
+        tuple.0,
+        "qa",
+        null,
+        tuple.1,
+        "",
+        "",
+        "",
+        null
+      ));
+  };
+  let endi = challengeCounter.get_count();
+  Debug.print(" Tamil end " # Nat.toText(challengeCounter.get_count()));
   
   return (starti, endi);
   };

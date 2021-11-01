@@ -123,8 +123,8 @@ var lWrongAnswers = wrongAnswers;
 experience += correctAnswers ;
 wisdom += (wrongAnswers * 5) + correctAnswers;
 
-document.getElementById('stats-wisdomness').innerText = wisdom;
-document.getElementById('stats-experience').innerText = experience;
+document.getElementById('stats-wisdomness').innerText = Float.ParseInt(wisdom);
+document.getElementById('stats-experience').innerText = Float.ParseInt(experience);
 
 // update stats
 
@@ -388,6 +388,40 @@ function startLearning() {
     // Interact with hlo actor, calling the greet method
     lessonButtons.classList.add("hide");
     const lesson = await ttbl.learnLanguage("Spanish");
+    console.log(lesson);
+    startLesson(lesson, "Lesson")
+  });
+
+
+  document.getElementById("test-hindi").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    lessonButtons.classList.add("hide");
+    const lesson = await ttbl.learnLanguage("Hindi");
+    console.log(lesson);
+    startLesson(lesson, "Quiz")
+  });
+  
+  document.getElementById("learn-hindi").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    lessonButtons.classList.add("hide");
+    const lesson = await ttbl.learnLanguage("Hindi");
+    console.log(lesson);
+    startLesson(lesson, "Lesson")
+  });
+
+
+  document.getElementById("test-tamil").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    lessonButtons.classList.add("hide");
+    const lesson = await ttbl.learnLanguage("Tamil");
+    console.log(lesson);
+    startLesson(lesson, "Quiz")
+  });
+  
+  document.getElementById("learn-tamil").addEventListener("click", async () => {
+    // Interact with hlo actor, calling the greet method
+    lessonButtons.classList.add("hide");
+    const lesson = await ttbl.learnLanguage("Tamil");
     console.log(lesson);
     startLesson(lesson, "Lesson")
   });

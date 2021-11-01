@@ -28,6 +28,19 @@ export const Guruquest_component = (() => {
 
     _OnPicked(msg) {
 
+      const e1 = document.getElementById('quest-ui');
+
+      // get this as config from bg
+
+      const newbg = '/bg/images/' + Math.ceil(Math.random() * 58) + '.jpg';
+      // const newbg = '/bg/images/' + Math.ceil( parseInt(id) %  58) + '.jpg'; // will be same for the quest... for its lessons and challenges
+      // console.log(newbg);
+
+      // he's bloody geting picked from behind (hack it now)
+      const questNotActive = document.getElementById("quest-ui").classList.contains('hide');
+      
+      if (questNotActive) e1.style.backgroundImage =  "url(" + newbg + ")";
+      
       document.getElementById('save-btn').classList.add('hide');
       document.getElementById('quest-ui').classList.remove('hide');
     
