@@ -606,7 +606,7 @@ function getQuestionsForOriginStory(syllabus, optionssize) {
       if (q != "" && a != "") {
         var ques = {
           id: id,
-          question:  (id - 1960) + ' :' +  q ,
+          question:  (id - 5960) + ' :' +  q ,
           answers: [
             { text: '' + a + '', correct: true }
           ]

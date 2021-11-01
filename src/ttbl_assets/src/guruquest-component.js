@@ -6,8 +6,8 @@ const startButton = document.getElementById('start-learning-btn');
 export const Guruquest_component = (() => {
 
   const GuruQUEST_TITLE = 'Welcome to Babel seeker';
-  const GuruQUEST_TEXT = 'You must be curious if you made it all the way here'; 
-  const GuruQUEST_OBJECTIVE = 'Learn The origin stories';
+  const GuruQUEST_TEXT = 'You must be curious if you made it all the way here. True decentralization can not be achieved as long as humans fail to understand nature. Let us begin by understanding other Humans'; 
+  const GuruQUEST_OBJECTIVE = 'Achieve True Decentralization';
   // const GuruQUEST_QUESTOPTIONS = "";
 
   class GuruQuestComponent extends entity.Component {
