@@ -241,7 +241,7 @@ class BabelUniverse {
     guru.AddComponent(new gltf_component.AnimatedModelComponent({
         scene: this._scene,
         resourcePath: './resources/hero/',
-        resourceName: 'Ch39_nonPBR.fbx',
+        resourceName: 'guru.fbx',
         resourceAnimation: 'softpunch.fbx',
         scale: 0.045,
         receiveShadow: true,
