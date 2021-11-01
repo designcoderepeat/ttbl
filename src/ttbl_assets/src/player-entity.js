@@ -52,12 +52,6 @@ export const player_entity = (() => {
       this._animations = {};
       this._stateMachine = new CharacterFSM(
           new BasicCharacterControllerProxy(this._animations));
-  
-      document.getElementById("icon-bar-life").addEventListener('click', () => {
-        console.log("Life clicked");
-        this._stateMachine.SetState('idle');
-        console.log("Idle set (apparently)")
-      });
 
       this._LoadModels();
     }

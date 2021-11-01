@@ -23,6 +23,7 @@ export const ui_controller = (() => {
         stats: document.getElementById('stats'),
         quests: document.getElementById('quest-journal-container'),
         controls: document.getElementById('controls-menu'),
+        mainmenu: document.getElementById('mainmenu'),
       };
 
       this._userProfile = {
@@ -35,7 +36,7 @@ export const ui_controller = (() => {
       this._iconBar.quests.onclick = (m) => { this._OnQuestsClicked(m); };
       this._iconBar.controls.onclick = (m) => {this._OnControlsClicked(m); };
       this._HideUI();
-      this._OnControlsClicked({});
+      this._OnControlsClicked({}); // show controls on new game
     }
 
     AddQuest(quest) {
@@ -112,6 +113,10 @@ export const ui_controller = (() => {
       this._HideUI();
       if (hidden) this._ui.controls.classList.remove("hide");
       else this._ui.controls.classList.add("hide");
+    }
+
+    _OnLifeClicked(msg) {
+      this._ui.mainmenu.classList.remove('hide');
     }
 
     Update(timeInSeconds) {

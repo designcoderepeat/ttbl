@@ -16,6 +16,14 @@ const LogInPage = document.getElementById("login");
 const LoginButtonStoic = document.getElementById('loginButtonStoic');
 const UserProfileOption = document.getElementById('UserProfileOption');
 const UserProfilePage = document.getElementById('UserProfile');
+const SocialsOptions = document.getElementById('SocialsOption');
+const SocialsPage = document.getElementById('SocialLinks');
+const ReleaseNotesOption = document.getElementById('ReleaseNotesOption');
+const ReleaseNotes = document.getElementById('ReleaseNotesPage');
+const CreditsPage = document.getElementById('CreditsPage');
+const CreditsOption = document.getElementById('CreditsOption');
+const LeaderBoardOption = document.getElementById('LeaderBoardOption');
+const LeaderBoardPage = document.getElementById('LeaderBoardPage');
 const UserProfileDisplayName = document.getElementById('UserProfileDisplayName');
 const backToMainMenuFromProfile = document.getElementById("backToMainMenuFromProfile");
 var babelTime = 0;
@@ -47,6 +55,8 @@ document.getElementById("save-btn").addEventListener('click', () => {
 
 document.getElementById("back-to-babel-from-learning").addEventListener('click', () => {
   document.getElementById('quest-ui').classList.add('hide');
+
+  // move master Guru to a different location from here
     
   // save progress here
   saveProgress();
@@ -78,10 +88,58 @@ document.getElementById("back-to-babel-from-learning").addEventListener('click',
     show(UserProfilePage);
   });
 
+  SocialsOptions.addEventListener('click', function (event) {
+    hide(MainMenu);
+    show(SocialsPage);
+  });
+
+  ReleaseNotesOption.addEventListener('click', function (event) {
+    hide(MainMenu);
+    show(ReleaseNotes);
+  });
+
+  CreditsOption.addEventListener('click', function (event) {
+    hide(MainMenu);
+    show(CreditsPage);
+  });
+
   backToMainMenuFromProfile.addEventListener('click', () => {
     hide(UserProfilePage);
     show(MainMenu);
   });
+
+  LeaderBoardOption.addEventListener('click', function (envent) {
+    hide(MainMenu);
+    show(LeaderBoardPage);
+  });
+
+  // document.getElementById('backToMainMenuFromProfile0').addEventListener('click', () => {
+  //   hide(LogInPage);
+  //   show(MainMenu);
+  // });
+
+
+  document.getElementById('backToMainMenuFromProfile1').addEventListener('click', () => {
+    hide(SocialsPage);
+    show(MainMenu);
+  });
+
+
+  document.getElementById('backToMainMenuFromProfile2').addEventListener('click', () => {
+    hide(ReleaseNotes);
+    show(MainMenu);
+  });
+
+  document.getElementById('backToMainMenuFromProfile3').addEventListener('click', () => {
+    hide(CreditsPage);
+    show(MainMenu);
+  });
+
+  document.getElementById('backToMainMenuFromProfile4').addEventListener('click', () => {
+    hide(LeaderBoardPage);
+    show(MainMenu);
+  });
+
 
   // load loader
   EnterBabelOption.addEventListener('click', () => {
@@ -286,7 +344,7 @@ function loginViaStoic(userName) {
     console.log("holaa " + ttbl.getUser(userName));
 
     welcomeUserDiv.innerText = userName;
-    welcomeUserInBabel.innerText = userName;
+    // welcomeUserInBabel.innerText = userName;
     
     // addTextToChatBox('User ' + userName + ' connected');
     
@@ -447,7 +505,7 @@ function startLearning() {
 function startLesson(syllabus, type) {
   startLearningButton.classList.add('hide');
   document.getElementById('save-btn').classList.add('hide');
-  
+
   console.log(syllabus);
   syllabus = syllabus.substring(0, syllabus.length - 1);
   correctAnswers = [];
