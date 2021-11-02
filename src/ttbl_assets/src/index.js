@@ -24,6 +24,10 @@ const CreditsPage = document.getElementById('CreditsPage');
 const CreditsOption = document.getElementById('CreditsOption');
 const LeaderBoardOption = document.getElementById('LeaderBoardOption');
 const LeaderBoardPage = document.getElementById('LeaderBoardPage');
+
+const AboutGamePage = document.getElementById('AboutGamePage');
+const AboutGameOption = document.getElementById('AboutGameOption');
+
 const UserProfileDisplayName = document.getElementById('UserProfileDisplayName');
 const backToMainMenuFromProfile = document.getElementById("backToMainMenuFromProfile");
 var babelTime = 0;
@@ -113,6 +117,11 @@ document.getElementById("back-to-babel-from-learning").addEventListener('click',
     show(LeaderBoardPage);
   });
 
+  AboutGameOption.addEventListener('click', function (envent) {
+    hide(MainMenu);
+    show(AboutGamePage);
+  });
+
   // document.getElementById('backToMainMenuFromProfile0').addEventListener('click', () => {
   //   hide(LogInPage);
   //   show(MainMenu);
@@ -137,6 +146,11 @@ document.getElementById("back-to-babel-from-learning").addEventListener('click',
 
   document.getElementById('backToMainMenuFromProfile4').addEventListener('click', () => {
     hide(LeaderBoardPage);
+    show(MainMenu);
+  });
+
+  document.getElementById('backToMainMenuFromProfile5').addEventListener('click', () => {
+    hide(AboutGamePage);
     show(MainMenu);
   });
 
