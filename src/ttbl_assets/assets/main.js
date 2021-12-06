@@ -213,9 +213,9 @@ class BabelUniverse {
     for (let i = 0; i < items.length; ++i) {
 
       const pos = new THREE.Vector3(
-          (Math.random() * 2.0 - 1.0) * 500,
+          15 + (Math.random() * 2.0 - 1.0) * 500,
           0,
-          (Math.random() * 2.0 - 1.0) * 500);
+          15 + (Math.random() * 2.0 - 1.0) * 500);
 
       const e = new entity.Entity();
       e.AddComponent(new gltf_component.StaticModelComponent({
@@ -254,11 +254,11 @@ class BabelUniverse {
     guru.AddComponent(new player_input.PickableComponent());
     guru.AddComponent(new Guruquest_component.GuruQuestComponent());
     
-    const randX = -100 + ((Math.random() * 2.0 - 1.0) * 200);
-    const randZ = 300 + ((Math.random() * 2.0 - 1.0) * 150);
+    // const randX = -100 + ((Math.random() * 2.0 - 1.0) * 200);
+    // const randZ = 300 + ((Math.random() * 2.0 - 1.0) * 150);
 
-    // const randX = 10;
-    // const randZ  = 10;
+    const randX = 10;
+    const randZ  = 10;
 
     const posGuru = new THREE.Vector3(
       randX
