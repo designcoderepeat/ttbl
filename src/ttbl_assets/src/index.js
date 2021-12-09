@@ -160,7 +160,7 @@ document.getElementById("back-to-babel-from-learning").addEventListener('click',
     hide(MainMenu);
     show(LoaderDiv);
     show(controlsMenu);
-    babelSays("Entering Babel...");
+    babelSays("Entering Gurukul...");
   
     // call the createOrRegisterUser API
   ttbl.enterBabel(userNameLoggedIn).then(result => {
@@ -555,8 +555,8 @@ function formLesson(syllabus, type) {
   } else {
     babelSays("Learn these new words, " + get_random(identities) + ". We will later be quizzed on it");
     // split into 3 quizzes
-    var syllabusp1 = syllabus.slice(0, syllabus.length / 3); // lesson is 66% length from the backend
-    var syllabusp2 = syllabus.slice(syllabus.length / 3);
+    var syllabusp1 = syllabus.slice(0, (syllabus.length / 3) - 1); // lesson is 66% length from the backend
+    var syllabusp2 = syllabus.slice((syllabus.length / 3) - 1);
     getQuestions(syllabusp1, 0).forEach(q => questions.push(q));
     getQuestions(syllabusp1, 1).forEach(q => questions.push(q));
     getQuestions(syllabusp2, 0).forEach(q => questions.push(q));

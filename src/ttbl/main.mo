@@ -48,7 +48,7 @@ actor { // actor is babel
   };  
 
   public shared(msg) func enterBabel(userName: Text): async Text {
-    return "BabelTime Baby";
+    return "Gurukul time Baby";
     // log user 
     // create random user name with 2 strings and a number 
     // return BabelTime, playerpos, quests, challenges, and preloaded next challenges and quests for the user (whether he is signed in or not)
