@@ -126,6 +126,8 @@ class BabelUniverse {
     this._grid = new spatial_hash_grid.SpatialHashGrid(
         [[-1000, -1000], [1000, 1000]], [100, 100]);
 
+    //https://forum.dfinity.org/t/front-end-assets-randomly-fail-to-load-with-500-other-times-it-loads-fine/9348/10
+    // @TODO: [important] add retries to the loading of components
     this._LoadControllers();
     // this._LoadTower();
     this._LoadTTBL();
